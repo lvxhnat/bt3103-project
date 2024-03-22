@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import NavBar from '@/components/NavBar'
 import Establishment from '@/components/Establishment'
 
