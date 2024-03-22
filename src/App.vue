@@ -1,20 +1,14 @@
 <template>
-  <login-page></login-page>
+  <landing-page></landing-page>
 </template>
 
 <script>
-// Import the LoginPage component
-import LoginPage from './views/LoginPage'
+import LandingPage from './views/Landing/LandingPage.vue'
 
 export default {
   name: 'App',
   components: {
-    // Register the LoginPage component
-    LoginPage,
+    LandingPage,
   },
 }
 </script>
-
-<style>
-/* Global styles, if any */
-</style>

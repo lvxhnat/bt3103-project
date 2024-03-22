@@ -16,19 +16,19 @@ h1 {
   padding-top: 25px;
 }
 
-.login-container {
+.landing-container {
   height: 100vh;
   width: 100vw;
 }
 
-.login-wrapper {
-  background-image: url('../../assets/backgrounds/login.png');
+.landing-wrapper {
+  background-image: url('../../assets/backgrounds/landing.png');
   font-family: 'Arial', sans-serif;
   background-size: cover;
   background-position: center;
 }
 
-.login-title {
+.landing-title {
   background-color: white;
   border-radius: 10px;
   padding: 10px 20px;
