@@ -3,7 +3,7 @@
     <NavBar />
     <div class="login-form">
       <div class="left-panel">
-        <div class="login-wrapper">
+        <div class="login-page-wrapper">
           <img src="../../../assets/auth/user_topimg.png" width="100px" />
           <h1 class="login-title">USER LOGIN</h1>
           <div class="input-wrapper">
@@ -28,7 +28,9 @@
                   required
                 />
               </div>
-              <button type="submit" class="login-button">LOGIN</button>
+              <div class="form-button">
+                <button type="submit" class="login-button">LOGIN</button>
+              </div>
             </form>
           </div>
         </div>
@@ -70,6 +72,20 @@ export default {
 </script>
 
 <style scoped>
+input {
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+.form-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+}
+
 .login-container {
   width: 100%; /* Corrected: Removed quotes */
 }
@@ -81,9 +97,10 @@ export default {
   width: 100%; /* Corrected: Removed quotes */
 }
 
-.login-wrapper,
+.login-page-wrapper,
 .left-panel,
 .right-panel {
+  height: 100%;
   display: flex;
   flex-direction: column; /* Ensures content in panels is aligned vertically */
   justify-content: center; /* Center content vertically */
@@ -99,15 +116,19 @@ export default {
   align-items: center; /* Center content horizontally if needed */
 }
 
-.login-wrapper,
+.login-page-wrapper,
 .input-wrapper {
   width: 100%;
-  border-radius: 10px;
+  min-width: 100%;
+  height: 100%;
+  min-height: 400px;
+  border-radius: 40px;
   border-top: 1px solid black;
   background-color: #f8f4ed;
 }
 
-.login-wrapper {
+.login-page-wrapper {
+  width: 100%;
   padding-top: 15px;
   background-color: #118951;
   border: 1px solid black;
@@ -115,7 +136,7 @@ export default {
 
 .input-wrapper {
   width: 100%;
-  padding: 10px;
+  padding: 50px;
 }
 
 .input-group {
@@ -127,7 +148,9 @@ export default {
 }
 
 .signup-link {
+  color: black;
   text-align: center;
+  padding-top: 50px;
 }
 
 .label {
@@ -138,5 +161,10 @@ export default {
 
 .login-title {
   color: #f8f4ed;
+}
+
+.login-button {
+  background-color: #118951;
+  width: 150px;
 }
 </style>

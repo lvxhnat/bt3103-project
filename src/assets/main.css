@@ -1,15 +1,7 @@
 @import './base.css';
 
 #app {
-  font-weight: normal;
   background-color: #f8f4ed;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
 }
 
 @media (hover: hover) {
