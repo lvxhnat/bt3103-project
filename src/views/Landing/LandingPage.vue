@@ -1,8 +1,8 @@
 <template>
-  <div class="login-container">
+  <div class="landing-container">
     <NavBar />
-    <div class="login-wrapper base">
-      <div class="login-title">
+    <div class="landing-wrapper base">
+      <div class="landing-title">
         <h1>Enjoy having Seconds Guilt Free</h1>
       </div>
     </div>
@@ -30,12 +30,12 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import NavBar from '@/components/NavBar'
 import Establishment from '@/components/Establishment'
 
 export default {
-  name: 'LoginPage',
+  name: 'LandingPage',
   components: {
     NavBar,
     Establishment,

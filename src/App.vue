@@ -1,20 +1,20 @@
 <template>
-  <login-page></login-page>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-// Import the LoginPage component
-import LoginPage from './views/LoginPage'
+import LandingPage from './views/Landing/LandingPage.vue'
+import UserLoginPage from './views/Auth/Login/UserLoginPage.vue'
+import BusinessRegistrationPage from './views/Auth/Registration/BusinessRegistrationPage.vue'
 
 export default {
   name: 'App',
   components: {
-    // Register the LoginPage component
-    LoginPage,
+    LandingPage,
+    UserLoginPage,
+    BusinessRegistrationPage,
   },
 }
 </script>
-
-<style>
-/* Global styles, if any */
-</style>

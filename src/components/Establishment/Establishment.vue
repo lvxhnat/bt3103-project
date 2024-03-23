@@ -39,10 +39,7 @@ export default {
       return starsArray
     },
     getImageURL() {
-      return new URL(
-        `../../assets/establishments/${this.imageURL}`,
-        import.meta.url
-      )
+      return require(`@/assets/establishments/${this.imageURL}`)
     },
   },
 }
