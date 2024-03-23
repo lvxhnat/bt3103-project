@@ -1,19 +1,27 @@
 <template>
-  <div class="store-card">
-    <img :src="getImageURL" />
-    <div class="store-details">
-      <h2 class="store-title">{{ title }}</h2>
-      <div class="store-rating">
-        <span
-          v-for="star in stars"
-          :key="star.id"
-          class="star"
-          :class="{ filled: star.filled }"
-          >★</span
-        >
-      </div>
-    </div>
-  </div>
+  <v-card class="store-card">
+    <v-img :src="getImageURL" height="200" margin-top="0"></v-img>
+    <v-card-title class="store-title">{{ title }}</v-card-title>
+    <v-card-text>{{ place }}</v-card-text>
+    <v-card-text>
+      <v-rating
+        v-model="rating"
+        background-color="deep-purple lighten-2"
+        color="amber"
+        @input="updateRating"
+        dense
+        size="20"
+      ></v-rating>
+
+      <!-- <v-rating
+        :value="numStars"
+        @input="updateNumStars"
+        background-color="transparent"
+        color="yellow"
+        half-increments
+      ></v-rating> -->
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -21,13 +29,17 @@ export default {
   name: 'StoreCard',
   props: {
     title: String,
+    place: String,
     imageURL: {
       type: String,
       default: '',
     },
-    numStars: {
-      type: Number,
-      required: true,
+    itemId: Number,
+    itemRating: Number,
+  },
+  methods: {
+    updateRating(value) {
+      this.$emit('update:rating', value) // Emitting an event to update the prop in the parent component
     },
   },
   computed: {
