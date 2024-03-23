@@ -3,9 +3,12 @@
     <NavBar />
     <div class="login-form">
       <div class="left-panel">
+        <img src="../../../assets/auth/business_login.png" />
+      </div>
+      <div class="right-panel">
         <div class="login-page-wrapper">
-          <img src="../../../assets/auth/user_topimg.png" width="100px" />
-          <h1 class="login-title">USER LOGIN</h1>
+          <img src="../../../assets/auth/business_topimg.png" width="100px" />
+          <h1 class="login-title">BUSINESS LOGIN</h1>
           <div class="input-wrapper">
             <form @submit.prevent="login">
               <div class="input-group">
@@ -13,7 +16,7 @@
                 <input
                   type="email"
                   id="email"
-                  v-model="user.email"
+                  v-model="business.email"
                   placeholder="Enter Email"
                   required
                 />
@@ -23,7 +26,7 @@
                 <input
                   type="password"
                   id="password"
-                  v-model="user.password"
+                  v-model="business.password"
                   placeholder="Enter Password"
                   required
                 />
@@ -38,9 +41,6 @@
           Don’t have an account? <a href="/signup">Sign up now!</a>
         </div>
       </div>
-      <div class="right-panel">
-        <img src="../../../assets/auth/user_login.png" />
-      </div>
     </div>
   </div>
 </template>
@@ -50,10 +50,10 @@ import NavBar from '@/components/NavBar'
 import styles from './style.css'
 
 export default {
-  name: 'UserLoginPage',
+  name: 'BusinessLoginPage',
   data() {
     return {
-      user: {
+      business: {
         email: '',
         password: '',
       },
@@ -61,9 +61,7 @@ export default {
   },
   methods: {
     login() {
-      // Here you would typically make an API call to your server
-      console.log('Login attempt:', this.user)
-      // Handle the login logic here
+      console.log('Login attempt:', this.business)
     },
   },
   components: {
@@ -71,3 +69,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.right-panel {
+  padding-left: 100px;
+}
+</style>
