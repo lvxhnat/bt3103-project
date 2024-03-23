@@ -10,8 +10,8 @@
 
 <script>
 import { ref } from 'vue'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
-import app from '@/firebaseConfig'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebaseConfig'
 
 export default {
   name: 'BusinessRegistrationPage',
@@ -19,7 +19,6 @@ export default {
     const email = ref('')
     const password = ref('')
     const error = ref(null)
-    const auth = getAuth(app)
     const register = async () => {
       try {
         const userCredential = await createUserWithEmailAndPassword(
@@ -29,6 +28,7 @@ export default {
         )
         console.log('Registration successful!', userCredential)
       } catch (err) {
+        console.error(err)
         error.value = err.message
       }
     }

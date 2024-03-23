@@ -20,7 +20,7 @@ export default defineComponent({
     const router = useRouter()
 
     const navigateToRegistration = () => {
-      router.push('/registration')
+      router.push('/login/user')
     }
 
     return { navigateToRegistration }
