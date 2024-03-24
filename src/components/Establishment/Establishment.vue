@@ -4,23 +4,42 @@
     <v-card-title class="store-title">{{ title }}</v-card-title>
     <v-card-text>{{ place }}</v-card-text>
     <v-card-text>
-      <v-rating
+      <div class="store-rating">
+        <span
+          v-for="star in stars"
+          :key="star.id"
+          class="star"
+          :class="{ filled: star.filled }"
+          >★</span
+        >
+      </div>
+      <!-- <v-rating
+        v-model="rating"
+        active-color="blue"
+        color="orange-lighten-1"
+        dense
+        size="20"
+      ></v-rating> -->
+    </v-card-text>
+
+    <!-- <v-rating
         v-model="rating"
         background-color="deep-purple lighten-2"
         color="amber"
-        @input="updateRating"
+        dense
+        size="20"
+      ></v-rating> -->
+
+    <!--<div class="text-left">
+      <v-rating
+        v-model="rating"
+        active-color="blue"
+        color="orange-lighten-1"
+        background-color="transparent"
         dense
         size="20"
       ></v-rating>
-
-      <!-- <v-rating
-        :value="numStars"
-        @input="updateNumStars"
-        background-color="transparent"
-        color="yellow"
-        half-increments
-      ></v-rating> -->
-    </v-card-text>
+    </div> -->
   </v-card>
 </template>
 
@@ -34,13 +53,15 @@ export default {
       type: String,
       default: '',
     },
-    itemId: Number,
-    itemRating: Number,
-  },
-  methods: {
-    updateRating(value) {
-      this.$emit('update:rating', value) // Emitting an event to update the prop in the parent component
+    numStars: {
+      type: Number,
+      required: true,
     },
+  },
+  data() {
+    return {
+      rating: this.numStars,
+    }
   },
   computed: {
     stars() {

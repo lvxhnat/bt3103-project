@@ -18,26 +18,33 @@
       >
       <div class="establishments-wrapper">
         <Establishment
-          :itemRating="4"
-          @update:itemRating="updateRating"
+          :numStars="4"
           title="The Baker's Dozen"
-          place="Raffles Place)"
+          place="Raffles Place"
           imageURL="bakers-dozen.png"
         />
         <Establishment
-          :itemRating="4.6"
-          @update:itemRating="updateRating"
+          :numStars="5"
           title="GreenMart"
           place="Clementi Mall"
           imageURL="greenmart.png"
         />
         <Establishment
-          :itemRating="4.2"
-          @update:itemRating="updateRating"
+          :numStars="3"
           title="Mimi's Pizzeria"
           place="Jurong Point"
           imageURL="mimi-pizzeria.png"
         />
+        <v-row justify="center" align="center">
+          <v-btn
+            class="ma-2"
+            color="rgb(29, 41, 57)"
+            rounded
+            variant="outlined"
+          >
+            <v-icon icon="mdi-chevron-right"></v-icon>
+          </v-btn>
+        </v-row>
       </div>
     </div>
   </div>
@@ -52,16 +59,6 @@ export default {
   components: {
     NavBar,
     Establishment,
-  },
-  data() {
-    return {
-      stars: 3, // Initial value for numStars
-    }
-  },
-  methods: {
-    updateRating(value) {
-      this.itemRating = value // Update the numStars prop in the parent component
-    },
   },
 }
 </script>

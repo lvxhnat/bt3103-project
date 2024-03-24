@@ -11,6 +11,11 @@ h1 {
   align-items: center;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
 .establishments-wrapper {
   display: flex;
   gap: 25px;
