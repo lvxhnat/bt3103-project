@@ -1,29 +1,42 @@
 <template>
+  <NavBar />
   <div class="landing-container">
-    <NavBar />
     <div class="landing-wrapper base">
       <div class="landing-title">
-        <h1>Enjoy having Seconds Guilt Free</h1>
+        <h1>Enjoy having Seconds guilt-free.</h1>
       </div>
     </div>
     <div class="choose-wrapper">
       <h1>Choose from your favourite stores</h1>
-      <button class="showall-button">Show All</button>
+      <v-btn
+        size="small"
+        rounded="xl"
+        variant="outlined"
+        color="rgb(29, 41, 57)"
+        dark
+        >Show All</v-btn
+      >
       <div class="establishments-wrapper">
         <Establishment
-          title="The Baker's Dozen (Raffles Place)"
+          :itemRating="4"
+          @update:itemRating="updateRating"
+          title="The Baker's Dozen"
+          place="Raffles Place)"
           imageURL="bakers-dozen.png"
-          :numStars="5"
         />
         <Establishment
-          title="GreenMart (Clementi Mall)"
-          imageURL="bakers-dozen.png"
-          :numStars="4"
+          :itemRating="4.6"
+          @update:itemRating="updateRating"
+          title="GreenMart"
+          place="Clementi Mall"
+          imageURL="greenmart.png"
         />
         <Establishment
-          title="Mimi's Pizzeria (Jurong Point)"
-          imageURL="bakers-dozen.png"
-          :numStars="4"
+          :itemRating="4.2"
+          @update:itemRating="updateRating"
+          title="Mimi's Pizzeria"
+          place="Jurong Point"
+          imageURL="mimi-pizzeria.png"
         />
       </div>
     </div>
@@ -39,6 +52,16 @@ export default {
   components: {
     NavBar,
     Establishment,
+  },
+  data() {
+    return {
+      stars: 3, // Initial value for numStars
+    }
+  },
+  methods: {
+    updateRating(value) {
+      this.itemRating = value // Update the numStars prop in the parent component
+    },
   },
 }
 </script>
