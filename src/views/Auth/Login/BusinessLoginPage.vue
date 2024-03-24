@@ -81,6 +81,7 @@
 
 <script>
 import NavBar from '@/components/NavBar'
+import AuthInputBox from '@/components/AuthInputBox'
 import styles from './style.css'
 
 export default {
@@ -100,6 +101,7 @@ export default {
   },
   components: {
     NavBar,
+    AuthInputBox,
   },
 }
 </script>

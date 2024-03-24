@@ -1,0 +1,30 @@
+.registration-container {
+  width: 100%;
+  position: relative;
+}
+
+.authinput-wrapper {
+  width: 100%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-flore-1,
+.img-flore-2 {
+  position: absolute;
+  width: 300px;
+}
+
+.img-flore-1 {
+  bottom: 0;
+  left: 0;
+}
+
+.img-flore-2 {
+  top: 0;
+  right: 0;
+  margin-top: 80px; /* Value of navbar's height */
+}

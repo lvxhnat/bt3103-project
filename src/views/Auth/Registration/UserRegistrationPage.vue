@@ -11,8 +11,8 @@
     />
     <div class="authinput-wrapper">
       <AuthInputBox
-        imageURL="globe.png"
-        title="BUSINESS REGISTRATION"
+        imageURL="user_topimg.png"
+        title="USER REGISTRATION"
         buttonText="Register"
       />
     </div>
@@ -29,7 +29,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebaseConfig'
 
 export default {
-  name: 'BusinessRegistrationPage',
+  name: 'UserRegistrationPage',
   setup() {
     const email = ref('')
     const password = ref('')
