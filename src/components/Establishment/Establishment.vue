@@ -13,33 +13,7 @@
           >★</span
         >
       </div>
-      <!-- <v-rating
-        v-model="rating"
-        active-color="blue"
-        color="orange-lighten-1"
-        dense
-        size="20"
-      ></v-rating> -->
     </v-card-text>
-
-    <!-- <v-rating
-        v-model="rating"
-        background-color="deep-purple lighten-2"
-        color="amber"
-        dense
-        size="20"
-      ></v-rating> -->
-
-    <!--<div class="text-left">
-      <v-rating
-        v-model="rating"
-        active-color="blue"
-        color="orange-lighten-1"
-        background-color="transparent"
-        dense
-        size="20"
-      ></v-rating>
-    </div> -->
   </v-card>
 </template>
 
