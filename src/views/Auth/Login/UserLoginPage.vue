@@ -15,6 +15,7 @@
                   height="450"
                   rounded="lg"
                 >
+                  <div class="text-h6 mb-6">User Login</div>
                   <div class="text-subtitle-1 text-medium-emphasis">Email</div>
                   <v-text-field
                     v-model="user.email"

@@ -12,11 +12,6 @@ const routes = [
     component: LandingPage,
   },
   {
-    path: '/register/business',
-    name: 'registration',
-    component: BusinessRegistrationPage,
-  },
-  {
     path: '/login/user',
     name: 'userlogin',
     component: UserLoginPage,
