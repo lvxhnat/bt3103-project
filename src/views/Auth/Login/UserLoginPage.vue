@@ -3,7 +3,11 @@
     <NavBar />
     <div class="login-form">
       <div class="left-panel">
-        <AuthInputBox imageURL="user_topimg.png" title="USER LOGIN" />
+        <AuthInputBox
+          imageURL="user_topimg.png"
+          title="USER LOGIN"
+          buttonText="Login"
+        />
         <div class="signup-link">
           Don’t have an account? <a href="/signup">Sign up now!</a>
         </div>

@@ -6,7 +6,11 @@
         <img src="../../../assets/auth/business_login.png" />
       </div>
       <div class="right-panel">
-        <AuthInputBox imageURL="globe.png" title="BUSINESS LOGIN" />
+        <AuthInputBox
+          imageURL="globe.png"
+          title="BUSINESS LOGIN"
+          buttonText="Login"
+        />
         <div class="signup-link">
           Don’t have an account? <a href="/signup">Sign up now!</a>
         </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="login-page-wrapper">
-    <img :src="getImageURL" width="100px" />
+    <img :src="getImageURL" width="125px" />
     <h1 class="login-title">{{ title }}</h1>
     <div class="input-wrapper">
       <form @submit.prevent="login">
@@ -25,7 +25,7 @@
           />
         </div>
         <div class="form-button">
-          <button type="submit" class="login-button">LOGIN</button>
+          <button type="submit" class="login-button">{{ buttonText }}</button>
         </div>
       </form>
     </div>
@@ -38,6 +38,7 @@ export default {
   name: 'AuthInputBox',
   props: {
     title: String,
+    buttonText: String,
     imageURL: {
       type: String,
       default: '',
