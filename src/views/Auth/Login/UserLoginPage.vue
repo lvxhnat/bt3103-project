@@ -56,9 +56,8 @@
                   <v-card-text class="text-center">
                     <a
                       class="text-green text-decoration-none"
-                      href="#"
+                      href="/register/user"
                       rel="noopener noreferrer"
-                      target="_blank"
                       >Sign up now
                       <v-icon icon="mdi-chevron-right"></v-icon>
                     </a>
