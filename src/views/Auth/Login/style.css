@@ -13,7 +13,11 @@ input {
 }
 
 .login-container {
-  width: 100%; /* Corrected: Removed quotes */
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: #f8f4ed;
 }
 
 .login-form {
@@ -92,4 +96,8 @@ input {
 .login-button {
   background-color: #118951;
   width: 150px;
+}
+
+.custom-padding {
+  padding-top: 70px;
 }
