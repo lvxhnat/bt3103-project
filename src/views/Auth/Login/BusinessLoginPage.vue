@@ -12,7 +12,7 @@
           buttonText="Login"
         />
         <div class="signup-link">
-          Don’t have an account? <a href="/signup">Sign up now!</a>
+          Don’t have an account? <button @click = "navigatetoBusReg">Sign up now!</button>
         </div>
       </div>
     </div>
@@ -22,10 +22,20 @@
 <script>
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
-import styles from './style.css'
+import { useRouter } from 'vue-router';
+
 
 export default {
   name: 'BusinessLoginPage',
+  setup() {
+    const router = useRouter();
+
+    const navigatetoBusReg = () => {
+      router.push('/register/business')
+    }
+
+    return {navigatetoBusReg}
+  },
   data() {
     return {
       business: {

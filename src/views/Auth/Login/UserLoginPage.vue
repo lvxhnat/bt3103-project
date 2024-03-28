@@ -9,7 +9,7 @@
           buttonText="Login"
         />
         <div class="signup-link">
-          Don’t have an account? <a href="/signup">Sign up now!</a>
+          Don’t have an account? <button @click = 'navigatetoUserReg'>Sign up now!</button>
         </div>
       </div>
       <div class="right-panel">
@@ -22,16 +22,26 @@
 <script>
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox/AuthInputBox.vue'
-import styles from './style.css'
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'UserLoginPage',
+  setup() {
+    const router = useRouter();
+
+    const navigatetoUserReg = () => {
+      router.push('/register/user')
+    }
+
+    return {navigatetoUserReg}
+  },
   data() {
     return {
       user: {
         email: '',
         password: '',
       },
+      
     }
   },
   methods: {
@@ -47,3 +57,7 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+@import './style.css';
+</style>
