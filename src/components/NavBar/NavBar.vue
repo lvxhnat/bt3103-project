@@ -1,6 +1,7 @@
 <template>
   <nav class="navbar">
-    <img src="../../assets/logo/logo.png" width="450px" />
+    <img src="../../assets/logo/logo.png" width="300px" />
+    <img src="../../assets/logo/logo-side.png" width="45px" />
     <div class="login-wrapper">
       <button class="navbar-login-button" @click="navigateToUserLogin">
         USER LOGIN
