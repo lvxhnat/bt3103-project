@@ -52,6 +52,7 @@
                 color="#118951"
                 size="large"
                 variant="tonal"
+                @click="register"
                 >Register</v-btn
               >
             </v-card>
@@ -63,39 +64,54 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 import style from './style.css'
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
-
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebaseConfig'
+import { collection, addDoc } from 'firebase/firestore'
+import { auth, db } from '@/firebaseConfig'
 
 export default {
   name: 'UserRegistrationPage',
-  setup() {
-    const email = ref('')
-    const password = ref('')
-    const error = ref(null)
-    const register = async () => {
+  data() {
+    return {
+      email: '',
+      password: '',
+      account: 'user',
+    }
+  },
+  methods: {
+    async register() {
       try {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
-          email.value,
-          password.value
+          this.email,
+          this.password
         )
-        console.log('Registration successful!', userCredential)
-      } catch (err) {
-        console.error(err)
-        error.value = err.message
+        const user = userCredential.user
+
+        await addDoc(collection(db, 'users'), {
+          userId: user.uid,
+          email: this.email,
+          accountType: this.account,
+        })
+
+        alert('Successfully registered!')
+        this.$router.push({ path: '/' })
+      } catch (error) {
+        const errorCode = error.code
+        const errorMessage = error.message
+        if (errorCode === 'auth/invalid-email') {
+          alert('Please enter a valid email.')
+        } else if (errorCode === 'auth/email-already-in-use') {
+          alert('Email already in use.')
+        } else if (errorCode === 'auth/weak-password') {
+          alert('Password should be at least 6 characters.')
+        } else {
+          alert(errorMessage)
+        }
       }
-    }
-    return {
-      email,
-      password,
-      error,
-      register,
-    }
+    },
   },
   components: {
     NavBar,

@@ -52,6 +52,7 @@
                     color="#118951"
                     size="large"
                     variant="tonal"
+                    @click="login"
                     >Log In</v-btn
                   >
                   <v-card-text class="text-center">
@@ -80,6 +81,8 @@
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox/AuthInputBox.vue'
 import styles from './style.css'
+import 'firebase/auth'
+//import { auth } from '@/firebaseConfig'
 
 export default {
   name: 'UserLoginPage',
@@ -93,9 +96,20 @@ export default {
   },
   methods: {
     login() {
-      // Here you would typically make an API call to your server
-      console.log('Login attempt:', this.user)
-      // Handle the login logic here
+      auth
+        .signInWithEmailAndPassword(this.user.email, this.user.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user
+          console.log('User logged in:', user)
+          router.push('/')
+        })
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          console.error('Login error:', errorCode, errorMessage)
+          alert(errorMessage)
+        })
     },
   },
   components: {
