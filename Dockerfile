@@ -13,9 +13,6 @@ RUN npm cache clean --force && npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Rebuild typescript
-RUN npm rebuild typescript
-
 # Build the Vue.js application for production with minification
 RUN npm run build
 
