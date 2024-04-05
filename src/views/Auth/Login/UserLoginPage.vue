@@ -18,7 +18,7 @@
                   <div class="text-h6 mb-6">User Login</div>
                   <div class="text-subtitle-1 text-medium-emphasis">Email</div>
                   <v-text-field
-                    v-model="user.email"
+                    v-model="email"
                     density="compact"
                     placeholder="Email Address"
                     prepend-inner-icon="mdi-email-outline"
@@ -37,7 +37,7 @@
                     >
                   </div>
                   <v-text-field
-                    v-model="user.password"
+                    v-model="password"
                     :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                     :type="visible ? 'text' : 'password'"
                     density="compact"
@@ -81,35 +81,61 @@
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox/AuthInputBox.vue'
 import styles from './style.css'
-import 'firebase/auth'
-//import { auth } from '@/firebaseConfig'
+import { auth, db } from '@/firebaseConfig'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 
 export default {
   name: 'UserLoginPage',
   data() {
     return {
-      user: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
     }
   },
   methods: {
-    login() {
-      auth
-        .signInWithEmailAndPassword(this.user.email, this.user.password)
-        .then((userCredential) => {
-          // Signed in
+    async login() {
+      try {
+        // Check if the email exists in the users collection
+        const userQuery = query(
+          collection(db, 'users'),
+          where('email', '==', this.email)
+        )
+        const userSnapshot = await getDocs(userQuery)
+
+        // Check if the email exists in the businesses collection
+        const businessQuery = query(
+          collection(db, 'businesses'),
+          where('email', '==', this.email)
+        )
+        const businessSnapshot = await getDocs(businessQuery)
+
+        if (!userSnapshot.empty) {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            this.email,
+            this.password
+          )
           const user = userCredential.user
-          console.log('User logged in:', user)
-          router.push('/')
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          console.error('Login error:', errorCode, errorMessage)
+          alert('Successfully logged in as user!')
+          this.$router.push({ path: '/' })
+        } else if (!businessSnapshot.empty) {
+          alert(
+            'You have a business account. Please login through the business login page.'
+          )
+          this.$router.push({ path: '/login/business' })
+        } else {
+          alert('No account found with this email.')
+        }
+      } catch (error) {
+        const errorCode = error.code
+        const errorMessage = error.message
+        if (errorCode === 'auth/invalid-credential') {
+          alert('Invalid email or password.')
+        } else {
           alert(errorMessage)
-        })
+        }
+      }
     },
   },
   components: {
