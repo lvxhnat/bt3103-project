@@ -28,3 +28,15 @@
   justify-content: flex-end;
   padding-right: 20px;
 }
+
+.profile-text {
+  font-size: 30px;
+  color: white;
+  white-space: nowrap;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.clickable-image {
+  cursor: pointer; /* Changes the cursor to indicate the image is clickable */
+}
