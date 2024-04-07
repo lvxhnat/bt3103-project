@@ -8,11 +8,11 @@
         </v-col>
         <v-row>
           <v-col cols="6">
-            <Transactions :transactions="transactions" />
+            <TopUp @topup-success="handleTopupSuccess" />
           </v-col>
         </v-row>
         <v-col cols="6">
-          <TopUp @topup-success="handleTopupSuccess" />
+          <Transactions :transactions="transactions" />
         </v-col>
       </v-row>
     </v-container>

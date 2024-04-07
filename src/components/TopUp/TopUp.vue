@@ -1,7 +1,7 @@
 <template>
     <v-card color="#118951" class="rounded-lg mt-n3 pb-1" width="344">
         <v-toolbar flat color="transparent">
-            <v-toolbar-title class="white--text mt-n2">E-Wallet Balance</v-toolbar-title>
+            <v-toolbar-title class="white--text mt-n2">Top Up</v-toolbar-title>
         </v-toolbar>
         <v-card class="rounded-lg mx-2 pa-1 mt-n3 gradient flip" flat>
             <v-card-subtitle>Enter amount (Min S$5.00)</v-card-subtitle>
