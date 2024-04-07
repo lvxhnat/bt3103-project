@@ -1,0 +1,42 @@
+.navbar {
+  width: 100vw;
+  height: 80px;
+  background-color: #118951;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.navbar-login-button {
+  background-color: #4caf50; /* Example green background */
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.login-wrapper {
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.profile-text {
+  font-size: 30px;
+  color: white;
+  white-space: nowrap;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.clickable-image {
+  cursor: pointer; /* Changes the cursor to indicate the image is clickable */
+}
