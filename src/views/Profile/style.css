@@ -1,0 +1,156 @@
+.main-container {
+  display: flex;
+  width: 100%;
+  padding: 50px;
+}
+
+.left-panel {
+  width: 50%;
+  padding: 10px;
+}
+
+.right-panel {
+  width: 50%;
+  padding: 10px;
+}
+
+.account-details {
+  border: 1px solid black;
+  color: black;
+  padding: 20px;
+  height: 500px;
+  width: 500px;
+  border-radius: 30px;
+}
+
+.input-container {
+  padding-top: 20px;
+}
+
+.account-details-input {
+  color: #118951;
+  font-weight: bold;
+}
+
+.input-acc {
+  width: 300px;
+  height: 30px;
+  background-color: lightgrey;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.account-details-title {
+  text-decoration: underline;
+  text-align: center;
+}
+
+.current-listings-container {
+  width: 100%;
+  margin: 20px auto;
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.wallet {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid black;
+}
+
+th {
+  color: green;
+}
+
+h2 {
+  text-align: center;
+  color: green;
+}
+
+tr {
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #000;
+  text-align: center;
+  padding: 8px;
+}
+
+.remove-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-button {
+  background-color: none;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  color: black;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+.increment-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; /* Diameter of the button */
+  height: 30px; /* Diameter of the button */
+  border-radius: 50%; /* Ensures circular shape */
+  border: none;
+  background-color: grey;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  padding: 0; /* Resets any default padding */
+  line-height: 30px; /* Ensures the "+" aligns centrally, matching height */
+  text-align: center; /* Centers the "+" horizontally */
+}
+
+.cell-increment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  border: none;
+  height: 100%;
+}
+
+.table-bottom {
+  display: flex;
+}
+
+.balance-container {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.balance-side {
+  color: #118951;
+  font-weight: bold;
+}

@@ -6,13 +6,12 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyDBzVjVqiMNlaw-LmGBtWAkXzx1xWvXipo",
-    authDomain: "finflow-7e642.firebaseapp.com",
-    projectId: "finflow-7e642",
-    storageBucket: "finflow-7e642.appspot.com",
-    messagingSenderId: "186707564387",
-    appId: "1:186707564387:web:80f82931c1022158f32556",
-    measurementId: "G-XJ4VEZS369",
+  apiKey: "AIzaSyDpNZm22tx-PIQmS41VfCA9G8cSiueMdtw",
+  authDomain: "secondservings-c271d.firebaseapp.com",
+  projectId: "secondservings-c271d",
+  storageBucket: "secondservings-c271d.appspot.com",
+  messagingSenderId: "808653863989",
+  appId: "1:808653863989:web:ec8d471aa972100d2bc57c"
 };
 
 const provider = new GoogleAuthProvider();
