@@ -11,48 +11,43 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: LandingPage
-  },
-  {
-    path: '/registration',
-    name: 'registration',
-    component: BusinessRegistrationPage
+    component: LandingPage,
   },
   {
     path: '/login/user',
     name: 'userlogin',
-    component: UserLoginPage
+    component: UserLoginPage,
   },
   {
     path: '/login/business',
     name: 'businesslogin',
-    component: BusinessLoginPage
+    component: BusinessLoginPage,
   },
   {
     path: '/register/user',
     name: 'businessuser',
-    component: UserRegistrationPage
+    component: UserRegistrationPage,
   },
   {
     path: '/register/business',
     name: 'businessregister',
-    component: BusinessRegistrationPage
+    component: BusinessRegistrationPage,
   },
   {
     path: '/profile/user',
     name: 'userprofile',
-    component: UserProfilePage
+    component: UserProfilePage,
   },
   {
     path: '/profile/business',
     name: 'businessprofile',
-    component: BusinessProfilePage
-  }
+    component: BusinessProfilePage,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes: routes,
 })
 
 export default router
