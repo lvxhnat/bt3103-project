@@ -157,3 +157,9 @@ button:focus {
   color: #118951;
   font-weight: bold;
 }
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure the container takes full height of its parent */
+}
