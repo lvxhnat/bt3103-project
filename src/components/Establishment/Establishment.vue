@@ -1,8 +1,9 @@
 <template>
-  <div class="store-card">
-    <img :src="getImageURL" />
-    <div class="store-details">
-      <h2 class="store-title">{{ title }}</h2>
+  <v-card class="store-card">
+    <v-img :src="getImageURL" height="200" margin-top="0"></v-img>
+    <v-card-title class="store-title">{{ title }}</v-card-title>
+    <v-card-text>{{ place }}</v-card-text>
+    <v-card-text>
       <div class="store-rating">
         <span
           v-for="star in stars"
@@ -12,8 +13,8 @@
           >★</span
         >
       </div>
-    </div>
-  </div>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -21,6 +22,7 @@ export default {
   name: 'StoreCard',
   props: {
     title: String,
+    place: String,
     imageURL: {
       type: String,
       default: '',
@@ -29,6 +31,11 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data() {
+    return {
+      rating: this.numStars,
+    }
   },
   computed: {
     stars() {

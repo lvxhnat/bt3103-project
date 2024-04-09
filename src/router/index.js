@@ -4,6 +4,8 @@ import UserLoginPage from '../views/Auth/Login/UserLoginPage.vue'
 import BusinessLoginPage from '../views/Auth/Login/BusinessLoginPage.vue'
 import BusinessRegistrationPage from '../views/Auth/Registration/BusinessRegistrationPage.vue'
 import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPage.vue'
+import UserProfilePage from '../views/Profile/UserProfilePage.vue'
+import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 
 const routes = [
   {
@@ -23,13 +25,23 @@ const routes = [
   },
   {
     path: '/register/user',
-    name: 'userregister',
+    name: 'businessuser',
     component: UserRegistrationPage,
   },
   {
     path: '/register/business',
     name: 'businessregister',
     component: BusinessRegistrationPage,
+  },
+  {
+    path: '/profile/user',
+    name: 'userprofile',
+    component: UserProfilePage,
+  },
+  {
+    path: '/profile/business',
+    name: 'businessprofile',
+    component: BusinessProfilePage,
   },
 ]
 
