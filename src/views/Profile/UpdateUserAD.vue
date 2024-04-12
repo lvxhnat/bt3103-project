@@ -14,7 +14,7 @@
         <input
           type="text"
           id="address"
-          v-model="user.address"
+          v-model="this.address"
           placeholder="Enter Address"
           required
         />
@@ -24,35 +24,50 @@
         <input
           type="text"
           id="postal"
-          v-model="user.postal"
+          v-model="this.postal"
           placeholder="Enter Postal Code"
           required
         />
-      </div> 
+      </div>
+      <button class = "remove-button" @click = "setData(this.address,this.postal)" >Submit Details</button> 
     </div>
   </div>
 
 </template>
 
 <script>
+import { updateDoc,doc } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
 import { useRouter } from 'vue-router';
+import {db} from "/src/firebaseConfig.js"
 
 export default {
-    name: 'UpdateUserProfile',
+    name: 'UpdateUserAD',
     data() {
-        return {
-            user: {
-                address: '',
-                postal: '',
-            },
+        return {  
+          address: '',
+          postal: '',
         }
     },
+    methods: {
+      async setData(address,postal) {
+        const auth = getAuth();
+        const email = auth.currentUser.email;
+        await updateDoc(doc(db, "Account Details", email), {
+          address : this.address,
+          postal: this.postal,
+        })
+        alert("Details updated!")
+      }
+
+    },  
     setup() {
       const router = useRouter();
 
       const naviToUserProfile = () => {
-      router.push('/user/userprofile')
+        router.push('/profile/user')
       }
+
       return {naviToUserProfile}
     },
 }
@@ -60,6 +75,6 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 @import './style.css';
 </style>

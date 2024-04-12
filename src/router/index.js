@@ -6,6 +6,8 @@ import BusinessRegistrationPage from '../views/Auth/Registration/BusinessRegistr
 import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPage.vue'
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
+import UpdateUserAD from '../views/Profile/UpdateUserAD.vue'
+import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
 
 const routes = [
   {
@@ -39,9 +41,19 @@ const routes = [
     component: UserProfilePage,
   },
   {
+    path: '/profile/user/updatead',
+    name: 'updateAD',
+    component: UpdateUserAD,
+  },
+  {
     path: '/profile/business',
     name: 'businessprofile',
     component: BusinessProfilePage,
+  },
+  {
+    path: '/business/additems',
+    name: 'additems',
+    component: AddItemsPage,
   },
 ]
 
