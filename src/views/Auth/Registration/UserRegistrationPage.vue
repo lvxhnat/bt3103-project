@@ -68,8 +68,9 @@ import style from './style.css'
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc,setDoc,doc } from 'firebase/firestore'
 import { auth, db } from '@/firebaseConfig'
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   name: 'UserRegistrationPage',
@@ -94,6 +95,13 @@ export default {
           userId: user.uid,
           email: this.email,
           accountType: this.account,
+        })
+        //Add document for Account Details
+        await setDoc(doc(db,'Account Details',this.email), {
+          email: this.email,
+          accNo: uuidv4(),
+          address: "",
+          postal: "",
         })
 
         alert('Successfully registered!')
