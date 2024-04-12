@@ -7,23 +7,8 @@
           <v-row>
             <v-col cols="6" class="d-flex justify-center">
               <div class="account-details">
-                <h1 class="account-details-title">Account Details</h1>
-                <div class="input-container">
-                  <h3 class="account-details-input">Email</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Account Details</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Details</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Postal Code</h3>
-                  <input class="input-acc" />
-                </div>
+                <AccountDetails/>
+                <button class = "remove-button" @click = "naviToUpdate">Update Details</button>
               </div>
             </v-col>
 
@@ -95,12 +80,24 @@
 
 <script>
 import NavBar from '@/components/NavBar'
+import AccountDetails from '../../components/AccountDetails/AccountDetails.vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'UserProfilePage',
   components: {
     NavBar,
+    AccountDetails,
   },
+  setup() {
+    const router = useRouter();
+
+    const naviToUpdate = () => {
+      router.push('/profile/user/updatead')
+    }
+    return {naviToUpdate}
+  },
+
 }
 </script>
 
