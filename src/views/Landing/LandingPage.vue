@@ -1,30 +1,50 @@
 <template>
+  <NavBar />
   <div class="landing-container">
-    <NavBar />
     <div class="landing-wrapper base">
       <div class="landing-title">
-        <h1>Enjoy having Seconds Guilt Free</h1>
+        <h1>Enjoy having Seconds guilt-free.</h1>
       </div>
     </div>
     <div class="choose-wrapper">
       <h1>Choose from your favourite stores</h1>
-      <button class="showall-button">Show All</button>
+      <v-btn
+        size="small"
+        rounded="xl"
+        variant="outlined"
+        color="rgb(29, 41, 57)"
+        dark
+        >Show All</v-btn
+      >
       <div class="establishments-wrapper">
         <Establishment
-          title="The Baker's Dozen (Raffles Place)"
+          :numStars="4"
+          title="The Baker's Dozen"
+          place="Raffles Place"
           imageURL="bakers-dozen.png"
+        />
+        <Establishment
           :numStars="5"
+          title="GreenMart"
+          place="Clementi Mall"
+          imageURL="greenmart.png"
         />
         <Establishment
-          title="GreenMart (Clementi Mall)"
-          imageURL="bakers-dozen.png"
-          :numStars="4"
+          :numStars="3"
+          title="Mimi's Pizzeria"
+          place="Jurong Point"
+          imageURL="mimi-pizzeria.png"
         />
-        <Establishment
-          title="Mimi's Pizzeria (Jurong Point)"
-          imageURL="bakers-dozen.png"
-          :numStars="4"
-        />
+        <v-row justify="center" align="center">
+          <v-btn
+            class="ma-2"
+            color="rgb(29, 41, 57)"
+            rounded
+            variant="outlined"
+          >
+            <v-icon icon="mdi-chevron-right"></v-icon>
+          </v-btn>
+        </v-row>
       </div>
     </div>
   </div>
