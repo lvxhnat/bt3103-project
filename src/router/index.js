@@ -6,7 +6,7 @@ import BusinessRegistrationPage from '../views/Auth/Registration/BusinessRegistr
 import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPage.vue'
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
-import TopUpPage from '../views/TopUpPage.vue'
+import TopUpPage from '../views/TopUp/TopUpPage.vue'
 
 const routes = [
   {
@@ -45,8 +45,13 @@ const routes = [
     component: BusinessProfilePage
   },
   {
-    path: '/topup',
-    name: 'topup',
+    path: '/topup/user',
+    name: 'usertopup',
+    component: TopUpPage
+  },
+  {
+    path: '/topup/business',
+    name: 'businesstopup',
     component: TopUpPage
   }
 ]

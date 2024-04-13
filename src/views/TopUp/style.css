@@ -1,0 +1,115 @@
+.main-container {
+  display: flex;
+  padding: 50px;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  background-color: #f8f4ed;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  width: 500px;
+  height: 100%; /* Ensure the container takes full height of its parent */
+}
+
+.ewallet {
+  border: 1px solid green;
+  background-color: green;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+}
+
+.ewallet-title {
+  color: white;
+}
+
+.ewallet-subtitle {
+  color: white;
+}
+
+.ewallet-balance {
+  color: white;
+  text-align: left;
+  margin-top: 30px;
+}
+
+.ewallet-name {
+  color: white;
+  text-align: right;
+  margin-top: 30px;
+}
+
+.topup {
+  width: 100%;
+  height: 750px;
+  /* margin: 20px auto; */
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.title {
+  text-decoration: underline;
+  text-align: center;
+}
+
+.transactions {
+  width: 100%;
+  /* margin: 20px auto; */
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.table-container {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.topup-container {
+  padding-top: 20px;
+}
+
+.topup-side-manual-input {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.topup-side-instant {
+  padding-top: 20px;
+}
+
+.topup-side-instant-chips {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.topup-btn-container {
+  padding-top: 350px;
+  text-align: center;
+}
+
+.topup-btn {
+  background-color: green;
+  color: white;
+}
