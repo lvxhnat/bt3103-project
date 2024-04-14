@@ -75,7 +75,7 @@
                     </tbody>
                   </table>
                   <div class="table-bottom">
-                    <button class="add-button">Add Items</button>
+                    <button class="add-button" @click = "navitoAddItems">Add Items</button>
                     <button class="add-button">Checkout</button>
                   </div>
                 </div>
@@ -121,6 +121,9 @@ export default {
     removeItem(itemId) {
       this.items = this.items.filter((item) => item.id !== itemId)
     },
+    navitoAddItems() {
+      this.$router.push({path :'/business/additems'})
+    }
   },
   components: {
     NavBar,

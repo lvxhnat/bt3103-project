@@ -87,15 +87,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 
 export default {
   name: 'UserLoginPage',
-  setup() {
-    const router = useRouter();
-
-    const navigatetoUserReg = () => {
-      router.push('/register/user')
-    }
-
-    return {navigatetoUserReg}
-  },
   data() {
     return {
       email: '',
