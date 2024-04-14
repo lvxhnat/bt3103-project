@@ -20,7 +20,7 @@
                       <thead>
                         <tr>
                           <th width="10%">No.</th>
-                          <th width="70%">Date</th>
+                          <th width="70%">Date & Time</th>
                           <th width="20%">Amount</th>
                         </tr>
                       </thead>
@@ -36,7 +36,6 @@
                 </div>
               </v-row>
             </v-col>
-
             <v-col cols="6" class="d-flex justify-center">
               <div class="topup">
                 <h1 class="title">Top Up</h1>
@@ -54,6 +53,14 @@
                     <v-btn @click="topup()" :disabled="isTopUpDisabled" class="topup-btn" type="submit">Top Up</v-btn>
                   </div>
                 </div>
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" class="justify-center">
+              <div class="transactions-graph">
+                <h1 class="title">Top Up History Graph</h1>
+                <line-chart class="transactions-graph-plot" :data="chartData"></line-chart>
               </div>
             </v-col>
           </v-row>
@@ -82,7 +89,8 @@ export default {
       instantOptions: [5, 10, 20, 50, 100],
       isTopUpDisabled: true,
       useremail: '',
-      transactions: []
+      transactions: [],
+      chartData: [],
     }
   },
   watch: {
@@ -121,6 +129,9 @@ export default {
         const data = querySnapShot.data();
         this.balance = data.balance;
         this.transactions = data.transactions;
+        this.chartData = this.transactions.map(transaction => {
+          return [new Date(transaction.timestamp), transaction.amount];
+        })
       } catch (error) {
         // const errorCode = error.code
         const errorMessage = error.message;
@@ -144,13 +155,17 @@ export default {
 
         this.balance = newBalance;
         this.transactions = newTransactions;
+        this.chartData = this.transactions.map(transaction => {
+          return [new Date(transaction.timestamp), transaction.amount];
+        })
+
         alert('Successfully Top Up S$' + String(this.topupAmount));
       } catch (error) {
         // const errorCode = error.code
         const errorMessage = error.message;
         alert(errorMessage);
       }
-    }
+    },
   }
 }
 </script>
