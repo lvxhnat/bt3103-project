@@ -5,20 +5,23 @@
         <div class = "header">
             <h1>Choose from your favourite stores</h1>
         </div>
-
-      <div class="establishments-wrapper">
+        
+        <div class = "establishments">
+        <div class="establishments-wrapper">
         <Establishment
           :numStars="4"
           title="The Baker's Dozen"
           place="Raffles Place"
           imageURL="bakers-dozen.png"
         />
+
         <Establishment
           :numStars="5"
           title="GreenMart"
           place="Clementi Mall"
           imageURL="greenmart.png"
         />
+
         <Establishment
           :numStars="3"
           title="Mimi's Pizzeria"
@@ -60,6 +63,7 @@
           place="Jurong Point"
           imageURL="jp-bakery.png"
         />
+        </div>
       </div>
     </div>
   </div>
