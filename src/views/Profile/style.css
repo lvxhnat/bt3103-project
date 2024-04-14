@@ -56,12 +56,15 @@
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
+  background-color: white;
 }
 
 .wallet {
   width: 100%;
   border-radius: 30px;
   border: 1px solid black;
+  padding: 20px;
+  background-color: white;
 }
 
 th {
@@ -146,11 +149,11 @@ button:focus {
 }
 
 .balance-container {
-  width: 100%;
   display: flex;
   gap: 20px;
   align-items: center;
   justify-content: center;
+  background-color: white;
 }
 
 .balance-side {
@@ -170,4 +173,10 @@ button:focus {
   display: flex;
   justify-content: center;
   background-color: #f8f4ed;
+}
+
+.account-details-container {
+  height: calc(100vh - 100px); /* Adjust as needed based on your layout */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-radius: 20px;
 }
