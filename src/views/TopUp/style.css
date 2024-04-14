@@ -37,16 +37,15 @@
   margin-top: 30px;
 }
 
-.ewallet-name {
+/* .ewallet-name {
   color: white;
   text-align: right;
   margin-top: 30px;
-}
+} */
 
 .topup {
-  width: 100%;
+  width: 400px;
   height: 750px;
-  /* margin: 20px auto; */
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
@@ -59,14 +58,13 @@
 
 .transactions {
   width: 100%;
-  /* margin: 20px auto; */
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
 }
 
 .table-container {
-  max-height: 360px;
+  max-height: 420px;
   overflow-y: auto;
 }
 

@@ -1,58 +1,3 @@
-<!-- <template>
-  <div>
-    <NavBar />
-    <v-container>
-      <v-row>
-        <v-col cols="6">
-          <CreditCard :balance="totalAmount" />
-        </v-col>
-        <v-row>
-          <v-col cols="6">
-            <TopUp @topup-success="handleTopupSuccess" />
-          </v-col>
-        </v-row>
-        <v-col cols="6">
-          <Transactions :transactions="transactions" />
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
-</template>
-
-<script>
-import NavBar from '@/components/NavBar'
-import CreditCard from '@/components/TopUp/CreditCard.vue'
-import Transactions from '@/components/TopUp/Transactions.vue'
-import TopUp from '@/components/TopUp/TopUp.vue'
-
-export default {
-  name: 'TopUpPage',
-  data() {
-    return {
-      totalAmount: 0,
-      transactions: []
-    }
-  },
-  methods: {
-    handleTopupSuccess(amount) {
-      this.totalAmount += amount;
-      const transaction = {
-        amount: amount,
-        date: new Date().toLocaleDateString(),
-      };
-      this.transactions.push(transaction);
-
-    }
-  },
-  components: {
-    NavBar,
-    CreditCard,
-    Transactions,
-    TopUp
-  }
-}
-</script> -->
-
 <template>
   <NavBar />
   <v-app>
@@ -66,7 +11,7 @@ export default {
                   <h1 class="ewallet-title">E-Wallet Balance</h1>
                   <h3 class="ewallet-subtitle">Balance</h3>
                   <h1 class="ewallet-balance">S${{ balance }}</h1>
-                  <h3 class="ewallet-name">{{ cardOwner }}</h3>
+                  <!-- <h3 class="ewallet-name">{{ cardOwner }}</h3> -->
                 </div>
                 <div class="transactions">
                   <h1 class="title">Top Up History</h1>
@@ -74,15 +19,15 @@ export default {
                     <table>
                       <thead>
                         <tr>
-                          <th width="20%">No.</th>
-                          <th width="50%">Date</th>
-                          <th width="30%">Amount</th>
+                          <th width="10%">No.</th>
+                          <th width="70%">Date</th>
+                          <th width="20%">Amount</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="transaction in transactions" :key="transaction.id">
-                          <td> {{ transaction.id }} </td>
-                          <td> {{ transaction.dateTime }} </td>
+                        <tr v-for="(transaction, index) in transactions">
+                          <td> {{ index + 1 }} </td>
+                          <td> {{ transaction.timestamp }} </td>
                           <td> {{ transaction.amount }} </td>
                         </tr>
                       </tbody>
@@ -106,8 +51,7 @@ export default {
                     </v-col>
                   </v-row>
                   <div class="topup-btn-container">
-                    <v-btn @click="topup(topupAmount)" :disabled="isTopUpDisabled" :loading="loading" class="topup-btn"
-                      type="submit">Top Up</v-btn>
+                    <v-btn @click="topup()" :disabled="isTopUpDisabled" class="topup-btn" type="submit">Top Up</v-btn>
                   </div>
                 </div>
               </div>
@@ -121,6 +65,9 @@ export default {
 
 <script>
 import NavBar from '@/components/NavBar'
+import { db } from '@/firebaseConfig'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export default {
   name: 'TopUpPage',
@@ -129,24 +76,13 @@ export default {
   },
   data() {
     return {
-      balance: 10000,
-      cardOwner: 'BT3103',
-      topupAmount: '',
-      instantOptions: [5, 10, 20, 50],
+      balance: 0,
+      // cardOwner: '',
+      topupAmount: 0,
+      instantOptions: [5, 10, 20, 50, 100],
       isTopUpDisabled: true,
-      loading: false,
-      transactions: [
-        { id: 1, dateTime: new Date().toDateString(), amount: 20 },
-        { id: 2, dateTime: '2024 2pm', amount: 40 },
-        { id: 3, dateTime: '2024 1pm', amount: 20 },
-        { id: 4, dateTime: '2024 2pm', amount: 40 },
-        { id: 5, dateTime: '2024 1pm', amount: 20 },
-        { id: 6, dateTime: '2024 2pm', amount: 40 },
-        { id: 7, dateTime: '2024 1pm', amount: 20 },
-        { id: 8, dateTime: '2024 2pm', amount: 40 },
-        { id: 7, dateTime: '2024 1pm', amount: 20 },
-        { id: 8, dateTime: '2024 2pm', amount: 40 },
-      ]
+      useremail: '',
+      transactions: []
     }
   },
   watch: {
@@ -158,6 +94,19 @@ export default {
       }
     }
   },
+  async mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        this.useremail = user.email;
+        console.log(this.useremail);
+        await this.fetchAndUpdateData(this.useremail);
+      } else {
+        // Redirect to home page
+        this.$router.push('/');
+      }
+    })
+  },
   methods: {
     rule(amount) {
       return amount >= 5 || 'Minimum top-up amount is S$5.00'
@@ -166,12 +115,41 @@ export default {
       // Update top-up amount when instant top-up chips are clicked
       this.topupAmount = amount;
     },
-    topup(amount) {
-      this.loading = true;
-      console.log("Top Up Amount: ", amount);
-      // Emitting event to notify successful top-up with the amount
-      // this.$emit('topup-success', amount);
-      setTimeout(() => (this.loading = false), 2000)
+    async fetchAndUpdateData(useremail) {
+      try {
+        const querySnapShot = await getDoc(doc(db, 'Top Up', useremail));
+        const data = querySnapShot.data();
+        this.balance = data.balance;
+        this.transactions = data.transactions;
+      } catch (error) {
+        // const errorCode = error.code
+        const errorMessage = error.message;
+        alert(errorMessage);
+      }
+    },
+    async topup() {
+      try {
+        const newBalance = this.balance + this.topupAmount;
+        let dateTime = new Date();
+        const date = dateTime.toLocaleString('en-UK', { year: 'numeric', month: 'long', day: 'numeric' });
+        const time = dateTime.toLocaleTimeString();
+        dateTime = date + ', ' + time;
+        const newTransactions = [...this.transactions];
+        newTransactions.push({ timestamp: dateTime, amount: this.topupAmount });
+
+        await updateDoc(doc(db, 'Top Up', this.useremail), {
+          'balance': newBalance,
+          'transactions': newTransactions,
+        })
+
+        this.balance = newBalance;
+        this.transactions = newTransactions;
+        alert('Successfully Top Up S$' + String(this.topupAmount));
+      } catch (error) {
+        // const errorCode = error.code
+        const errorMessage = error.message;
+        alert(errorMessage);
+      }
     }
   }
 }
