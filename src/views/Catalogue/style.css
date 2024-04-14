@@ -1,0 +1,10 @@
+.header {
+    padding-top: 75px;
+    margin-left: 25px;
+}
+
+.establishments-wrapper {
+    margin-left: 25px;
+    flex-wrap: wrap;
+    display: flex;
+}
