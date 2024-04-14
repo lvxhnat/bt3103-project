@@ -1,22 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="login-container">
-    <NavBar />
-    <div class="login-form">
-      <div class="left-panel">
-        <img src="../../../assets/auth/business_login.png" />
-      </div>
-      <div class="right-panel">
-        <AuthInputBox
-          imageURL="globe.png"
-          title="BUSINESS LOGIN"
-          buttonText="Login"
-        />
-        <div class="signup-link">
-          Don’t have an account? <button @click = "navigatetoBusReg">Sign up now!</button>
-        </div>
-      </div>
-=======
   <NavBar />
   <v-app>
     <div class="login-container">
@@ -94,7 +76,6 @@
           </v-row>
         </v-container>
       </v-content>
->>>>>>> c3646318f522821db1264be10f76185257f5cb13
     </div>
   </v-app>
 </template>
@@ -102,26 +83,21 @@
 <script>
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
-<<<<<<< HEAD
-import { useRouter } from 'vue-router';
-
-=======
 import styles from './style.css'
 import { auth, db } from '@/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, getDocs, query, where } from 'firebase/firestore'
->>>>>>> c3646318f522821db1264be10f76185257f5cb13
 
 export default {
   name: 'BusinessLoginPage',
   setup() {
-    const router = useRouter();
+    const router = useRouter()
 
     const navigatetoBusReg = () => {
       router.push('/register/business')
     }
 
-    return {navigatetoBusReg}
+    return { navigatetoBusReg }
   },
   data() {
     return {
