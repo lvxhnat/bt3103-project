@@ -70,7 +70,7 @@ Before you begin, ensure you have the following installed on your system:
 
 1. Clone the repository to your local machine:
    ```sh
-   git clone https://github.com/lvxhnat/bt3103-project
+   git clone https://github.com/lvxhnat/bt3103-project.git
     ```
 1. Install dependencies:
    ```sh
