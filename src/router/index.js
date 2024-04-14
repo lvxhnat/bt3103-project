@@ -8,6 +8,7 @@ import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 import UpdateUserAD from '../views/Profile/UpdateUserAD.vue'
 import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
+import TopUpPage from '../views/TopUp/TopUpPage.vue'
 
 const routes = [
   {
@@ -54,6 +55,16 @@ const routes = [
     path: '/business/additems',
     name: 'additems',
     component: AddItemsPage,
+  },
+  {
+    path: '/topup/user',
+    name: 'usertopup',
+    component: TopUpPage,
+  },
+  {
+    path: '/topup/business',
+    name: 'businesstopup',
+    component: TopUpPage,
   },
 ]
 
