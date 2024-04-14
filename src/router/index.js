@@ -7,6 +7,7 @@ import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPag
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
+import TopUpPage from '../views/TopUp/TopUpPage.vue'
 
 const routes = [
   {
@@ -42,13 +43,23 @@ const routes = [
   {
     path: '/profile/business',
     name: 'businessprofile',
-    component: BusinessProfilePage,
+    component: BusinessProfilePage
   },
   {
     path: '/catalogue', 
     name: 'cataloguepage',
     component: CataloguePage,
   },
+  {
+    path: '/topup/user',
+    name: 'usertopup',
+    component: TopUpPage
+  },
+  {
+    path: '/topup/business',
+    name: 'businesstopup',
+    component: TopUpPage
+  }
 ]
 
 const router = createRouter({

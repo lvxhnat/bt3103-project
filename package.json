@@ -16,9 +16,12 @@
     "npm-watch": "^0.11.0",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.5.11"
+    "vuetify": "^3.5.13"
   },
   "devDependencies": {
+    "@mdi/font": "^7.4.47",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.11.30",
     "@vitejs/plugin-vue": "^5.0.3",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/cli-service": "^5.0.8",
