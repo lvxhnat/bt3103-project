@@ -8,9 +8,6 @@
         </li>
       </ul>
     </div>
-    <div v-else>
-      <p>No data available or loading...</p>
-    </div>
   </div>
 </template>
 
