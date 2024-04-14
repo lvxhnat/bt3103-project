@@ -7,6 +7,7 @@
       </div>
     </div>
     <div class="choose-wrapper">
+      <AnalyticsChart />
       <h1>Choose from your favourite stores</h1>
       <v-btn
         size="small"
@@ -53,12 +54,14 @@
 <script>
 import NavBar from '@/components/NavBar'
 import Establishment from '@/components/Establishment'
+import AnalyticsChart from '@/components/AnalyticsChart'
 
 export default {
   name: 'LandingPage',
   components: {
     NavBar,
     Establishment,
+    AnalyticsChart,
   },
 }
 </script>
