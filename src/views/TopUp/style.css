@@ -45,7 +45,7 @@
 
 .topup {
   width: 400px;
-  height: 750px;
+  height: 700px;
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
@@ -103,7 +103,7 @@ th {
 }
 
 .topup-btn-container {
-  padding-top: 350px;
+  padding-top: 40px;
   text-align: center;
 }
 
