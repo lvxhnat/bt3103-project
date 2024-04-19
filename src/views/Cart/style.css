@@ -1,0 +1,36 @@
+.main-container {
+    display: flex;
+    padding: 50px;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    background-color: #f8f4ed;
+}
+
+.left-panel {
+    width: 50%;
+    padding: 10px;
+}
+  
+.right-panel {
+    width: 50%;
+    padding: 10px;
+}
+
+.mycart-details {
+    border: 1px solid black;
+    color: black;
+    padding: 20px;
+    height: 500px;
+    width: 500px;
+    border-radius: 30px;
+}
+
+h1 {
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: green;
+    margin-left:260px;
+  }
