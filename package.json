@@ -12,7 +12,8 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@vue/cli": "^5.0.8",
-    "firebase": "^10.9.0",
+    "firebase": "^10.11.0",
+    "firebaseui": "^6.1.0",
     "npm-watch": "^0.11.0",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
