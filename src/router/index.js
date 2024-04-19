@@ -7,6 +7,7 @@ import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPag
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 import UpdateUserAD from '../views/Profile/UpdateUserAD.vue'
+import UpdateBusiAD from '../views/Profile/UpdateBusiAD.vue'
 import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
 
@@ -43,8 +44,13 @@ const routes = [
   },
   {
     path: '/profile/user/updatead',
-    name: 'updateAD',
+    name: 'updateUserAD',
     component: UpdateUserAD,
+  },
+  {
+    path: '/profile/business/updatead',
+    name: 'updateBusiAD',
+    component: UpdateBusiAD,
   },
   {
     path: '/profile/business',

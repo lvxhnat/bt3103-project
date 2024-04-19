@@ -13,6 +13,8 @@ import UserRegistrationPage from './views/Auth/Registration/UserRegistrationPage
 import UserProfilePage from './views/Profile/UserProfilePage.vue'
 import UpdateUserAD from './views/Profile/UpdateUserAD.vue'
 import AddItemsPage from './views/AddItems/AddItemsPage.vue'
+import BusinessProfilePage from './views/Profile/BusinessProfilePage.vue'
+import UpdateBusiAD from './views/Profile/UpdateBusiAD.vue'
 
 export default {
   name: 'App',
@@ -25,6 +27,8 @@ export default {
     UserProfilePage,
     UpdateUserAD,
     AddItemsPage,
+    BusinessProfilePage,
+    UpdateBusiAD,
   },
 }
 </script>

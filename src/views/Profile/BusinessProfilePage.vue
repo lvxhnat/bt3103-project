@@ -6,28 +6,8 @@
         <v-container fluid class="pa-4 ma-3">
           <v-row>
             <v-col cols="6" class="d-flex justify-center">
-              <div class="account-details">
-                <h1 class="account-details-title">Account Details</h1>
-                <div class="input-container">
-                  <h3 class="account-details-input">Email</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Account Details</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Store Name</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Store Address</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Postal Code</h3>
-                  <input class="input-acc" />
-                </div>
+              <div class="account-details-container">
+                  <BusinessAccountDetails/>
               </div>
             </v-col>
             <v-col cols="6" class="d-flex justify-center">
@@ -98,6 +78,10 @@
 
 <script>
 import NavBar from '@/components/NavBar'
+import BusinessAccountDetails from '../../components/AccountDetails/BusinessAccountDetails.vue';
+import { useRouter } from 'vue-router';
+
+
 
 export default {
   name: 'BusinessProfilePage',
@@ -108,6 +92,18 @@ export default {
         { id: 'XYZ', name: 'Potato', quantity: 7 },
       ],
     }
+  },
+  setup() {
+    const router = useRouter();
+
+    const naviToUpdate = () => {
+      router.push('/profile/business/updatead')
+    }
+    const navitoAddItems = () => {
+      router.push('/business/additems')
+    }
+    
+    return {naviToUpdate, navitoAddItems}
   },
   methods: {
     increment(item) {
@@ -127,6 +123,7 @@ export default {
   },
   components: {
     NavBar,
+    BusinessAccountDetails,
   },
 }
 </script>

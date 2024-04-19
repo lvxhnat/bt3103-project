@@ -47,12 +47,12 @@
 
 <script>
 import { getDoc, getFirestore, doc, collection } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
-import { db } from '/src/firebaseConfig.js'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { db,auth } from '/src/firebaseConfig.js'
 import { useRouter } from 'vue-router'
 
 export default {
-  name: 'Account Details',
+  name: 'UserAccountDetails',
   data() {
     return {
       email: '',
@@ -62,8 +62,8 @@ export default {
     }
   },
   methods: {
-    async getData(email) {
-      const docRef = doc(db, 'Account Details', email)
+    async getData() {
+      const docRef = doc(db, 'Account Details', this.email)
       const docs = await getDoc(docRef)
       const accdet = docs.data()
       this.email = accdet.email
@@ -72,10 +72,16 @@ export default {
       this.postal = accdet.postal
     },
   },
-  async mounted() {
-    const auth = getAuth()
-    this.email = auth.currentUser.email
-    await this.getData(this.email)
+  mounted() {
+    onAuthStateChanged(auth,(user) => {
+        if (user) {
+            this.email = user.email
+            this.getData()
+        } else {
+            
+        }
+    })
+    
   },
   setup() {
     const router = useRouter()

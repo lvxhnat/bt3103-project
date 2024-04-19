@@ -1,44 +1,63 @@
 <template>
     <div>
         <table id = "itemTable" class = "listing">
-            <tr>
-                <td>Image</td>
-                <td>Item</td>
-                <td>Quantity</td>
-                <td>Price</td>
-            </tr>
+            <thead>
+                <th>Image</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </thead>
         </table>
     </div>
 
 </template>
 
 <script>
-import { getDocs, getFirestore, doc, QuerySnapshot, collection } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import {db} from "/src/firebaseConfig.js";
+import { getDocs, getFirestore, doc, QuerySnapshot, collection , getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { auth, db } from '@/firebaseConfig'
 
 
 export default {
     name: "DisplayItems",
+    data() {
+        return {
+            email: "",
+            store: "",
+        }
+    },
     methods: {
-        DisplayItemData() {
-            const docRef = getDocs(collection(db,"AddItems"))
+        async displayItemData() {
+            const docRef = await getDocs(collection(db,this.store))
             docRef.forEach(doc=> {
                 let data = doc.data()
                 let row  = `<tr>
-                        <td><img src = '${data.Image}'/>'</td>
+                        <td><img src = '${data.Image}'/></td>
                         <td>${data.Name}</td>
                         <td>${data.Quantity}</td>
                         <td>${data.Price}</td>
                     </tr>`;
                 let table = document.getElementById('itemTable')
                 table.innerHTML += row
-            })
-            
+            })   
+        },
+        async getStore(email) {
+            const docRef = await getDoc(doc(db,"Account Details",email))
+            let data = docRef.data()
+            this.store = data.store
+            console.log("the store is:" + this.store)
         }
     },
     mounted() {
-        this.DisplayItemData()
+        onAuthStateChanged(auth,(user) => {
+            if (user) {
+                this.email = user.email
+                this.getStore(this.email)
+                
+            }
+            this.displayItemData()
+        })
+        
     },
 }
 </script>

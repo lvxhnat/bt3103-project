@@ -16,7 +16,7 @@
 
       <v-list class="d-flex align center" style="background-color: #118951">
         <template v-if="!user">
-          <v-btn variants="outlined" color="#f8f4ed" @click="naviToUserProfile">
+          <v-btn variants="outlined" color="#f8f4ed" @click="naviToBusiProfile">
             BACK TO PROFILE
           </v-btn>
         </template>
@@ -27,7 +27,7 @@
     <div class="update-container">
       <v-content>
         <v-container fluid class="pa-16 ma-5">
-          <v-form  @submit.prevent="setData()">
+          <v-form ref ="form" >
             <v-card
               class="mx-auto pa-12 pb-8"
               elevation="8"
@@ -36,10 +36,22 @@
               rounded="lg"
             >
               <div class="text-h6 mb-6">Update Details</div>
+              <div class="text-subtitle-1 text-medium-emphasis">Store Name</div>
+              <v-text-field
+                v-model="this.store"
+                id="store"
+                density="compact"
+                placeholder="Enter store name"
+                prepend-inner-icon="mdi-cart-outline"
+                variant="outlined"
+                :rules ="[rules.required]"
+                required
+              ></v-text-field>
               <div class="text-subtitle-1 text-medium-emphasis">Address</div>
               <v-text-field
                 v-model="this.address"
                 :rules ="[rules.required]"
+                required
                 id="address"
                 density="compact"
                 placeholder="Enter address"
@@ -52,6 +64,7 @@
               <v-text-field
                 v-model="this.postal"
                 :rules ="[rules.required]"
+                required
                 id="postal"
                 density="compact"
                 placeholder="Enter postal code"
@@ -64,57 +77,70 @@
                 color="#118951"
                 size="large"
                 variant="tonal"
-                type ="submit"
+                @click = "setData"
                 >Submit Details</v-btn
               >
             </v-card>
-          </v-form>
+          </v-form >
         </v-container>
       </v-content>
     </div>
   </v-app>
 </template>
-
-<script>
-import { updateDoc, doc } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
-import { useRouter } from 'vue-router'
-import { db,auth } from '/src/firebaseConfig.js'
-
-export default {
-  name: 'UpdateUserAD',
-  data() {
-    return {
-      address: '',
-      postal: '',
-      rules: {
+  
+  <script>
+  import { updateDoc,doc } from 'firebase/firestore';
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { useRouter } from 'vue-router';
+  import {db} from "/src/firebaseConfig.js"
+  
+  export default {
+      name: 'UpdateBusiAD',
+      data() {
+          return {  
+            address: '',
+            postal: '',
+            store: '',
+            rules: {
               required: value => !!value || 'Field is required',
             },
-    }
-  },
-  methods: {
-    async setData() {
-      const email = auth.currentUser.email
-      await updateDoc(doc(db, 'Account Details', email), {
-        address: this.address,
-        postal: this.postal,
-      })
-      alert('Details updated!')
-      this.$router.push({ path: '/profile/user' })
-    },
-  },
-  setup() {
-    const router = useRouter()
-
-    const naviToUserProfile = () => {
-      router.push('/profile/user')
-    }
-
-    return { naviToUserProfile }
-  },
-}
-</script>
-
-<style scoped>
-@import './style.css';
-</style>
+            valid: false,
+          }
+      },
+      methods: {
+        async validate() {
+          this.valid  = await this.$refs.form.validate()
+        },
+        async setData() { 
+          const auth = getAuth();
+          onAuthStateChanged(auth, async (user) => {
+            if (user) {
+              this.email = user.email
+              await updateDoc(doc(db, "Account Details", this.email), {
+                address : this.address,
+                postal: this.postal,
+                store: this.store,
+              })
+              alert("Details updated!")
+              this.$router.push({ path: '/profile/business' })
+            }
+          })
+        }
+      },  
+      setup() {
+        const router = useRouter();
+  
+        const naviToBusiProfile = () => {
+          router.push('/profile/business')
+        }
+  
+        return {naviToBusiProfile}
+      },
+  }
+  
+  
+  </script>
+  
+  <style scoped>
+  @import './style.css';
+  </style>

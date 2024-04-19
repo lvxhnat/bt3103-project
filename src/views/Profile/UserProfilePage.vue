@@ -86,7 +86,7 @@
 
 <script>
 import NavBar from '@/components/NavBar'
-import UserAccountDetails from '../../components/UserAccountDetails/UserAccountDetails.vue'
+import UserAccountDetails from '../../components/AccountDetails/UserAccountDetails.vue'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -109,3 +109,4 @@ export default {
 <style scoped>
 @import './style.css';
 </style>
+../../components/AccountDetails/UserAccountDetails.vue
