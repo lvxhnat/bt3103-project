@@ -42,7 +42,7 @@
                 id="store"
                 density="compact"
                 placeholder="Enter store name"
-                prepend-inner-icon="mdi-cart-outline"
+                prepend-inner-icon="mdi-store-outline"
                 variant="outlined"
                 :rules ="[rules.required]"
                 required

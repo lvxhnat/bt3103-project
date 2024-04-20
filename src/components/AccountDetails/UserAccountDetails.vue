@@ -1,5 +1,5 @@
 <template>
-  <div class="account-details">
+  <div class="user-details">
     <div class="text-h6 mb-4">Account Details</div>
     <div class="text-subtitle-1 text-medium-emphasis">Email</div>
     <v-text-field

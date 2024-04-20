@@ -29,11 +29,20 @@ h3 {
   color: #118951;
   font-weight: bold;
 }
-.account-details {
+.user-details {
   border: 1px solid black;
   color: black;
   padding: 20px;
   height: 500px;
+  width: 500px;
+  border-radius: 30px;
+  background-color: white;
+}
+.business-details {
+  border: 1px solid black;
+  color: black;
+  padding: 20px;
+  height: 670px;
   width: 500px;
   border-radius: 30px;
   background-color: white;

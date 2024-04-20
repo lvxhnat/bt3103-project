@@ -176,7 +176,12 @@ button:focus {
 }
 
 .account-details-container {
-  height: calc(100vh - 100px); /* Adjust as needed based on your layout */
-  overflow-y: auto; /* Enable vertical scrolling */
+  height: calc(100vh - 100px); 
+  overflow-y: auto; 
   border-radius: 20px;
+}
+
+.table-container {
+  height: calc(100vh - 450px); 
+  overflow-y: auto; 
 }

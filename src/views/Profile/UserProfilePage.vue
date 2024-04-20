@@ -13,47 +13,49 @@
           <v-col cols="6" class="d-flex justify-center">
             <v-row class="right-container">
               <div class="current-listings-container">
-                <div class="text-h6 mb-4">Current Listings</div>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Item</th>
-                      <th>Quantity</th>
-                      <th>Options</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in items" :key="item.id">
-                      <td>
-                        <div>{{ item.name }}</div>
-                        <div>(ID {{ item.id }})</div>
-                      </td>
-                      <td class="cell-increment">
-                        <span>{{ item.quantity }}</span>
-                        <button
-                          class="increment-button"
-                          @click="increment(item)"
-                        >
-                          +
-                        </button>
-                        <button
-                          class="increment-button"
-                          @click="decrement(item)"
-                        >
-                          -
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          class="remove-button"
-                          @click="removeItem(item.id)"
-                        >
-                          Remove Item
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="text-h6 mb-4">My Cart</div>
+                <div class="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Options</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in items" :key="item.id">
+                        <td>
+                          <div>{{ item.name }}</div>
+                          <div>(ID {{ item.id }})</div>
+                        </td>
+                        <td class="cell-increment">
+                          <span>{{ item.quantity }}</span>
+                          <button
+                            class="increment-button"
+                            @click="increment(item)"
+                          >
+                            +
+                          </button>
+                          <button
+                            class="increment-button"
+                            @click="decrement(item)"
+                          >
+                            -
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            class="remove-button"
+                            @click="removeItem(item.id)"
+                          >
+                            Remove Item
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <div class="table-bottom">
                   <button class="add-button">Add Items</button>
                   <button class="add-button">Checkout</button>
