@@ -16,7 +16,7 @@
                   rounded="lg"
                 >
                   <div class="text-h6 mb-6">User Login</div>
-                  <GoogleSignIn />
+                  <UserGoogleSignIn />
                   <div class="divider-container">
                     <v-divider class="divider-line"></v-divider>
                     <div class="divider-text">OR</div>
@@ -85,7 +85,7 @@
 <script>
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
-import GoogleSignIn from '@/components/GoogleSignIn'
+import UserGoogleSignIn from '@/components/GoogleSignIn/UserGoogleSignIn'
 import styles from './style.css'
 import { auth, db } from '@/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -147,7 +147,7 @@ export default {
   components: {
     NavBar,
     AuthInputBox,
-    GoogleSignIn,
+    UserGoogleSignIn,
   },
 }
 </script>

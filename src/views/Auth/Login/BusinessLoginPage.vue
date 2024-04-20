@@ -21,7 +21,11 @@
                   rounded="lg"
                 >
                   <div class="text-h6 mb-6">Business Login</div>
-                  <GoogleSignIn />
+                  <BusinessGoogleSignIn />
+                  <div class="divider-container">
+                    <v-divider class="divider-line"></v-divider>
+                    <div class="divider-text">OR</div>
+                  </div>
                   <div class="text-subtitle-1 text-medium-emphasis">Email</div>
                   <v-text-field
                     v-model="email"
@@ -83,7 +87,7 @@
 <script>
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
-import GoogleSignIn from '@/components/GoogleSignIn'
+import BusinessGoogleSignIn from '@/components/GoogleSignIn/BusinessGoogleSignIn'
 import styles from './style.css'
 import { auth, db } from '@/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -141,7 +145,7 @@ export default {
   components: {
     NavBar,
     AuthInputBox,
-    GoogleSignIn,
+    BusinessGoogleSignIn,
   },
 }
 </script>

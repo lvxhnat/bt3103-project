@@ -9,7 +9,7 @@
           <v-form @submit.prevent="register">
             <v-card class="mx-auto pa-12 pb-8" elevation="8" width="400" height="450" rounded="lg">
               <div class="text-h6 mb-6">Business Registration</div>
-              <GoogleSignIn />
+              <BusinessGoogleSignIn />
               <div class="divider-container">
                 <v-divider class="divider-line"></v-divider>
                 <div class="divider-text">OR</div>
@@ -37,7 +37,7 @@
 import style from './style.css'
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
-import GoogleSignIn from '@/components/GoogleSignIn'
+import BusinessGoogleSignIn from '@/components/GoogleSignIn/BusinessGoogleSignIn'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { collection, addDoc, setDoc, doc } from 'firebase/firestore'
 import { auth, db } from '@/firebaseConfig'
@@ -93,7 +93,7 @@ export default {
   components: {
     NavBar,
     AuthInputBox,
-    GoogleSignIn,
+    BusinessGoogleSignIn,
   },
 }
 </script>
