@@ -13,41 +13,47 @@
             <div class="current-listings-container">
               <div class="text-h6 mb-4">Current Listings</div>
               <div class="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Options</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in items" :key="item.id">
-                    <td>
-                      <div>{{ item.name }}</div>
-                      <div>(ID {{ item.id }})</div>
-                    </td>
-                    <td class="cell-increment">
-                      <span>{{ item.quantity }}</span>
-                      <button class="increment-button" @click="increment(item)">
-                        +
-                      </button>
-                      <button class="increment-button" @click="decrement(item)">
-                        -
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        class="remove-button"
-                        @click="removeItem(item.id)"
-                      >
-                        Remove Item
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Quantity</th>
+                      <th>Options</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in items" :key="item.id">
+                      <td>
+                        <div>{{ item.name }}</div>
+                        <div>(ID {{ item.id }})</div>
+                      </td>
+                      <td class="cell-increment">
+                        <span>{{ item.quantity }}</span>
+                        <button
+                          class="increment-button"
+                          @click="increment(item)"
+                        >
+                          +
+                        </button>
+                        <button
+                          class="increment-button"
+                          @click="decrement(item)"
+                        >
+                          -
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          class="remove-button"
+                          @click="removeItem(item.id)"
+                        >
+                          Remove Item
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="table-bottom">
                 <button class="add-button" @click="navitoAddItems">
                   Add Items
@@ -66,7 +72,9 @@
                   variant="outlined"
                   readonly
                 ></v-text-field>
-                <button class="top-up-button">Top-up</button>
+                <button class="top-up-button" @click="naviToWallet">
+                  Top-up
+                </button>
               </div>
             </div>
           </v-row>
@@ -94,14 +102,15 @@ export default {
   setup() {
     const router = useRouter()
 
-    const naviToUpdate = () => {
-      router.push('/profile/business/updatead')
+    const naviToWallet = () => {
+      router.push('/topup/business')
     }
+
     const navitoAddItems = () => {
       router.push('/business/additems')
     }
 
-    return { naviToUpdate, navitoAddItems }
+    return { naviToWallet, navitoAddItems }
   },
   methods: {
     increment(item) {

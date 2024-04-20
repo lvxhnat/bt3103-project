@@ -75,7 +75,9 @@
                     variant="outlined"
                     readonly
                   ></v-text-field>
-                  <button class="top-up-button">Top-up</button>
+                  <button class="top-up-button" @click="naviToWallet">
+                    Top-up
+                  </button>
                 </div>
               </div>
             </v-row>
@@ -100,10 +102,10 @@ export default {
   setup() {
     const router = useRouter()
 
-    const naviToUpdate = () => {
-      router.push('/profile/user/updatead')
+    const naviToWallet = () => {
+      router.push('/topup/user')
     }
-    return { naviToUpdate }
+    return { naviToWallet }
   },
 }
 </script>
