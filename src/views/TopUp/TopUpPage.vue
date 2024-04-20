@@ -107,7 +107,6 @@ export default {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.useremail = user.email;
-        console.log(this.useremail);
         await this.fetchAndUpdateData(this.useremail);
       } else {
         // Redirect to home page
