@@ -8,8 +8,7 @@
             <v-col cols="6" class="d-flex justify-center">
               <img
                 src="../../../assets/auth/business_login.png"
-                height="450"
-                width="419.25"
+                height="500"
               />
             </v-col>
             <v-col cols="6" class="d-flex justify-center">
@@ -18,10 +17,15 @@
                   class="mx-auto pa-12 pb-8"
                   elevation="8"
                   width="400"
-                  height="450"
+                  height="500"
                   rounded="lg"
                 >
                   <div class="text-h6 mb-6">Business Login</div>
+                  <BusinessGoogleSignIn />
+                  <div class="divider-container">
+                    <v-divider class="divider-line"></v-divider>
+                    <div class="divider-text">OR</div>
+                  </div>
                   <div class="text-subtitle-1 text-medium-emphasis">Email</div>
                   <v-text-field
                     v-model="email"
@@ -83,6 +87,7 @@
 <script>
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
+import BusinessGoogleSignIn from '@/components/GoogleSignIn/BusinessGoogleSignIn'
 import styles from './style.css'
 import { auth, db } from '@/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -140,6 +145,7 @@ export default {
   components: {
     NavBar,
     AuthInputBox,
+    BusinessGoogleSignIn,
   },
 }
 </script>

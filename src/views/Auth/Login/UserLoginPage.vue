@@ -12,10 +12,15 @@
                   class="mx-auto pa-12 pb-8"
                   elevation="8"
                   width="400"
-                  height="450"
+                  height="500"
                   rounded="lg"
                 >
                   <div class="text-h6 mb-6">User Login</div>
+                  <UserGoogleSignIn />
+                  <div class="divider-container">
+                    <v-divider class="divider-line"></v-divider>
+                    <div class="divider-text">OR</div>
+                  </div>
                   <div class="text-subtitle-1 text-medium-emphasis">Email</div>
                   <v-text-field
                     v-model="email"
@@ -68,7 +73,7 @@
               </v-form>
             </v-col>
             <v-col cols="6" class="d-flex justify-center">
-              <img src="../../../assets/auth/user_login.png" height="450" />
+              <img src="../../../assets/auth/user_login.png" height="500" />
             </v-col>
           </v-row>
         </v-container>
@@ -79,7 +84,8 @@
 
 <script>
 import NavBar from '@/components/NavBar'
-import AuthInputBox from '@/components/AuthInputBox/AuthInputBox.vue'
+import AuthInputBox from '@/components/AuthInputBox'
+import UserGoogleSignIn from '@/components/GoogleSignIn/UserGoogleSignIn'
 import styles from './style.css'
 import { auth, db } from '@/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -141,6 +147,7 @@ export default {
   components: {
     NavBar,
     AuthInputBox,
+    UserGoogleSignIn,
   },
 }
 </script>

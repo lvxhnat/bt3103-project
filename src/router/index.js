@@ -7,6 +7,7 @@ import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPag
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
+import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
 
 const routes = [
   {
@@ -42,18 +43,23 @@ const routes = [
   {
     path: '/profile/business',
     name: 'businessprofile',
-    component: BusinessProfilePage
+    component: BusinessProfilePage,
   },
   {
     path: '/topup/user',
     name: 'usertopup',
-    component: TopUpPage
+    component: TopUpPage,
   },
   {
     path: '/topup/business',
     name: 'businesstopup',
-    component: TopUpPage
-  }
+    component: TopUpPage,
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'notfound',
+    component: NotFoundPage,
+  },
 ]
 
 const router = createRouter({
