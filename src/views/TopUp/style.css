@@ -84,10 +84,6 @@ th {
   background-color: #f2f2f2;
 }
 
-.topup-container {
-  padding-top: 20px;
-}
-
 .topup-side-manual-input {
   padding-top: 20px;
   text-align: center;
@@ -103,11 +99,20 @@ th {
 }
 
 .topup-btn-container {
-  padding-top: 350px;
+  padding-top: 50px;
   text-align: center;
 }
 
 .topup-btn {
   background-color: green;
   color: white;
+}
+
+.table-container {
+  padding: 5px;
+  max-height: 400px;
+}
+
+.topup-container {
+  width: 500px;
 }
