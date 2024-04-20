@@ -27,7 +27,7 @@
     <div class="update-container">
       <v-content>
         <v-container fluid class="pa-16 ma-5">
-          <v-form  @submit.prevent="setData()">
+          <v-form @submit.prevent="setData()">
             <v-card
               class="mx-auto pa-12 pb-8"
               elevation="8"
@@ -38,8 +38,9 @@
               <div class="text-h6 mb-6">Update Details</div>
               <div class="text-subtitle-1 text-medium-emphasis">Address</div>
               <v-text-field
-                v-model="this.address"
-                :rules ="[rules.required]"
+                v-model="address"
+                type="text"
+                :rules="[rule]"
                 id="address"
                 density="compact"
                 placeholder="Enter address"
@@ -50,8 +51,9 @@
                 Postal Code
               </div>
               <v-text-field
-                v-model="this.postal"
-                :rules ="[rules.required]"
+                v-model="postal"
+                type="number"
+                :rules="[rule]"
                 id="postal"
                 density="compact"
                 placeholder="Enter postal code"
@@ -64,7 +66,8 @@
                 color="#118951"
                 size="large"
                 variant="tonal"
-                type ="submit"
+                type="submit"
+                :disabled="isSubmitDisabled"
                 >Submit Details</v-btn
               >
             </v-card>
@@ -79,7 +82,7 @@
 import { updateDoc, doc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { useRouter } from 'vue-router'
-import { db,auth } from '/src/firebaseConfig.js'
+import { db, auth } from '/src/firebaseConfig.js'
 
 export default {
   name: 'UpdateUserAD',
@@ -87,12 +90,18 @@ export default {
     return {
       address: '',
       postal: '',
-      rules: {
-              required: value => !!value || 'Field is required',
-            },
+      isSubmitDisabled: true,
     }
   },
+  computed: {
+    isSubmitDisabled() {
+      return !(this.address && this.postal)
+    },
+  },
   methods: {
+    rule(value) {
+      return value != false || 'Field is required'
+    },
     async setData() {
       const email = auth.currentUser.email
       await updateDoc(doc(db, 'Account Details', email), {

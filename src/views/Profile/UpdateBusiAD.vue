@@ -27,7 +27,7 @@
     <div class="update-container">
       <v-content>
         <v-container fluid class="pa-16 ma-5">
-          <v-form ref ="form" >
+          <v-form ref="form">
             <v-card
               class="mx-auto pa-12 pb-8"
               elevation="8"
@@ -38,19 +38,21 @@
               <div class="text-h6 mb-6">Update Details</div>
               <div class="text-subtitle-1 text-medium-emphasis">Store Name</div>
               <v-text-field
-                v-model="this.store"
+                v-model="store"
+                type="text"
                 id="store"
                 density="compact"
                 placeholder="Enter store name"
                 prepend-inner-icon="mdi-store-outline"
                 variant="outlined"
-                :rules ="[rules.required]"
+                :rules="[rule]"
                 required
               ></v-text-field>
               <div class="text-subtitle-1 text-medium-emphasis">Address</div>
               <v-text-field
-                v-model="this.address"
-                :rules ="[rules.required]"
+                v-model="address"
+                type="text"
+                :rules="[rule]"
                 required
                 id="address"
                 density="compact"
@@ -62,8 +64,9 @@
                 Postal Code
               </div>
               <v-text-field
-                v-model="this.postal"
-                :rules ="[rules.required]"
+                v-model="postal"
+                type="number"
+                :rules="[rule]"
                 required
                 id="postal"
                 density="compact"
@@ -77,70 +80,72 @@
                 color="#118951"
                 size="large"
                 variant="tonal"
-                @click = "setData"
+                @click="setData"
+                :disabled="isSubmitDisabled"
                 >Submit Details</v-btn
               >
             </v-card>
-          </v-form >
+          </v-form>
         </v-container>
       </v-content>
     </div>
   </v-app>
 </template>
-  
-  <script>
-  import { updateDoc,doc } from 'firebase/firestore';
-  import { getAuth, onAuthStateChanged } from "firebase/auth";
-  import { useRouter } from 'vue-router';
-  import {db} from "/src/firebaseConfig.js"
-  
-  export default {
-      name: 'UpdateBusiAD',
-      data() {
-          return {  
-            address: '',
-            postal: '',
-            store: '',
-            rules: {
-              required: value => !!value || 'Field is required',
-            },
-            valid: false,
-          }
-      },
-      methods: {
-        async validate() {
-          this.valid  = await this.$refs.form.validate()
-        },
-        async setData() { 
-          const auth = getAuth();
-          onAuthStateChanged(auth, async (user) => {
-            if (user) {
-              this.email = user.email
-              await updateDoc(doc(db, "Account Details", this.email), {
-                address : this.address,
-                postal: this.postal,
-                store: this.store,
-              })
-              alert("Details updated!")
-              this.$router.push({ path: '/profile/business' })
-            }
+
+<script>
+import { updateDoc, doc } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+import { db } from '/src/firebaseConfig.js'
+
+export default {
+  name: 'UpdateBusiAD',
+  data() {
+    return {
+      address: '',
+      postal: '',
+      store: '',
+      isSubmitDisabled: true,
+      valid: false,
+    }
+  },
+  computed: {
+    isSubmitDisabled() {
+      return !(this.address && this.postal && this.store)
+    },
+  },
+  methods: {
+    rule(value) {
+      return value != false || 'Field is required'
+    },
+    async setData() {
+      const auth = getAuth()
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          this.email = user.email
+          await updateDoc(doc(db, 'Account Details', this.email), {
+            address: this.address,
+            postal: this.postal,
+            store: this.store,
           })
+          alert('Details updated!')
+          this.$router.push({ path: '/profile/business' })
         }
-      },  
-      setup() {
-        const router = useRouter();
-  
-        const naviToBusiProfile = () => {
-          router.push('/profile/business')
-        }
-  
-        return {naviToBusiProfile}
-      },
-  }
-  
-  
-  </script>
-  
-  <style scoped>
-  @import './style.css';
-  </style>
+      })
+    },
+  },
+  setup() {
+    const router = useRouter()
+
+    const naviToBusiProfile = () => {
+      router.push('/profile/business')
+    }
+
+    return { naviToBusiProfile }
+  },
+}
+</script>
+
+<style scoped>
+@import './style.css';
+</style>
