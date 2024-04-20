@@ -22,10 +22,32 @@
               </div>
             </v-col>
 
-              <div class="myaddress-details">
+            <v-col cols="6" class="d-flex justify-center">
+              <v-row class="right-container">
+                <div class="myaddress-details">
+                  <h1 class="title">Delivery Address</h1>
+                  <div class="input-container">
+                    <h3 class="address-input">From Profile:</h3>
+                    <input class="input-line"/>
+                  </div>
 
-              </div>
+                  <div class="input-container">
+                    <h3 class="address-input">New Address:</h3>
+                    <input class="input-line"/>
+                  </div>
 
+                  <div class="input-container">
+                    <h3 class="address-input">Postal Code:</h3>
+                    <input class="input-line"/>
+                  </div> <br>
+
+                  <div class="buttons">
+                  <button class="save">Save</button>
+                  <button class="checkout">Checkout</button>
+                  </div>
+                </div>
+              </v-row>
+            </v-col>
           </v-row>
         </v-container>
       </v-content>
