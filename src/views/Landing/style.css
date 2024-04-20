@@ -85,3 +85,12 @@ h1 {
   background-color: #f8f4ed;
   padding: 20px;
 }
+
+.show-all-button {
+  text-decoration: none;
+  color: inherit;
+}
+
+.show-all-button:hover {
+  background-color: transparent;
+}

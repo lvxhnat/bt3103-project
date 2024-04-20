@@ -8,14 +8,17 @@
     </div>
     <div class="choose-wrapper">
       <h1>Choose from your favourite stores</h1>
+      <router-link to= "/catalogue" class="show-all-button">
       <v-btn
         size="small"
         rounded="xl"
         variant="outlined"
         color="rgb(29, 41, 57)"
         dark
-        >Show All</v-btn
-      >
+        > Show All
+      </v-btn>
+      </router-link>
+
       <div class="establishments-wrapper">
         <Establishment
           :numStars="4"
@@ -60,6 +63,7 @@ export default {
     NavBar,
     Establishment,
   },
+
 }
 </script>
 

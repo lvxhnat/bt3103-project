@@ -6,6 +6,7 @@ import BusinessRegistrationPage from '../views/Auth/Registration/BusinessRegistr
 import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPage.vue'
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
+import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
 
@@ -44,6 +45,11 @@ const routes = [
     path: '/profile/business',
     name: 'businessprofile',
     component: BusinessProfilePage,
+  },
+  {
+    path: '/catalogue', 
+    name: 'cataloguepage',
+    component: CataloguePage,
   },
   {
     path: '/topup/user',
