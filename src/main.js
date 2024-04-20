@@ -7,10 +7,12 @@ import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
 import App from './App.vue'
 import router from './router/index'
+import VueChartkick from 'vue-chartkick'
+import 'chartkick/chart.js'
 
 const vuetify = createVuetify({
   components,
   directives,
 })
 
-createApp(App).use(vuetify).use(router).mount('#app')
+createApp(App).use(VueChartkick).use(vuetify).use(router).mount('#app')
