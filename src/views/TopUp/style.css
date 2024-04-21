@@ -1,7 +1,7 @@
 .main-container {
   display: flex;
   padding: 50px;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   justify-content: center;
   background-color: #f8f4ed;
@@ -85,10 +85,6 @@ th {
   background-color: #f2f2f2;
 }
 
-.topup-container {
-  padding-top: 20px;
-}
-
 .topup-side-manual-input {
   padding-top: 20px;
   text-align: center;
@@ -104,7 +100,7 @@ th {
 }
 
 .topup-btn-container {
-  padding-top: 160px;
+  padding-top: 50px;
   text-align: center;
 }
 
@@ -113,10 +109,24 @@ th {
   color: white;
 }
 
+.table-container {
+  padding: 5px;
+  max-height: 400px;
+}
+
+.topup-container {
+  width: 500px;
+}
+
 .transactions-graph {
   max-width: 880px;
   margin: 0 auto;
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
+}
+
+.topup-table-container {
+  height: calc(100vh - 425px);
+  overflow-y: auto;
 }
