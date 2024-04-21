@@ -8,6 +8,7 @@ import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
+import UserCartPage from '../views/Cart/UserCartPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
 
 const routes = [
@@ -60,6 +61,11 @@ const routes = [
     path: '/topup/business',
     name: 'businesstopup',
     component: TopUpPage,
+  },
+  {
+    path: '/cartpage/user',
+    name: 'usercartpage',
+    component: UserCartPage
   },
   {
     path: '/:catchAll(.*)',
