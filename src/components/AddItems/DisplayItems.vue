@@ -29,17 +29,22 @@ export default {
     methods: {
         async displayItemData() {
             const docRef = await getDocs(collection(db,this.store))
-            docRef.forEach(doc=> {
-                let data = doc.data()
-                let row  = `<tr>
-                        <td><img src = '${data.Image}'/></td>
-                        <td>${data.Name}</td>
-                        <td>${data.Quantity}</td>
-                        <td>${data.Price}</td>
-                    </tr>`;
-                let table = document.getElementById('itemTable')
-                table.innerHTML += row
-            })   
+            if (!docRef.empty()) {
+                docRef.forEach(doc=> {
+                    let data = doc.data()
+                    let row  = `<tr>
+                            <td><img src = '${data.Image}'/></td>
+                            <td>${data.Name}</td>
+                            <td>${data.Quantity}</td>
+                            <td>${data.Price}</td>
+                        </tr>`;
+                    let table = document.getElementById('itemTable')
+                    table.innerHTML += row
+                }) 
+            } else {
+                alert("No items in storage!")
+            }
+                  
         },
         async getStore(email) {
             const docRef = await getDoc(doc(db,"Account Details",email))
@@ -53,9 +58,9 @@ export default {
             if (user) {
                 this.email = user.email
                 this.getStore(this.email)
-                
+                this.displayItemData()   
             }
-            this.displayItemData()
+            
         })
         
     },

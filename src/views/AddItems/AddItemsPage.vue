@@ -36,7 +36,7 @@ export default {
             trigger.value[tri] = !trigger.value[tri]
         }
 
-        return {AddItems, trigger, TogglePopup}
+        return { trigger, TogglePopup }
     },
     components:{
         DisplayItems,
