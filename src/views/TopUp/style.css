@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   padding: 12px;
-  width: 500px;
+  width: 400px;
   height: 100%; /* Ensure the container takes full height of its parent */
 }
 
@@ -45,7 +45,7 @@
 
 .topup {
   width: 400px;
-  height: 750px;
+  height: 550px;
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
@@ -58,13 +58,14 @@
 
 .transactions {
   width: 100%;
+  height: 300px;
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
 }
 
 .table-container {
-  max-height: 420px;
+  max-height: 210px;
   overflow-y: auto;
 }
 
@@ -115,4 +116,20 @@ th {
 
 .topup-container {
   width: 500px;
+}
+
+.transactions-graph {
+  max-width: 880px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.transactions-graph {
+  max-width: 880px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 20px;
 }

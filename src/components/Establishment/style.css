@@ -21,7 +21,8 @@
 }
 
 .store-title {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
   color: black;
   margin: 0;
 }

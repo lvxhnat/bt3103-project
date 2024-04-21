@@ -9,6 +9,11 @@
           <v-form @submit.prevent="register">
             <v-card class="mx-auto pa-12 pb-8" elevation="8" width="400" height="450" rounded="lg">
               <div class="text-h6 mb-6">User Registration</div>
+              <UserGoogleSignIn />
+              <div class="divider-container">
+                <v-divider class="divider-line"></v-divider>
+                <div class="divider-text">OR</div>
+              </div>
               <div class="text-subtitle-1 text-medium-emphasis">Email</div>
               <v-text-field v-model="email" id="email" density="compact" placeholder="Email Address"
                 prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
@@ -32,6 +37,7 @@
 import style from './style.css'
 import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
+import UserGoogleSignIn from '@/components/GoogleSignIn/UserGoogleSignIn'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { collection, addDoc,setDoc,doc } from 'firebase/firestore'
 import { auth, db } from '@/firebaseConfig'
@@ -95,6 +101,7 @@ export default {
   components: {
     NavBar,
     AuthInputBox,
+    UserGoogleSignIn,
   },
 }
 </script>
