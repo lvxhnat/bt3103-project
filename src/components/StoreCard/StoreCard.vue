@@ -57,7 +57,7 @@ export default {
       return starsArray
     },
     getImageURL() {
-      return require(`@/assets/StoreCards/${this.imageURL}`)
+      return require(`@/assets/establishments/${this.imageURL}`)
     },
   },
 }
