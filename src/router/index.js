@@ -60,6 +60,11 @@ const routes = [
     component: BusinessProfilePage,
   },
   {
+    path: '/business/additems',
+    name: 'additems',
+    component: AddItemsPage,
+  },
+  {
     path: '/topup/user',
     name: 'usertopup',
     component: TopUpPage,

@@ -15,7 +15,6 @@
                 ref="uploader"
                 type="file"
                 @change="onFileChanged"
-                
                 >
             <v-text-field
                 class = "input"
@@ -44,7 +43,7 @@
 </template>
 
 <script>
-import { updateDoc, doc, getDoc , collection, query, where, getDocs, addDoc} from 'firebase/firestore';
+import { updateDoc, doc, getDoc , collection, query, where, getDocs, addDoc,setDoc} from 'firebase/firestore';
 import {db,auth} from "/src/firebaseConfig.js"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import NavBar from '../NavBar/NavBar.vue';
@@ -63,42 +62,22 @@ export default {
     },
     methods: {
         async updateItems() {
-            onAuthStateChanged(auth,(user) => {
+            onAuthStateChanged(auth, async (user) => {
                 if (user) {
-                    this.email = user.email   
-                }
-            })
-            const docRef = await getDoc(doc(db, "Account Details", this.email))
-            const myData = docRef.data()
-            const collectionRef = collection(db, myData.store);
-            const q = query(collectionRef, where('Name', '==', this.name));
-
-            getDocs(q)
-            .then(async (querySnapshot) => {
-                if (!querySnapshot.empty) {
-                    // Document with the specified name exists
-                    querySnapshot.forEach(async (docc) => {
-                        await updateDoc(docc, {
-                            Name: this.name,
-                            Quantity: this.quantity,
-                            Price: this.price,
-                            Image: this.image,
-                        })
-                    });
-                    alert("Item updated!")
-                } else {
-                    await addDoc(collectionRef, {
-                        Name: this.name,
-                        Quantity: this.quantity,
-                        Price: this.price,
-                        Image: this.image,
+                    this.email = user.email
+                    const docRef = await getDoc(doc(db, "Account Details", this.email))
+                    const myData = docRef.data()
+                    const currDoc = doc(db,myData.store,this.name)
+                    await setDoc(currDoc, {
+                        name: this.name.trim(),
+                        quantity: this.quantity,
+                        price: this.price,
+                        image: this.image,
                     })
-                    alert("New Item added!")
+                    alert("Item updated!")
                 }
             })
-            .catch((error) => {
-                console.error('Error checking document:', error);
-            });
+            
 
         },
         handleFileImport() {
@@ -132,14 +111,13 @@ export default {
 	bottom: 0;
 	z-index: 99;
 	background-color: rgba(0, 0, 0, 0.2);
-	
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	.popup-inner {
-		background: #FFF;
-		padding: 32px;
-	}
 }
+.popup-inner {
+    background: #FFF;
+    padding: 32px;
+}
+
 </style>
