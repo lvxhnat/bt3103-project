@@ -23,7 +23,7 @@ h1 {
 }
 
 .landing-container {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 
@@ -84,4 +84,13 @@ h1 {
 .choose-wrapper {
   background-color: #f8f4ed;
   padding: 20px;
+}
+
+.show-all-button {
+  text-decoration: none;
+  color: inherit;
+}
+
+.show-all-button:hover {
+  background-color: transparent;
 }

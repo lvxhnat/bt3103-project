@@ -1,7 +1,7 @@
 .main-container {
   display: flex;
   padding: 50px;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   justify-content: center;
   background-color: #f8f4ed;
@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   padding: 12px;
-  width: 500px;
+  width: 400px;
   height: 100%; /* Ensure the container takes full height of its parent */
 }
 
@@ -45,7 +45,7 @@
 
 .topup {
   width: 400px;
-  height: 750px;
+  height: 550px;
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
@@ -58,13 +58,14 @@
 
 .transactions {
   width: 100%;
+  height: 300px;
   border: 1px solid #000;
   border-radius: 30px;
   padding: 20px;
 }
 
 .table-container {
-  max-height: 420px;
+  max-height: 210px;
   overflow-y: auto;
 }
 
@@ -84,10 +85,6 @@ th {
   background-color: #f2f2f2;
 }
 
-.topup-container {
-  padding-top: 20px;
-}
-
 .topup-side-manual-input {
   padding-top: 20px;
   text-align: center;
@@ -103,11 +100,33 @@ th {
 }
 
 .topup-btn-container {
-  padding-top: 350px;
+  padding-top: 50px;
   text-align: center;
 }
 
 .topup-btn {
   background-color: green;
   color: white;
+}
+
+.table-container {
+  padding: 5px;
+  max-height: 400px;
+}
+
+.topup-container {
+  width: 500px;
+}
+
+.transactions-graph {
+  max-width: 880px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.topup-table-container {
+  height: calc(100vh - 425px);
+  overflow-y: auto;
 }

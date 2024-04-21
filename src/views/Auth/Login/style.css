@@ -1,7 +1,28 @@
 .login-container {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
-  display: flex;
   justify-content: center;
   background-color: #f8f4ed;
+}
+
+.divider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.divider-line {
+  flex: 1;
+}
+
+.divider-text {
+  padding: 0 1rem;
+  color: #888;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
 }
