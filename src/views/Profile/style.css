@@ -93,12 +93,11 @@ td {
 }
 
 .remove-button {
-  background-color: #4caf50; /* Green */
+  background-color: #118951; /* Green */
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 
 .add-button {
@@ -164,7 +163,8 @@ button:focus {
 .right-container {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensure the container takes full height of its parent */
+  padding: 12px;
+  width: 400px;
 }
 
 .update-container {
@@ -176,12 +176,17 @@ button:focus {
 }
 
 .account-details-container {
-  height: calc(100vh - 100px); 
-  overflow-y: auto; 
+  height: calc(100vh - 100px);
+  overflow-y: auto;
   border-radius: 20px;
 }
 
-.table-container {
-  height: calc(100vh - 450px); 
-  overflow-y: auto; 
+.business-table-container {
+  height: calc(100vh - 245px);
+  overflow-y: auto;
+}
+
+.business-table-container {
+  height: calc(100vh - 400px);
+  overflow-y: auto;
 }

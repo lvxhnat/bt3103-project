@@ -16,7 +16,6 @@
     "firebase": "^10.11.0",
     "firebaseui": "^6.1.0",
     "npm-watch": "^0.11.0",
-    "uuid": "^9.0.1",
     "vue": "^3.4.15",
     "vue-chartkick": "^1.1.0",
     "vue-router": "^4.2.5",
