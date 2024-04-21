@@ -19,22 +19,24 @@
               <v-card>
                 <v-card-title>Top-up History</v-card-title>
                 <v-card-item class="pb-4 pl-4 pr-4">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th width="10%">No.</th>
-                        <th width="70%">Date</th>
-                        <th width="20%">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(transaction, index) in transactions">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ transaction.timestamp }}</td>
-                        <td>{{ transaction.amount }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="topup-table-container">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th width="10%">No.</th>
+                          <th width="70%">Date</th>
+                          <th width="20%">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(transaction, index) in transactions">
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ transaction.timestamp }}</td>
+                          <td>{{ transaction.amount }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </v-card-item>
               </v-card>
             </v-row>
@@ -81,6 +83,16 @@
             </v-card>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="12" class="justify-center">
+            <v-card>
+              <v-card-title>Top-up History Graph</v-card-title>
+              <v-card-item class="pl-3 pr-3 pb-3">
+                <line-chart :data="chartData"></line-chart>
+              </v-card-item>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
     </div>
   </v-app>
@@ -106,6 +118,7 @@ export default {
       isTopUpDisabled: true,
       useremail: '',
       transactions: [],
+      chartData: [],
     }
   },
   watch: {
@@ -122,7 +135,6 @@ export default {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.useremail = user.email
-        console.log(this.useremail)
         await this.fetchAndUpdateData(this.useremail)
       } else {
         // Redirect to home page
@@ -144,6 +156,9 @@ export default {
         const data = querySnapShot.data()
         this.balance = data.balance
         this.transactions = data.transactions
+        this.chartData = this.transactions.map((transaction) => {
+          return [new Date(transaction.timestamp), transaction.amount]
+        })
       } catch (error) {
         // const errorCode = error.code
         const errorMessage = error.message
@@ -171,6 +186,10 @@ export default {
 
         this.balance = newBalance
         this.transactions = newTransactions
+        this.chartData = this.transactions.map((transaction) => {
+          return [new Date(transaction.timestamp), transaction.amount]
+        })
+
         alert('Successfully Top Up S$' + String(this.topupAmount))
       } catch (error) {
         // const errorCode = error.code

@@ -126,10 +126,7 @@ th {
   padding: 20px;
 }
 
-.transactions-graph {
-  max-width: 880px;
-  margin: 0 auto;
-  border: 1px solid #000;
-  border-radius: 30px;
-  padding: 20px;
+.topup-table-container {
+  height: calc(100vh - 425px);
+  overflow-y: auto;
 }
