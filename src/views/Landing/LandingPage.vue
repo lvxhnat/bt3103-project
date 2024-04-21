@@ -8,31 +8,32 @@
     </div>
     <div class="choose-wrapper">
       <h1>Choose from your favourite stores</h1>
-      <router-link to= "/catalogue" class="show-all-button">
-      <v-btn
-        size="small"
-        rounded="xl"
-        variant="outlined"
-        color="rgb(29, 41, 57)"
-        dark
-        > Show All
-      </v-btn>
+      <router-link to="/catalogue" class="show-all-button">
+        <v-btn
+          size="small"
+          rounded="xl"
+          variant="outlined"
+          color="rgb(29, 41, 57)"
+          dark
+        >
+          Show All
+        </v-btn>
       </router-link>
 
-      <div class="establishments-wrapper">
-        <Establishment
+      <div class="StoreCards-wrapper">
+        <StoreCard
           :numStars="4"
           title="The Baker's Dozen"
           place="Raffles Place"
           imageURL="bakers-dozen.png"
         />
-        <Establishment
+        <StoreCard
           :numStars="5"
           title="GreenMart"
           place="Clementi Mall"
           imageURL="greenmart.png"
         />
-        <Establishment
+        <StoreCard
           :numStars="3"
           title="Mimi's Pizzeria"
           place="Jurong Point"
@@ -55,15 +56,14 @@
 
 <script>
 import NavBar from '@/components/NavBar'
-import Establishment from '@/components/Establishment'
+import StoreCard from '@/components/StoreCard'
 
 export default {
   name: 'LandingPage',
   components: {
     NavBar,
-    Establishment,
+    StoreCard,
   },
-
 }
 </script>
 

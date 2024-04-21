@@ -16,7 +16,7 @@ h1 {
   justify-content: center;
 }
 
-.establishments-wrapper {
+.StoreCards-wrapper {
   display: flex;
   gap: 25px;
   padding-top: 25px;
