@@ -29,28 +29,31 @@
 
                     <div class="input-container">
                         <label class="address-input checkbox-label">
-                            <input type="checkbox" class="checkbox" v-model="useProfileAddress">
+                            <input type="checkbox" class="checkbox" v-model="useProfileAddress" @change="clearNewAddressFields">
                             <span> Use Address from Profile </span>
                         </label>
                     </div>
   
                     <div class="input-container" v-if="useProfileAddress">
-                      <h3 class="address-input">From Profile:</h3>
-                      <input class="input-line" :value="profileAddress" readonly/>
+                      <h3 class="address-input">Address:</h3>
+                      <input class="input-line" :value="profileAddress" readonly/> 
+                      <br><br>
+                      <h3 class="address-input">Postal Code:</h3>
+                      <input class="input-line" :value="profilePostal" readonly/>
                     </div>
+
+                    
   
                     <div class="input-container" v-if="!useProfileAddress">
                       <h3 class="address-input">New Address:</h3>
                       <input class="input-line" v-model="newAddress"/>
-                    </div>
-
-                    <div class="input-container" v-if="!useProfileAddress">
-                      <h3 class="address-input">Postal Code:</h3>
-                      <input class="input-line" v-model="newAddress"/>
+                      <br><br>
+                      <h3 class="address-input">New Postal Code:</h3>
+                      <input class="input-line" v-model="newPostal"/>
                     </div> <br>
   
                     <div class="buttons">
-                    <button class="save">Save</button>
+                    <button class="save" v-if="!useProfileAddress" @click="saveAddress">Save as Default Address</button>
                     <button class="checkout">Checkout</button>
                     </div>
                   </div>
@@ -79,7 +82,9 @@
         return {
             useProfileAddress: true,
             profileAddress: '',
+            profilePostal: '',
             newAddress: '',
+            newPostal: '',
         }
       },
       async mounted() {
@@ -100,9 +105,33 @@
                 const querySnapShot = await getDoc(doc(db, 'Account Details', useremail))
                 const data = querySnapShot.data()
                 this.profileAddress = data.address
+                this.profilePostal = data.postal
             } catch (error) {
                 const errorMessage = error.message
                 alert(errorMessage)
+            }
+        },
+
+        async saveAddress() {
+            try {
+                const useremail = this.useremail
+                await updateDoc(doc(db, 'Account Details', useremail), {
+                    address: this.newAddress,
+                    postal: this.newPostal,
+                })
+                alert('Address updated successfully!')
+                this.profileAddress = this.newAddress
+                this.profilePostal = this.newPostal
+            } catch (error) {
+                const errorMessage = error.message
+                alert(errorMessage)
+            }
+        },
+
+        clearNewAddressFields() {
+            if (!this.useProfileAddress) {
+                this.newAddress = ''
+                this.newPostal = ''
             }
         },
     }
