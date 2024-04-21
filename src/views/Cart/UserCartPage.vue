@@ -26,19 +26,27 @@
                 <v-row class="right-container">
                   <div class="myaddress-details">
                     <h1 class="title">Delivery Address</h1>
+
                     <div class="input-container">
+                        <label class="address-input checkbox-label">
+                            <input type="checkbox" class="checkbox" v-model="useProfileAddress">
+                            <span> Use Address from Profile </span>
+                        </label>
+                    </div>
+  
+                    <div class="input-container" v-if="useProfileAddress">
                       <h3 class="address-input">From Profile:</h3>
-                      <input class="input-line"/>
+                      <input class="input-line" :value="profileAddress" readonly/>
                     </div>
   
-                    <div class="input-container">
+                    <div class="input-container" v-if="!useProfileAddress">
                       <h3 class="address-input">New Address:</h3>
-                      <input class="input-line"/>
+                      <input class="input-line" v-model="newAddress"/>
                     </div>
-  
-                    <div class="input-container">
+
+                    <div class="input-container" v-if="!useProfileAddress">
                       <h3 class="address-input">Postal Code:</h3>
-                      <input class="input-line"/>
+                      <input class="input-line" v-model="newAddress"/>
                     </div> <br>
   
                     <div class="buttons">
@@ -62,12 +70,17 @@
   import { getAuth, onAuthStateChanged } from 'firebase/auth'
     
   export default {
-      name: 'UserCartPage',
-      components: {
+    name: 'UserCartPage',
+    components: {
         NavBar,
-      },
-      data() {
-        return {}
+    },
+    
+    data() {
+        return {
+            useProfileAddress: true,
+            profileAddress: '',
+            newAddress: '',
+        }
       },
       async mounted() {
         const auth = getAuth()
@@ -79,6 +92,19 @@
                 this.$router.push('/')
             }
         })
+    },
+
+    methods: {
+        async fetchAndUpdateData(useremail) {
+            try {
+                const querySnapShot = await getDoc(doc(db, 'Account Details', useremail))
+                const data = querySnapShot.data()
+                this.profileAddress = data.address
+            } catch (error) {
+                const errorMessage = error.message
+                alert(errorMessage)
+            }
+        },
     }
 }
 </script>
