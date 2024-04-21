@@ -1,5 +1,5 @@
 <template>
-  <v-card class="store-card">
+  <v-card class="store-card" @click="navigateToStorePage">
     <v-img :src="getImageURL" height="200" margin-top="0"></v-img>
     <v-card-title class="store-title">{{ title }}</v-card-title>
     <v-card-text>{{ place }}</v-card-text>
@@ -18,8 +18,19 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+
 export default {
   name: 'StoreCard',
+  setup() {
+    const router = useRouter()
+    const navigateToStorePage = () => {
+      router.push('/login/user')
+    }
+    return {
+      navigateToStorePage,
+    }
+  },
   props: {
     title: String,
     place: String,

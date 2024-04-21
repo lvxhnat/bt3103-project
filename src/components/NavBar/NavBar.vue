@@ -52,18 +52,16 @@
 </template>
 
 <script>
-import styles from './style.css'
 import { defineComponent, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { auth, db } from '../../firebaseConfig'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 export default defineComponent({
   name: 'NavBar',
   setup() {
     const router = useRouter()
-    const route = useRoute()
 
     const navigateToUserLogin = () => {
       router.push('/login/user')
