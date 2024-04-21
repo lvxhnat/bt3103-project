@@ -9,6 +9,7 @@ import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
+import StorePage from '../views/Store/StorePage.vue'
 
 const routes = [
   {
@@ -47,7 +48,7 @@ const routes = [
     component: BusinessProfilePage,
   },
   {
-    path: '/catalogue', 
+    path: '/catalogue',
     name: 'cataloguepage',
     component: CataloguePage,
   },
@@ -66,6 +67,12 @@ const routes = [
     name: 'notfound',
     component: NotFoundPage,
   },
+  {
+    path: '/store/:id',  // ':id' is the store name/id
+    name: 'storepage',
+    component: StorePage,
+    props: true // Allows the route parameters to be passed as props to the component
+  }
 ]
 
 const router = createRouter({
