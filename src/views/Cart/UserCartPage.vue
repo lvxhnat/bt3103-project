@@ -69,9 +69,20 @@
       data() {
         return {}
       },
-  }
-  </script>
+      async mounted() {
+        const auth = getAuth()
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                this.useremail = user.email
+                await this.fetchAndUpdateData(this.useremail)
+            } else { // Redirect to home page
+                this.$router.push('/')
+            }
+        })
+    }
+}
+</script>
     
-  <style scoped>
-  @import './style.css';
-  </style>
+<style scoped>
+@import './style.css';
+</style>
