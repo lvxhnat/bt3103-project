@@ -2,70 +2,98 @@
   <NavBar />
   <v-app>
     <div class="main-container">
-      <v-content>
-        <v-container fluid class="pa-5 ma-2">
-          <v-row>
-            <v-col cols="6" class="d-flex justify-center">
-              <v-row class="left-container">
-                <div class="ewallet">
-                  <h1 class="ewallet-title">E-Wallet Balance</h1>
-                  <h3 class="ewallet-subtitle">Balance</h3>
-                  <h1 class="ewallet-balance">S${{ balance }}</h1>
-                  <!-- <h3 class="ewallet-name">{{ cardOwner }}</h3> -->
-                </div>
-                <div class="transactions">
-                  <h1 class="title">Top Up History</h1>
-                  <div class="table-container">
+      <v-container fluid class="pt-8 ma-2">
+        <v-row>
+          <v-col cols="6" class="d-flex justify-center">
+            <v-row class="left-container">
+              <v-card tonal color="#118951" class="mb-4">
+                <v-card-title>E-wallet Balance</v-card-title>
+                <v-card-subtitle>Balance</v-card-subtitle>
+                <v-card-item>
+                  <div>
+                    <div class="text-h6 mb-1">S${{ balance }}</div>
+                  </div>
+                </v-card-item>
+              </v-card>
+
+              <v-card>
+                <v-card-title>Top-up History</v-card-title>
+                <v-card-item class="pb-4 pl-4 pr-4">
+                  <div class="topup-table-container">
                     <table>
                       <thead>
                         <tr>
                           <th width="10%">No.</th>
-                          <th width="70%">Date & Time</th>
+                          <th width="70%">Date</th>
                           <th width="20%">Amount</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(transaction, index) in transactions">
-                          <td> {{ index + 1 }} </td>
-                          <td> {{ transaction.timestamp }} </td>
-                          <td> {{ transaction.amount }} </td>
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ transaction.timestamp }}</td>
+                          <td>{{ transaction.amount }}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
+                </v-card-item>
+              </v-card>
+            </v-row>
+          </v-col>
+
+          <v-col cols="6" class="d-flex justify-center">
+            <v-card class="topup-container">
+              <v-card-title>Top-up</v-card-title>
+              <v-card-subtitle>Enter top-up amount (min S$5)</v-card-subtitle>
+              <v-card-text>
+                <v-text-field
+                  v-model.number="topupAmount"
+                  type="number"
+                  inputmode="numeric"
+                  :rules="[rule]"
+                  label="S$"
+                  class="topup-side-manual-input"
+                ></v-text-field>
+                <v-card-subtile>Instant top-up amount</v-card-subtile>
+                <v-row class="topup-side-instant-chips">
+                  <v-col
+                    v-for="instantAmount in instantOptions"
+                    :key="instantAmount"
+                  >
+                    <v-chip
+                      outlined
+                      @click="updateAmount(instantAmount)"
+                      class="chip"
+                      >{{ instantAmount }}</v-chip
+                    >
+                  </v-col>
+                </v-row>
+
+                <div class="topup-btn-container">
+                  <v-btn
+                    @click="topup()"
+                    :disabled="isTopUpDisabled"
+                    color="#118951"
+                    type="submit"
+                    >Top Up</v-btn
+                  >
                 </div>
-              </v-row>
-            </v-col>
-            <v-col cols="6" class="d-flex justify-center">
-              <div class="topup">
-                <h1 class="title">Top Up</h1>
-                <div class="topup-container">
-                  <h3 class="topup-side-manual">Enter amount (Min S$5.00)</h3>
-                  <v-text-field v-model.number="topupAmount" type="number" inputmode="numeric" :rules="[rule]"
-                    label="S$" class="topup-side-manual-input"></v-text-field>
-                  <h3 class="topup-side-instant">Instant</h3>
-                  <v-row class="topup-side-instant-chips">
-                    <v-col v-for="instantAmount in instantOptions" :key="instantAmount">
-                      <v-chip outlined @click="updateAmount(instantAmount)" class="chip">{{ instantAmount }}</v-chip>
-                    </v-col>
-                  </v-row>
-                  <div class="topup-btn-container">
-                    <v-btn @click="topup()" :disabled="isTopUpDisabled" class="topup-btn" type="submit">Top Up</v-btn>
-                  </div>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" class="justify-center">
-              <div class="transactions-graph">
-                <h1 class="title">Top Up History Graph</h1>
-                <line-chart class="transactions-graph-plot" :data="chartData"></line-chart>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-content>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" class="justify-center">
+            <v-card>
+              <v-card-title>Top-up History Graph</v-card-title>
+              <v-card-item class="pl-3 pr-3 pb-3">
+                <line-chart :data="chartData"></line-chart>
+              </v-card-item>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </v-app>
 </template>
@@ -96,21 +124,21 @@ export default {
   watch: {
     topupAmount(newVal) {
       if (newVal < 5) {
-        this.isTopUpDisabled = true;
+        this.isTopUpDisabled = true
       } else {
-        this.isTopUpDisabled = false;
+        this.isTopUpDisabled = false
       }
-    }
+    },
   },
   async mounted() {
-    const auth = getAuth();
+    const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        this.useremail = user.email;
-        await this.fetchAndUpdateData(this.useremail);
+        this.useremail = user.email
+        await this.fetchAndUpdateData(this.useremail)
       } else {
         // Redirect to home page
-        this.$router.push('/');
+        this.$router.push('/')
       }
     })
   },
@@ -120,52 +148,56 @@ export default {
     },
     updateAmount(amount) {
       // Update top-up amount when instant top-up chips are clicked
-      this.topupAmount = amount;
+      this.topupAmount = amount
     },
     async fetchAndUpdateData(useremail) {
       try {
-        const querySnapShot = await getDoc(doc(db, 'Top Up', useremail));
-        const data = querySnapShot.data();
-        this.balance = data.balance;
-        this.transactions = data.transactions;
-        this.chartData = this.transactions.map(transaction => {
-          return [new Date(transaction.timestamp), transaction.amount];
+        const querySnapShot = await getDoc(doc(db, 'Top Up', useremail))
+        const data = querySnapShot.data()
+        this.balance = data.balance
+        this.transactions = data.transactions
+        this.chartData = this.transactions.map((transaction) => {
+          return [new Date(transaction.timestamp), transaction.amount]
         })
       } catch (error) {
         // const errorCode = error.code
-        const errorMessage = error.message;
-        alert(errorMessage);
+        const errorMessage = error.message
+        alert(errorMessage)
       }
     },
     async topup() {
       try {
-        const newBalance = this.balance + this.topupAmount;
-        let dateTime = new Date();
-        const date = dateTime.toLocaleString('en-UK', { year: 'numeric', month: 'long', day: 'numeric' });
-        const time = dateTime.toLocaleTimeString();
-        dateTime = date + ', ' + time;
-        const newTransactions = [...this.transactions];
-        newTransactions.push({ timestamp: dateTime, amount: this.topupAmount });
+        const newBalance = this.balance + this.topupAmount
+        let dateTime = new Date()
+        const date = dateTime.toLocaleString('en-UK', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+        const time = dateTime.toLocaleTimeString()
+        dateTime = date + ', ' + time
+        const newTransactions = [...this.transactions]
+        newTransactions.push({ timestamp: dateTime, amount: this.topupAmount })
 
         await updateDoc(doc(db, 'Top Up', this.useremail), {
-          'balance': newBalance,
-          'transactions': newTransactions,
+          balance: newBalance,
+          transactions: newTransactions,
         })
 
-        this.balance = newBalance;
-        this.transactions = newTransactions;
-        this.chartData = this.transactions.map(transaction => {
-          return [new Date(transaction.timestamp), transaction.amount];
+        this.balance = newBalance
+        this.transactions = newTransactions
+        this.chartData = this.transactions.map((transaction) => {
+          return [new Date(transaction.timestamp), transaction.amount]
         })
 
-        alert('Successfully Top Up S$' + String(this.topupAmount));
+        alert('Successfully Top Up S$' + String(this.topupAmount))
       } catch (error) {
         // const errorCode = error.code
-        const errorMessage = error.message;
-        alert(errorMessage);
+        const errorMessage = error.message
+        alert(errorMessage)
       }
     },
-  }
+  },
 }
 </script>
 
