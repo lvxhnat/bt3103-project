@@ -68,10 +68,10 @@ export default {
     }
   },
   mounted() {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.email = user.email
-        this.getBusiData(this.email)
+        await this.getBusiData(this.email)
       }
     })
   },

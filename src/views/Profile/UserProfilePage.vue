@@ -103,7 +103,7 @@ export default {
       ],
     }
   },
-  async mounted() {
+  mounted() {
     const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
       if (user) {
