@@ -5,9 +5,12 @@
         <v-content>
           <v-container fluid class="pa-5 ma-2">
             <v-row>
-              <v-col cols="6" class="d-flext justify-center">
+            <v-col cols="6" class="d-flext justify-center">
                 <div class="mycart-details">
                   <h1 class="title"> My Cart </h1>
+                  <CurrentListings :items="items"/>
+
+                  <!--
                   <div class = "table">
                     <table>
                         <tr>
@@ -19,10 +22,11 @@
                     <h3 class="delivery">Delivery Fee:</h3>
                     <h3 class="total">Total:</h3>
                   </div>
+                  -->
                 </div>
-              </v-col>
+            </v-col>
   
-              <v-col cols="6" class="d-flex justify-center">
+            <v-col cols="6" class="d-flex justify-center">
                 <v-row class="right-container">
                   <div class="myaddress-details">
                     <h1 class="title">Delivery Address</h1>
@@ -35,27 +39,26 @@
                     </div>
   
                     <div class="input-container" v-if="useProfileAddress">
-                      <h3 class="address-input">Address:</h3>
-                      <input class="input-line" :value="profileAddress" readonly/> 
-                      <br><br>
-                      <h3 class="address-input">Postal Code:</h3>
-                      <input class="input-line" :value="profilePostal" readonly/>
+                        <h3 class="address-input">Address:</h3>
+                        <input class="input-line" :value="profileAddress" readonly/> 
+                        <br><br>
+                        <h3 class="address-input">Postal Code:</h3>
+                        <input class="input-line" :value="profilePostal" readonly/>
                     </div>
 
-                    
-  
                     <div class="input-container" v-if="!useProfileAddress">
-                      <h3 class="address-input">New Address:</h3>
-                      <input class="input-line" v-model="newAddress"/>
-                      <br><br>
-                      <h3 class="address-input">New Postal Code:</h3>
-                      <input class="input-line" v-model="newPostal"/>
+                        <h3 class="address-input">New Address:</h3>
+                        <input class="input-line" v-model="newAddress"/>
+                        <br><br>
+                        <h3 class="address-input">New Postal Code:</h3>
+                        <input class="input-line" v-model="newPostal"/>
                     </div> <br>
   
                     <div class="buttons">
-                    <button class="save" v-if="!useProfileAddress" @click="saveAddress">Save as Default Address</button>
-                    <button class="checkout">Checkout</button>
+                        <button class="save" v-if="!useProfileAddress" @click="saveAddress">Save as Default Address</button>
+                        <button class="checkout">Checkout</button>
                     </div>
+
                   </div>
                 </v-row>
               </v-col>
@@ -68,6 +71,7 @@
     
   <script>
   import NavBar from '@/components/NavBar'
+  import CartListings from '@/components/CartListings'
   import { db } from '@/firebaseConfig'
   import { doc, getDoc, updateDoc } from 'firebase/firestore'
   import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -76,6 +80,7 @@
     name: 'UserCartPage',
     components: {
         NavBar,
+        CartListings,
     },
     
     data() {
@@ -85,6 +90,7 @@
             profilePostal: '',
             newAddress: '',
             newPostal: '',
+            items: [],
         }
       },
       async mounted() {
