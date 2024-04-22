@@ -10,6 +10,7 @@ import { collection, addDoc, setDoc, doc, getDocs, query, where } from 'firebase
 import { db } from '@/firebaseConfig'
 import * as firebaseui from "firebaseui"
 import "firebaseui/dist/firebaseui.css"
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
     name: 'UserGoogleSignIn',
@@ -55,6 +56,15 @@ export default {
                                 return setDoc(doc(db, 'Top Up', email), {
                                     balance: 0,
                                     transactions: [],
+                                });
+                            }).then(() => {
+                                return setDoc(doc(db, 'Account Details', email), {
+                                    email: email,
+                                    accNo: uuidv4(),
+                                    store: "",
+                                    address: "",
+                                    postal: "",
+                                    image: null,
                                 });
                             }).then(() => {
                                 alert('Successfully signed in as business!')
