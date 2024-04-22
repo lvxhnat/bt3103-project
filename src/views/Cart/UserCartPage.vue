@@ -3,12 +3,13 @@
     <v-app>
       <div class="main-container">
         <v-content>
-          <v-container fluid class="pa-5 ma-2">
+          <v-container fluid class="pt-8 ma-2">
             <v-row>
             <v-col cols="6" class="d-flext justify-center">
-                <div class="mycart-details">
-                  <h1 class="title"> My Cart </h1>
-                  <CurrentListings :items="items"/>
+                <v-card style="height: 450px; width: 500px; margin-top: 30px; margin-right: 20px;">
+                    <div class="mycart-details">
+                        <v-card-title class="title"> My Cart </v-card-title>
+                        <CurrentListings :items="items"/>
 
                   <!--
                   <div class = "table">
@@ -24,12 +25,13 @@
                   </div>
                   -->
                 </div>
+            </v-card>
             </v-col>
   
             <v-col cols="6" class="d-flex justify-center">
-                <v-row class="right-container">
-                  <div class="myaddress-details">
-                    <h1 class="title">Delivery Address</h1>
+                <v-card style="height: 450px; width: 500px; margin-top: 30px; margin-left: 20px;">
+                <div class="myaddress-details">
+                    <v-card-title class="title">Delivery Address</v-card-title>
 
                     <div class="input-container">
                         <label class="address-input checkbox-label">
@@ -59,8 +61,8 @@
                         <button class="checkout">Checkout</button>
                     </div>
 
-                  </div>
-                </v-row>
+                </div>
+                </v-card>
               </v-col>
             </v-row>
           </v-container>
