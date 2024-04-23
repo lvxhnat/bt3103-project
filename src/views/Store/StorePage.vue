@@ -21,18 +21,12 @@
         </div>
 
         <div class="card-wrapper">
-          <!-- <ItemCard
-          v-for="item in listings"
-          :key="item.Item"
-          :name="item.Item"
-          :price="item.Price"
-          :imageURL="item.Image"
-        /> -->
           <ItemCard
-            key="Butter Crossiant"
-            name="Butter Crossiant"
-            price="$1 per piece"
-            imageURL="bakers-dozen.png"
+            v-for="item in listings"
+            :key="item.Item"
+            :name="item.Item"
+            :price="item.Price"
+            :imageURL="item.Image"
           />
         </div>
       </div>
@@ -49,7 +43,7 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
-import { getDownloadURL, getStorage, ref, } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 
 export default {
   name: 'StorePage',
@@ -65,7 +59,7 @@ export default {
     }
   },
   async mounted() {
-    this.imageURL = await this.fetchAndUpdateImageURL(this.name);
+    this.imageURL = await this.fetchAndUpdateImageURL(this.name)
     this.listings = await this.fetchAndUpdateData(this.name)
   },
   computed: {
@@ -80,10 +74,10 @@ export default {
   methods: {
     async fetchAndUpdateImageURL(name) {
       try {
-        const storage = getStorage();
-        const imageRef = ref(storage, "store-" + name);
-        const imgURL = await getDownloadURL(imageRef);
-        return imgURL;
+        const storage = getStorage()
+        const imageRef = ref(storage, 'store-' + name)
+        const imgURL = await getDownloadURL(imageRef)
+        return imgURL
       } catch (err) {
         console.log(err)
         return ''

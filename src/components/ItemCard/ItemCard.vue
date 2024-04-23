@@ -25,8 +25,7 @@ export default {
   },
   computed: {
     getImageURL() {
-      // return require('/Users/lohyikuang/Downloads/school_semesters/2024 Y3 SEMESTER 2/BT 3103/project/bt3103-project/src/assets/store/item1.png')
-      return require('@/assets/store/item1.png');
+      return require('@/assets/store/item1.png')
     },
   },
 }
