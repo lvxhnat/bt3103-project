@@ -57,3 +57,8 @@
 .setup-btn {
   padding-top: 15px;
 }
+
+.uploaded-image {
+  max-width: 30%;
+  height: auto;
+}

@@ -44,7 +44,7 @@
               class="mx-auto pa-12 pb-8"
               elevation="8"
               width="400"
-              height="550"
+              height="auto"
               rounded="lg"
             >
               <div class="text-h6 mb-6">Business Account Details</div>
@@ -86,7 +86,7 @@
               <div class="text-subtitle-1 text-medium-emphasis">
                 Store Image
               </div>
-              <img id="img" src="" />
+              <img id="img" src="" class="uploaded-image" />
               <v-btn class="btn btn-info" @click="onPickFile">
                 Insert Store Image
               </v-btn>
