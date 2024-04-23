@@ -16,15 +16,18 @@
                     <thead>
                       <tr>
                         <th width="30%">Item</th>
+                        <th width="30%">Price</th>
                         <th width="30%">Quantity</th>
-                        <th width="40%">Options</th>
+                        <th width="10%">Options</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="item in items" :key="item.id">
                         <td>
                           <div>{{ item.name }}</div>
-                          <div>(ID {{ item.id }})</div>
+                        </td>
+                        <td>
+                          <div>S${{ item.price }}</div>
                         </td>
                         <td class="cell-increment">
                           <span>{{ item.quantity }}</span>
@@ -44,7 +47,7 @@
                         <td>
                           <v-btn
                             class="remove-button"
-                            @click="removeItem(item.id)"
+                            @click="removeItem(item)"
                           >
                             Remove Item
                           </v-btn>
@@ -56,7 +59,6 @@
               </v-card-item>
               <v-card-actions>
                 <v-btn @click="navitoAddItems"> Add Items </v-btn>
-                <v-btn>Checkout</v-btn>
               </v-card-actions>
             </v-card>
 
@@ -84,8 +86,17 @@ import NavBar from '@/components/NavBar'
 import BusinessAccountDetails from '../../components/AccountDetails/BusinessAccountDetails.vue'
 import { useRouter } from 'vue-router'
 import { db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import {
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  query,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
 
 export default {
   name: 'BusinessProfilePage',
@@ -93,10 +104,8 @@ export default {
     return {
       balance: 0,
       useremail: '',
-      items: [
-        { id: 'XXX', name: 'Bread', quantity: 10 },
-        { id: 'XYZ', name: 'Potato', quantity: 7 },
-      ],
+      storename: '',
+      items: [],
     }
   },
   setup() {
@@ -112,8 +121,7 @@ export default {
 
     return { naviToWallet, navitoAddItems }
   },
-  async mounted() {
-    const auth = getAuth()
+  mounted() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.useremail = user.email
@@ -126,27 +134,83 @@ export default {
     })
   },
   methods: {
-    increment(item) {
-      item.quantity++
-    },
-    decrement(item) {
-      if (item.quantity > 0) {
-        item.quantity--
-      }
-    },
-    removeItem(itemId) {
-      this.items = this.items.filter((item) => item.id !== itemId)
-    },
     async fetchAndUpdateData(useremail) {
       try {
-        const querySnapShot = await getDoc(doc(db, 'Top Up', useremail))
-        const data = querySnapShot.data()
-        this.balance = data.balance
+        // Retrieve store name from Account Details
+        const docRef = doc(db, 'Account Details', useremail)
+        const docSnap = await getDoc(docRef)
+        const storeName = docSnap.data().store
+
+        // Retrieve items from Firestore collection named after the store name
+        const itemsCollectionRef = collection(db, storeName)
+        const itemsQuery = query(itemsCollectionRef)
+        const querySnapshot = await getDocs(itemsQuery)
+
+        this.items = []
+
+        querySnapshot.forEach((doc) => {
+          const item = {
+            name: doc.data().name,
+            price: doc.data().price,
+            quantity: doc.data().quantity,
+          }
+          this.items.push(item)
+        })
+
+        // Fetch wallet balance from Firestore
+        const walletDocRef = doc(db, 'Top Up', useremail)
+        const walletDocSnap = await getDoc(walletDocRef)
+        if (walletDocSnap.exists()) {
+          this.balance = walletDocSnap.data().balance
+        }
       } catch (error) {
-        // const errorCode = error.code
-        const errorMessage = error.message
-        alert(errorMessage)
+        console.error('Error fetching data:', error)
+        alert('Failed to fetch data. Please try again.')
       }
+    },
+    async increment(item) {
+      item.quantity++
+      await this.updateItemInFirestore(item)
+    },
+    async decrement(item) {
+      if (item.quantity > 0) {
+        item.quantity--
+        await this.updateItemInFirestore(item)
+      }
+    },
+    async updateItemInFirestore(item) {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          this.useremail = user.email
+          const docRef = await getDoc(
+            doc(db, 'Account Details', this.useremail)
+          )
+          const myData = docRef.data()
+          const currDoc = doc(db, myData.store, item.name)
+          await updateDoc(currDoc, {
+            quantity: item.quantity,
+          })
+          alert('Quantity updated!')
+        }
+      })
+    },
+    async removeItem(item) {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          this.useremail = user.email
+          const docRef = await getDoc(
+            doc(db, 'Account Details', this.useremail)
+          )
+          const myData = docRef.data()
+          const currDoc = doc(db, myData.store, item.name)
+          await deleteDoc(currDoc)
+          alert('Item deleted!')
+
+          this.items = this.items.filter(
+            (existingItem) => existingItem.name !== item.name
+          )
+        }
+      })
     },
     navitoAddItems() {
       this.$router.push({ path: '/business/additems' })

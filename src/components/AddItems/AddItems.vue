@@ -1,45 +1,41 @@
 <template>
-    <NavBar/>
-    <div class = "popup">
-        <div class="popup-inner">
-            <v-label>Item Image</v-label>
-            <v-btn
-                id ="input"
-                v-model ="this.image"
-                :loading ="isSelecting"
-                @click ="handleFileImport"
-            >
-            Upload Image
-            </v-btn>
-            <input
-                ref="uploader"
-                type="file"
-                @change="onFileChanged"
-                >
-            <v-text-field
-                class = "input"
-                v-model ="this.name"
-                label ="Item Name"
-                placeholder ="Enter item name"
-                type ="text"
-            ></v-text-field>
-            <v-text-field
-                class = "input"
-                v-model ="this.quantity"
-                label ="Item Quantity"
-                placeholder ="Enter item quantity"
-                type ="text"
-            ></v-text-field>
-            <v-text-field
-                class = "input"
-                v-model ="this.price"
-                label ="Item Price"
-                placeholder ="Enter item price"
-                type ="text"
-            ></v-text-field>
-            <v-btn  @click ="TogglePopup();updateItems()">Submit Item</v-btn>
-        </div>
+  <NavBar />
+  <div class="popup">
+    <div class="popup-inner">
+      <v-label>Item Image</v-label>
+      <v-btn
+        id="input"
+        v-model="this.image"
+        :loading="isSelecting"
+        @click="handleFileImport"
+      >
+        Upload Image
+      </v-btn>
+      <input ref="uploader" type="file" @change="onFileChanged" />
+      <v-text-field
+        class="input"
+        v-model="this.name"
+        label="Item Name"
+        placeholder="Enter item name"
+        type="text"
+      ></v-text-field>
+      <v-text-field
+        class="input"
+        v-model="this.quantity"
+        label="Item Quantity"
+        placeholder="Enter item quantity"
+        type="text"
+      ></v-text-field>
+      <v-text-field
+        class="input"
+        v-model="this.price"
+        label="Item Price"
+        placeholder="Enter item price"
+        type="text"
+      ></v-text-field>
+      <v-btn @click="TogglePopup(), updateItems()">Submit Item</v-btn>
     </div>
+  </div>
 </template>
 
 <script>
@@ -111,25 +107,23 @@ export default {
     },
     props: ['TogglePopup']
 }
-
 </script>
 
 <style scoped>
 .popup {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 99;
-	background-color: rgba(0, 0, 0, 0.2);
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .popup-inner {
-    background: #FFF;
-    padding: 32px;
+  background: #fff;
+  padding: 32px;
 }
-
 </style>

@@ -6,7 +6,7 @@
         <v-row>
           <v-col cols="6" class="d-flex justify-center">
             <v-row class="left-container">
-              <v-card tonal color="#118951" class="mb-4">
+              <v-card tonal color="#118951" class="mb-4" style="height: 130px">
                 <v-card-title>E-wallet Balance</v-card-title>
                 <v-card-subtitle>Balance</v-card-subtitle>
                 <v-card-item>
@@ -16,9 +16,9 @@
                 </v-card-item>
               </v-card>
 
-              <v-card>
+              <v-card style="height: 250px">
                 <v-card-title>Top-up History</v-card-title>
-                <v-card-item class="pb-4 pl-4 pr-4">
+                <v-card-item class="pb-3 pl-3 pr-3">
                   <div class="topup-table-container">
                     <table>
                       <thead>
@@ -43,7 +43,7 @@
           </v-col>
 
           <v-col cols="6" class="d-flex justify-center">
-            <v-card class="topup-container">
+            <v-card style="height: 400px; width: 450px">
               <v-card-title>Top-up</v-card-title>
               <v-card-subtitle>Enter top-up amount (min S$5)</v-card-subtitle>
               <v-card-text>
@@ -130,7 +130,7 @@ export default {
       }
     },
   },
-  async mounted() {
+  mounted() {
     const auth = getAuth()
     onAuthStateChanged(auth, async (user) => {
       if (user) {

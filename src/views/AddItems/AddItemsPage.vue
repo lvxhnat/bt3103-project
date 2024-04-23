@@ -1,11 +1,13 @@
 <template>
-    <div>
-        <h1>Store: {{ store }}</h1>
-        <v-btn @click="() => TogglePopup('buttonTrigger')">Add Items</v-btn>
-        <AddItems v-if="trigger.buttonTrigger" 
-        :TogglePopup="() => TogglePopup('buttonTrigger')"/>
-        <DisplayItems/>
-    </div>
+  <div>
+    <h1>Store: {{ store }}</h1>
+    <v-btn @click="() => TogglePopup('buttonTrigger')">Add Items</v-btn>
+    <AddItems
+      v-if="trigger.buttonTrigger"
+      :TogglePopup="() => TogglePopup('buttonTrigger')"
+    />
+    <DisplayItems />
+  </div>
 </template>
 
 <script>
@@ -40,9 +42,9 @@ export default {
             buttonTrigger: false,
         })
 
-        const TogglePopup = (tri) => {
-            trigger.value[tri] = !trigger.value[tri]
-        }
+    const TogglePopup = (tri) => {
+      trigger.value[tri] = !trigger.value[tri]
+    }
 
         return { trigger, TogglePopup , getStore}
     },
@@ -51,9 +53,6 @@ export default {
         AddItems,
     },
 }
-
 </script>
 
-<style>
-
-</style>
+<style></style>
