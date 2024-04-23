@@ -154,4 +154,3 @@ export default {
 <style scoped>
 @import './style.css';
 </style>
-../../components/AccountDetails/UserAccountDetails.vue
