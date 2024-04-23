@@ -6,30 +6,21 @@
           <v-container fluid class="pt-8 ma-2">
             <v-row>
             <v-col cols="6" class="d-flext justify-center">
-                <v-card style="height: 450px; width: 500px; margin-top: 30px; margin-right: 20px;">
+                <v-card style="height: 450px; width: 700px; margin-top: 30px; margin-right: 40px">
                     <div class="mycart-details">
                         <v-card-title class="title"> My Cart </v-card-title>
-                        <CurrentListings :items="items"/>
+                        <CartListings :items="items"/>
+                </div>
 
-                  <!--
-                  <div class = "table">
-                    <table>
-                        <tr>
-                        <th width="60%">Item</th>
-                        <th width="10%">Quantity</th>
-                        <th width="40%">Total Price</th>
-                        </tr>
-                    </table><br><br>
-                    <h3 class="delivery">Delivery Fee:</h3>
-                    <h3 class="total">Total:</h3>
-                  </div>
-                  -->
+                <div class="otherFees">
+                    <span class = "deliveryFee">Delivery Fee: $2</span><br>
+                    <span class = "totalFee">Total Fee: ${{ totalFee }}</span>
                 </div>
             </v-card>
             </v-col>
   
             <v-col cols="6" class="d-flex justify-center">
-                <v-card style="height: 450px; width: 500px; margin-top: 30px; margin-left: 20px;">
+                <v-card style="height: 450px; width: 500px; margin-top: 30px; margin-left: 40px;">
                 <div class="myaddress-details">
                     <v-card-title class="title">Delivery Address</v-card-title>
 
@@ -57,8 +48,8 @@
                     </div> <br>
   
                     <div class="buttons">
-                        <button class="save" v-if="!useProfileAddress" @click="saveAddress">Save as Default Address</button>
-                        <button class="checkout">Checkout</button>
+                        <v-btn class="save" v-if="!useProfileAddress" @click="saveAddress">Save as Default Address</v-btn>
+                        <v-btn class="checkout" @click="checkout">Checkout</v-btn>
                     </div>
 
                 </div>
@@ -69,16 +60,16 @@
         </v-content>
       </div>
     </v-app>
-  </template>
+</template>
     
-  <script>
-  import NavBar from '@/components/NavBar'
-  import CartListings from '@/components/CartListings'
-  import { db } from '@/firebaseConfig'
-  import { doc, getDoc, updateDoc } from 'firebase/firestore'
-  import { getAuth, onAuthStateChanged } from 'firebase/auth'
+<script>
+import NavBar from '@/components/NavBar'
+import CartListings from '@/components/CartListings'
+import { db } from '@/firebaseConfig'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
     
-  export default {
+export default {
     name: 'UserCartPage',
     components: {
         NavBar,
@@ -92,10 +83,22 @@
             profilePostal: '',
             newAddress: '',
             newPostal: '',
-            items: [],
+            items: [
+                { id: 'XXX', name: 'Bread', quantity: 10, availableQuantity: 10, price: 2},
+                { id: 'XYZ', name: 'Potato', quantity: 7, availableQuantity: 7, price: 3},
+            ],
+            deliveryFee: 2,
         }
-      },
-      async mounted() {
+    },
+
+    computed: {
+        totalFee() {
+            const totalSum = this.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            return totalSum + this.deliveryFee;
+        }
+    },
+
+    async mounted() {
         const auth = getAuth()
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -142,7 +145,44 @@
                 this.newPostal = ''
             }
         },
-    }
+
+        async checkout() {
+            try {
+                const totalFee = this.totalFee;
+                const useremail = this.useremail;
+                const querySnapShot = await getDoc(doc(db, 'Top Up', useremail));
+                const data = querySnapShot.data();
+                const balance = data.balance;
+
+                // Check if the balance is sufficient for the total fee
+                if (balance >= totalFee) {
+                    const newBalance = balance - totalFee;
+                    await updateDoc(doc(db, 'Top Up', useremail), {
+                    balance: newBalance,
+                });
+                
+                    for (const item of this.items) {
+                        const itemId = item.id;
+                        const itemQuantity = item.quantity;
+                        const itemDoc = await getDoc(doc(db, 'Items', itemId));
+                        const itemData = itemDoc.data();
+                        const availableQuantity = itemData.availableQuantity;
+                        await updateDoc(doc(db, 'Items', itemId), {
+                        availableQuantity: availableQuantity - itemQuantity,
+                    });
+                }
+                alert('Checkout successful!');
+
+                } else {
+                alert('Insufficient funds in your wallet. Please top up.');
+                }
+                
+            } catch(error) {
+            const errorMessage = error.message;
+            alert(errorMessage);
+            }
+        }
+    },
 }
 </script>
     

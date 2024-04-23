@@ -14,12 +14,19 @@
 
 .title {
     font-size: 20px;
+    margin-bottom: 10px;
 }
 
 h3 {
     color: green;
     margin-bottom: 5px;
     font-size: 16px;
+}
+
+.deliveryFee, .totalFee {
+    color: green;
+    margin-left: 525px;
+    font-size: 18px;
 }
 
 .input-line {
@@ -37,13 +44,15 @@ h3 {
 }
 
 .save {
-    border: 1px solid black;
     margin-right: 20px;
+    background-color: #118951;
+    color: white;
 }
 
 .checkout {
-    border: 1px solid black;
     margin-left: 20px;
+    background-color: #118951;
+    color: white;
 }
 
 .checkbox-label {
