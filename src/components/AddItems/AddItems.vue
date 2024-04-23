@@ -11,7 +11,7 @@
       >
         Upload Image
       </v-btn>
-      <input ref="uploader" type="file" @change="onFileChanged" />
+      <input ref="uploader" type="file" @change="onFileChanged"/>
       <v-text-field
         class="input"
         v-model="this.name"
