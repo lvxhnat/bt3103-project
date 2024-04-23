@@ -12,6 +12,8 @@ import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
+import BusinessAccountSetup from '../views/Auth/Registration/BusinessAccountSetup.vue'
+import UserAccountSetup from '../views/Auth/Registration/UserAccountSetup.vue'
 
 const routes = [
   {
@@ -38,6 +40,16 @@ const routes = [
     path: '/register/business',
     name: 'businessregister',
     component: BusinessRegistrationPage,
+  },
+  {
+    path: '/accountsetup/business',
+    name: 'businessaccountsetup',
+    component: BusinessAccountSetup,
+  },
+  {
+    path: '/accountsetup/user',
+    name: 'useraccountsetup',
+    component: UserAccountSetup,
   },
   {
     path: '/profile/user',
