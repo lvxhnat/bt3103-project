@@ -1,0 +1,279 @@
+[33mcommit 952429a1d4d76dd1b5b3aca935eb0734a891b46b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 2ee534f f3f8386
+Author: tinghwei <e0968057@u.nus.edu>
+Date:   Sun Apr 21 18:24:27 2024 +0800
+
+    Merge branch 'master' of https://github.com/lvxhnat/bt3103-project
+
+[33mcommit 2ee534fe894e10d70b11ae374618c06763882c31[m
+Author: tinghwei <e0968057@u.nus.edu>
+Date:   Sun Apr 21 18:22:17 2024 +0800
+
+    Updated Topup page layout
+
+[33mcommit f3f8386fbb0bb683617d03d7ac03d56dd591e1d6[m
+Author: Loh Yi Kuang <yikuang5@gmail.com>
+Date:   Sun Apr 21 10:55:32 2024 +0800
+
+    fix: black bottom border
+
+[33mcommit fee28426064ed3fed7ed161b4ee9e153933c861d[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 21 00:11:58 2024 +0800
+
+    add v-for to catalogue page
+
+[33mcommit 80834fd2a33c14561ea0436746851fd46cf6fc4d[m
+Merge: 99f1dd1 0e2e498
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sat Apr 20 22:53:15 2024 +0800
+
+    Merge pull request #11 from kkaiyu/catalogue_page
+    
+    Added catalogue page
+
+[33mcommit 0e2e498d918eac4e62b1e4e201cffbe749c39e0a[m
+Merge: 5e9250d 99f1dd1
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sat Apr 20 22:53:05 2024 +0800
+
+    Merge branch 'master' into catalogue_page
+
+[33mcommit 99f1dd1513b8f3a3ca720714dc8fe1a74ccf7a89[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 20 21:50:06 2024 +0800
+
+    resolve package issue
+
+[33mcommit 1b6e1d7154d58dac0b29cbaff54d8affbf96a7f8[m
+Merge: bbf4458 c09e5ab
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 20 21:30:16 2024 +0800
+
+    Merge branch 'mingrui/firebaseui-notfound-page'
+
+[33mcommit bbf445839a2d97c337e250de9e8052e27ce6b412[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 20 18:49:06 2024 +0800
+
+    tidy code
+
+[33mcommit c09e5abfe9b9bcc42458319b09e181d4f4680801[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 20 18:38:36 2024 +0800
+
+    add backend for firebaseui google
+
+[33mcommit 08a8f2a7a3921480fb6290112cfe57551a22259e[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 20 11:01:59 2024 +0800
+
+    slight changes to frontend of notfound page
+
+[33mcommit 7c9470f8dc263bd43ba5d0f2eb0bdf947203f003[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 20 00:50:59 2024 +0800
+
+    add firebaseui google to Auth Login & Registration
+
+[33mcommit 5ec78ca3bffe0e723b3dd8fd2bfcda3765949109[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Fri Apr 19 15:03:24 2024 +0800
+
+    add notfound page
+
+[33mcommit 5e9250d2a3379a9cde6188725e740e2fd8687f02[m
+Merge: 18ac051 d3462db
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 22:25:05 2024 +0800
+
+    Merge branch 'master' into catalogue_page
+
+[33mcommit 2e2852b2ab241f9514c401faa99e2e908774590c[m[33m ([m[1;31morigin/yikuang/analytics[m[33m)[m
+Merge: 48d7742 59e22a2
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 14 19:49:58 2024 +0800
+
+    Merge branch 'yikuang/analytics' of https://github.com/lvxhnat/bt3103-project into yikuang/analytics
+
+[33mcommit 48d774236a2022b8acd2a591a816ab76a493979a[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 14 19:48:36 2024 +0800
+
+    add vuechart and plot transactions into line graph
+
+[33mcommit 18ac051fb3ef2fdf5b1983f9197d9ef820ed9465[m
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 18:44:50 2024 +0800
+
+    removed package
+
+[33mcommit 07b8c59eb2df0b8013205265f471dfc113f7e7c5[m
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 18:29:46 2024 +0800
+
+    removed package
+
+[33mcommit ccf5604e4beb3d7d01aaa383823022a3cbeb4e73[m
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 18:14:07 2024 +0800
+
+    catalogue page ui
+
+[33mcommit 407e4c0d807c4425c5a5429e5cdbaad8aa149e8a[m
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 18:02:14 2024 +0800
+
+    added establishments
+
+[33mcommit 59e22a25dc0e7c8f9499da85f3d13a24b6fbb6dd[m
+Author: Loh Yi Kuang <yikuang5@gmail.com>
+Date:   Sun Apr 14 17:39:30 2024 +0800
+
+    edit: remove LandingPage comp
+
+[33mcommit be594b0d5aca0b90f8f5580d753ecbe805170d62[m
+Author: Loh Yi Kuang <yikuang5@gmail.com>
+Date:   Sun Apr 14 17:37:12 2024 +0800
+
+    init: Analytics Chart
+
+[33mcommit 3fd651fe6c12d180d16dbcdc72907bc46095f458[m
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 14:32:41 2024 +0800
+
+    added nav bar
+
+[33mcommit f729fcdedd2355c94ff68c03b3729f147b1f383c[m
+Author: kkaiyu <127333335+kkaiyu@users.noreply.github.com>
+Date:   Sun Apr 14 13:26:59 2024 +0800
+
+    show-all button navigates to catalogue page
+
+[33mcommit d3462db09f6ac1ebbb903cb4d15080f3faa47af6[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 14 13:00:00 2024 +0800
+
+    merge mingrui/top-up-page into master
+
+[33mcommit 122722d14ce0be6f83c28802e6414206fe1aec9d[m[33m ([m[1;31morigin/mingrui/top-up-page[m[33m)[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 14 12:52:15 2024 +0800
+
+    integrate firebase with topup page
+
+[33mcommit 6f5ad54632ab6c31009fd1f9e337315053771d90[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 13 14:25:44 2024 +0800
+
+    Improve topup components
+
+[33mcommit c42b3c83cb6e65b870188c4b22ce975618616023[m
+Merge: 247612b c364631
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sat Apr 13 11:15:12 2024 +0800
+
+    Merge changes from master
+
+[33mcommit c3646318f522821db1264be10f76185257f5cb13[m
+Author: tinghwei <e0968057@u.nus.edu>
+Date:   Mon Apr 8 18:47:56 2024 +0800
+
+    Updated Profile pages
+
+[33mcommit ed6e70b722c8b3fd9c2b2c8ccc459d2542676f28[m
+Author: Yee Ting Hwei <122725424+tinghwei@users.noreply.github.com>
+Date:   Mon Apr 8 08:59:04 2024 +0800
+
+    BREAKING: tinghwei/add vuetify framework (#10)
+    
+    * Added Vuetify to the project
+    
+    * Updated Establishment, NavBar and LandingPage to use Vuetify components and style
+    
+    * Added Vuetify framework to project
+    
+    * Added Vuetify icons function
+    
+    * Updated LandingPage and Establishment
+    
+    * Updated UserLogin page
+    
+    * Updated BusinessLogin page
+    
+    * Updated router
+    
+    * Updated UserLogin page
+    
+    * Updated UserLogin page
+    
+    * Updated registration pages
+    
+    * Added Firebase authentication to registration
+    
+    * Added Firebase authentication to login
+    
+    * Updated NavBar
+    
+    * Updated Profile pages
+
+[33mcommit 247612bbc44907d2c1b44fcf1bb8096352a94d84[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 7 17:46:01 2024 +0800
+
+    updated colour and text-align of credit card balance
+
+[33mcommit cc7bb036c715f7fdcceae0f8b70d77d7f14ced8c[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 7 16:58:41 2024 +0800
+
+    updated topup Page components
+
+[33mcommit 45b949e0db62c117fb50e9008ee8c85b6cbf3486[m
+Merge: 5f8372c 788bb6b
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 7 16:50:55 2024 +0800
+
+    Merge changes from master
+
+[33mcommit 5f8372c9cdf46fc8d5928b79b12c4f5c33acc27f[m
+Author: Yang Mingrui <e0958440@u.nus.edu>
+Date:   Sun Apr 7 16:31:07 2024 +0800
+
+    added TopUp Page
+
+[33mcommit 788bb6b540a3a5d49d7097eb904725294b04c725[m
+Author: Yi Kuang <yikuang5@gmail.com>
+Date:   Sat Apr 6 19:36:15 2024 +0800
+
+    init: profile pages  (#9)
+    
+    * init: user-profile pages
+    
+    * init: husky for precommit hooks
+
+[33mcommit b5fe332e8375c5fb5235d1a6ed739df82847b57d[m
+Author: Loh Yi Kuang <yikuang5@gmail.com>
+Date:   Fri Apr 5 21:19:50 2024 +0800
+
+    edit: ignore .env files
+
+[33mcommit 07384cba2dd52e7468d6aa97274cbf43530bedb1[m
+Author: Loh Yi Kuang <yikuang5@gmail.com>
+Date:   Fri Apr 5 21:19:37 2024 +0800
+
+    edit: ignore .env files
+
+[33mcommit 27bde6431975c821956810cb30aabc444c7fa0ac[m
+Author: Yi Kuang <yikuang5@gmail.com>
+Date:   Fri Apr 5 21:17:44 2024 +0800
+
+    init: Dockerfile and remove typescript dependencies (#8)
+    
+    * update: assets and dockerise
+    
+    * update: remove ts dependencies
+    
+    * remove ts dependencies
+
+[33mcommit 3025a529060b6fabdb26eb220a68803a412
