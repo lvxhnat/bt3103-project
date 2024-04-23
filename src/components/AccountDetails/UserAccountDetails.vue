@@ -56,10 +56,10 @@ export default {
     },
   },
   mounted() {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.email = user.email
-        this.getData()
+        await this.getData()
       } else {
       }
     })
