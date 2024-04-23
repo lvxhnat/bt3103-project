@@ -2,7 +2,7 @@
   <NavBar />
   <v-app>
     <div class="container">
-      <img :src="getImageURL" height="420px" width="100%" />
+      <img :src="imageURL" height="420px" width="100%" />
       <div class="main-content">
         <h1 class="headline">{{ name }}</h1>
         <v-card-text>
@@ -49,6 +49,7 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
+import { getDownloadURL, getStorage, ref, } from 'firebase/storage'
 
 export default {
   name: 'StorePage',
@@ -59,10 +60,12 @@ export default {
   },
   data() {
     return {
+      imageURL: '',
       listings: [],
     }
   },
   async mounted() {
+    this.imageURL = await this.fetchAndUpdateImageURL(this.name);
     this.listings = await this.fetchAndUpdateData(this.name)
   },
   computed: {
@@ -75,6 +78,17 @@ export default {
     },
   },
   methods: {
+    async fetchAndUpdateImageURL(name) {
+      try {
+        const storage = getStorage();
+        const imageRef = ref(storage, "store-" + name);
+        const imgURL = await getDownloadURL(imageRef);
+        return imgURL;
+      } catch (err) {
+        console.log(err)
+        return ''
+      }
+    },
     async fetchAndUpdateData(name) {
       try {
         const querySnapshot = await getDocs(collection(db, name))
@@ -93,13 +107,8 @@ export default {
     const route = useRoute()
     const name = route.query.name
 
-    const getImageURL = computed(() => {
-      return require(`@/assets/backgrounds/store-page.png`)
-    })
-
     return {
       name,
-      getImageURL,
     }
   },
 }
