@@ -32,22 +32,10 @@
               class="mx-auto pa-12 pb-8"
               elevation="8"
               width="400"
-              height="450"
+              height="400"
               rounded="lg"
             >
               <div class="text-h6 mb-6">Update Details</div>
-              <div class="text-subtitle-1 text-medium-emphasis">Store Name</div>
-              <v-text-field
-                v-model="store"
-                type="text"
-                id="store"
-                density="compact"
-                placeholder="Enter store name"
-                prepend-inner-icon="mdi-store-outline"
-                variant="outlined"
-                :rules="[rule]"
-                required
-              ></v-text-field>
               <div class="text-subtitle-1 text-medium-emphasis">Address</div>
               <v-text-field
                 v-model="address"
@@ -104,14 +92,13 @@ export default {
     return {
       address: '',
       postal: '',
-      store: '',
       isSubmitDisabled: true,
       valid: false,
     }
   },
   computed: {
     isSubmitDisabled() {
-      return !(this.address && this.postal && this.store)
+      return !(this.address && this.postal)
     },
   },
   methods: {
@@ -124,7 +111,6 @@ export default {
       await updateDoc(doc(db, 'Account Details', email), {
         address: this.address,
         postal: this.postal,
-        store: this.store,
       })
       alert('Details updated!')
       this.$router.push({ path: '/profile/user' })

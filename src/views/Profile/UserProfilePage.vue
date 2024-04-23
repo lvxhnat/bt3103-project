@@ -96,10 +96,6 @@ export default {
       items: [
         { id: 'XXX', name: 'Bread', quantity: 10 },
         { id: 'XYZ', name: 'Potato', quantity: 7 },
-        { id: 'XXX', name: 'Bread', quantity: 10 },
-        { id: 'XYZ', name: 'Potato', quantity: 7 },
-        { id: 'XXX', name: 'Bread', quantity: 10 },
-        { id: 'XYZ', name: 'Potato', quantity: 7 },
       ],
     }
   },
