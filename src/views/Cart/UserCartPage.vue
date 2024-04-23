@@ -160,18 +160,23 @@ export default {
                     await updateDoc(doc(db, 'Top Up', useremail), {
                     balance: newBalance,
                 });
-                
+                /*
                     for (const item of this.items) {
                         const itemId = item.id;
                         const itemQuantity = item.quantity;
                         const itemDoc = await getDoc(doc(db, 'Items', itemId));
-                        const itemData = itemDoc.data();
-                        const availableQuantity = itemData.availableQuantity;
-                        await updateDoc(doc(db, 'Items', itemId), {
-                        availableQuantity: availableQuantity - itemQuantity,
-                    });
-                }
+                        if (itemDoc.exists()) { 
+                            const itemData = itemDoc.data();
+                            const availableQuantity = itemData.availableQuantity;
+                            await updateDoc(doc(db, 'Items', itemId), {
+                                availableQuantity: availableQuantity - itemQuantity,
+                        });
+                        } else {
+                            alert('Item does not exist')
+                        }
+                } */
                 alert('Checkout successful!');
+                this.$router.push('/');
 
                 } else {
                 alert('Insufficient funds in your wallet. Please top up.');
