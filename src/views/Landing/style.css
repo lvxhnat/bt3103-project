@@ -16,7 +16,7 @@ h1 {
   justify-content: center;
 }
 
-.establishments-wrapper {
+.StoreCards-wrapper {
   display: flex;
   gap: 25px;
   padding-top: 25px;
@@ -93,4 +93,8 @@ h1 {
 
 .show-all-button:hover {
   background-color: transparent;
+}
+
+.storecard {
+  margin-right: 25px;
 }
