@@ -16,8 +16,6 @@ import UpdateUserAD from './views/Profile/UpdateUserAD.vue'
 import AddItemsPage from './views/AddItems/AddItemsPage.vue'
 import BusinessProfilePage from './views/Profile/BusinessProfilePage.vue'
 import UpdateBusiAD from './views/Profile/UpdateBusiAD.vue'
-import BusinessAccountSetup from './views/Auth/Registration/BusinessAccountSetup.vue'
-import UserAccountSetup from './views/Auth/Registration/UserAccountSetup.vue'
 
 export default {
   name: 'App',
@@ -27,8 +25,6 @@ export default {
     UserRegistrationPage,
     BusinessLoginPage,
     BusinessRegistrationPage,
-    BusinessAccountSetup,
-    UserAccountSetup,
     UserProfilePage,
     UpdateUserAD,
     AddItemsPage,
