@@ -94,3 +94,7 @@ h1 {
 .show-all-button:hover {
   background-color: transparent;
 }
+
+.storecard {
+  margin-right: 25px;
+}
