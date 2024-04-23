@@ -3,7 +3,7 @@
     <div class="center-wrapper">
       <h4 class="name">{{ name }}</h4>
     </div>
-    <img :src="getImageURL" width="100%" class="img" />
+    <img :src="imageURL" width="100%" class="img" />
     <div class="bottom-wrapper center-wrapper">
       <h4 class="price">{{ price }}</h4>
       <button>Add to Cart</button>
@@ -21,11 +21,6 @@ export default {
     imageURL: {
       type: String,
       default: '',
-    },
-  },
-  computed: {
-    getImageURL() {
-      return require('@/assets/store/item1.png')
     },
   },
 }

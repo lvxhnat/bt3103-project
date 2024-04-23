@@ -23,10 +23,10 @@
         <div class="card-wrapper">
           <ItemCard
             v-for="item in listings"
-            :key="item.Item"
-            :name="item.Item"
-            :price="item.Price"
-            :imageURL="item.Image"
+            :key="item.name"
+            :name="item.name"
+            :price="item.price"
+            :imageURL="item.image"
           />
         </div>
       </div>
@@ -40,7 +40,6 @@ import StoreCard from '@/components/StoreCard'
 import ItemCard from '@/components/ItemCard'
 
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
 import { getDownloadURL, getStorage, ref } from 'firebase/storage'
@@ -88,7 +87,9 @@ export default {
         const querySnapshot = await getDocs(collection(db, name))
         const data = []
         querySnapshot.forEach((doc) => {
-          data.push(doc.data())
+          const d = doc.data()
+          d.price = '$' + d.price + ' for ' + d.quantity
+          data.push(d)
         })
         return data
       } catch (err) {
