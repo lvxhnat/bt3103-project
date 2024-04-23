@@ -92,12 +92,12 @@ export default {
         const querySnapShot = await getDocs(collection(db, 'Account Details'));
         querySnapShot.forEach((doc) => {
           const data = doc.data();
-          if (data.store && data.address /*&& data.image*/) {
+          if (data.store && data.address && data.image) {
             this.businesses.push({
               numStars: '4',
               title: data.store,
               place: data.address,
-              imageURL: 'bakers-dozen.png' /* data.image */,
+              imageURL: data.image,
             })
           }
         })
