@@ -18,7 +18,7 @@
     <v-card-text class="mb-2">{{ postal }}</v-card-text>
 
     <v-card-subtitle>Store Image</v-card-subtitle>
-    <img id="img" />
+    <img id="img" src="" />
     <button class="btn btn-info" @click="onPickFile">Insert Store Image</button>
     <input
       type="file"
@@ -94,8 +94,12 @@ export default {
       this.address = accdet.address
       this.postal = accdet.postal
       const storage = getStorage()
-      const imageRef = ref(storage, 'store-' + this.store)
+      const imageRef = ref(storage, "store-" + this.store)
       const imgURL = await getDownloadURL(imageRef)
+      this.image = imgURL
+      await updateDoc(doc(db, 'Account Details', this.email), {
+            image: this.image
+          })
       const img = document.getElementById('img')
       img.setAttribute('src', imgURL)
     },
@@ -105,15 +109,11 @@ export default {
     onFilePicked(event) {
       const files = event.target.files
       const storage = getStorage()
-      const storageRef = ref(storage, 'store-' + this.store)
-      uploadBytes(storageRef, files).then((snapshot) => {
+      const childRef = ref(storage, "store-" + this.store)
+      uploadBytes(childRef, files[0]).then((snapshot) => {
         console.log('Uploaded store image!')
       })
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => {
-        this.image = fileReader.result
-      })
-      fileReader.readAsDataURL(files[0])
+      location.reload()
     },
   },
 }

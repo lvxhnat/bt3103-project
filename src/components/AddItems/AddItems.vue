@@ -47,6 +47,7 @@ import { updateDoc, doc, getDoc , collection, query, where, getDocs, addDoc,setD
 import {db,auth} from "/src/firebaseConfig.js"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import NavBar from '../NavBar/NavBar.vue';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 export default {
     name: "AddItems",
@@ -57,28 +58,28 @@ export default {
             price: "",
             image:"",
             isSelecting:false,
-            selectedFile:null
+            selectedFile:null,
+            store: "",
         }
     },
     methods: {
         async updateItems() {
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    this.email = user.email
-                    const docRef = await getDoc(doc(db, "Account Details", this.email))
-                    const myData = docRef.data()
-                    const currDoc = doc(db,myData.store,this.name)
-                    await setDoc(currDoc, {
-                        name: this.name.trim(),
-                        quantity: this.quantity,
-                        price: this.price,
-                        image: this.image,
-                    })
-                    alert("Item updated!")
-                }
+            const currDoc = doc(db,this.store,this.name)
+            const storage = getStorage()
+            const childRef = ref(storage, "store-" + this.store + "/item-" + this.name)
+            uploadBytes(childRef, this.selectedFile).then((snapshot) => {
+                console.log('Uploaded store image!')
             })
-            
-
+            const imgURL = await getDownloadURL(childRef)
+            this.image = imgURL
+            await setDoc(currDoc, {
+                name: this.name.trim(),
+                quantity: this.quantity,
+                price: this.price,
+                image: this.image,
+            })
+            alert("Item updated!")
+                 
         },
         handleFileImport() {
             this.isSelecting = true;
@@ -93,6 +94,17 @@ export default {
             this.selectedFile = event.target.files[0]
         }
     
+    },
+    mounted() {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                this.email = user.email
+                const docRef = await getDoc(doc(db, "Account Details", this.email))
+                const myData = docRef.data()
+                this.store = myData.store
+
+            }
+        })
     },
     components: {
         NavBar,

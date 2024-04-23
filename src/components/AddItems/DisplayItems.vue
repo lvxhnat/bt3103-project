@@ -16,6 +16,7 @@
 import { getDocs, getFirestore, doc, QuerySnapshot, collection , getDoc,query } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from '@/firebaseConfig'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 
 export default {
@@ -46,7 +47,8 @@ export default {
                                 </tr>`;
                             let table = document.getElementById('itemTable')
                             table.innerHTML += row
-                        }) 
+                        })
+                        
                     } else {
                         alert("No items in storage!")
                     }  
