@@ -36,40 +36,104 @@
 
 
 <script>
+import { getAuth } from 'firebase/auth'
+import { db } from '/src/firebaseConfig.js'
+import { collection, doc, deleteDoc, getDocs, updateDoc } from 'firebase/firestore'
+
 export default {
-    name: 'CurrentListings',
+    name: 'CartListing',
     props: {
-        items: Array,
+        userEmail: String,
     }, 
 
     data() {
         return {
-            items: [
-                { id: 'XXX', name: 'Bread', quantity: 10, availableQuantity: 10, price: 2},
-                { id: 'XYZ', name: 'Potato', quantity: 7, availableQuantity: 7, price: 3},
-            ],
+            items: [],
         }
     },
 
     methods: {
-        increment(item) {
-            if (item.quantity < item.availableQuantity) {
-                item.quantity++;
-            }
-        },
-    
-        decrement(item) {
-            if (item.quantity > 1) {
-                item.quantity--;
+        mounted() {
+            async function fetchItems() {
+                try {
+                    const user = getAuth().currentUser;
+                        if (!user) {
+                        return;
+                    }
+                    const userEmail = user.email;
+                    const itemsRef = collection(db, userEmail); // Assuming items are stored under collection with user's email
+                    const querySnapshot = await getDocs(itemsRef);
+                    const fetchedItems = [];
+                    querySnapshot.forEach((doc) => {
+                        const itemData = doc.data();
+                        fetchedItems.push({
+                            id: doc.id,
+                            name: itemData.name,
+                            quantity: itemData.quantity,
+                            price: itemData.price,
+                        });
+                    });
+                    this.items = fetchedItems; 
+                } catch (error) {
+                    const errorMessage = error.message;
+                    alert(errorMessage);          
+                }
             }
         },
 
+        async increment(item) {
+            try {
+                const user = getAuth().currentUser;
+                if (!user) {
+                    return;
+                }
+                const userEmail = user.email;
+                const itemRef = doc(db, userEmail, item.id);
+                await updateDoc(itemRef, {
+                    quantity: item.quantity + 1 // Increment the quantity in the database
+                });
+                item.quantity++; // Increment the quantity in the local data after successful update
+            } catch (error) {
+                alert(error.message);
+            }
+        },
+
+        async decrement(item) {
+            if (item.quantity > 1) {
+                try {
+                    const user = getAuth().currentUser;
+                    if (!user) {
+                        return;
+                    }
+                    const userEmail = user.email;
+                    const itemRef = doc(db, userEmail, item.id);
+                    await updateDoc(itemRef, {
+                        quantity: item.quantity - 1 // Decrement the quantity in the database
+                    });
+                    item.quantity--; // Decrement the quantity in the local data after successful update
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        },
+            
         totalPrice(item) {
             return item.price * item.quantity;
         },
     
-        removeItem(itemId) {
-            this.items = this.items.filter((item) => item.id !== itemId)
+        async removeItem(itemId) {
+            try {
+                const user = getAuth().currentUser;
+                if (!user) {
+                return;
+                }
+                const userEmail = user.email;
+                const itemRef = doc(db, userEmail, itemId);
+                await deleteDoc(itemRef);
+                this.items = this.items.filter(item => item.id !== itemId);
+            } catch (error) {
+                alert(error.message);
+            }
         },
     }
 }

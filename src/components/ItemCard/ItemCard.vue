@@ -53,7 +53,7 @@ export default {
               price: this.price,
               quantity: 1,
               image: this.imageURL
-            })
+            });
             alert(this.name + ' has been added to your cart!')
           } else {
             this.$router.push({ path: '/login/user' })

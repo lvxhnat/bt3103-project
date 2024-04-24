@@ -2,7 +2,6 @@
     <NavBar />
     <v-app>
       <div class="main-container">
-        <v-content>
           <v-container fluid class="pt-8 ma-2">
             <v-row>
             <v-col cols="6" class="d-flext justify-center">
@@ -32,18 +31,18 @@
                     </div>
   
                     <div class="input-container" v-if="useProfileAddress">
-                        <h3 class="address-input">Address:</h3>
+                        <span class="input-title">Address:</span>
                         <input class="input-line" :value="profileAddress" readonly/> 
                         <br><br>
-                        <h3 class="address-input">Postal Code:</h3>
+                        <span class="input-title">Postal Code:</span>
                         <input class="input-line" :value="profilePostal" readonly/>
                     </div>
 
                     <div class="input-container" v-if="!useProfileAddress">
-                        <h3 class="address-input">New Address:</h3>
+                        <span class="input-title">New Address:</span>
                         <input class="input-line" v-model="newAddress"/>
                         <br><br>
-                        <h3 class="address-input">New Postal Code:</h3>
+                        <span class="input-title">New Postal Code:</span>
                         <input class="input-line" v-model="newPostal"/>
                     </div> <br>
   
@@ -57,7 +56,6 @@
               </v-col>
             </v-row>
           </v-container>
-        </v-content>
       </div>
     </v-app>
 </template>
@@ -66,7 +64,7 @@
 import NavBar from '@/components/NavBar'
 import CartListings from '@/components/CartListings'
 import { db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
     
 export default {
@@ -83,18 +81,9 @@ export default {
             profilePostal: '',
             newAddress: '',
             newPostal: '',
-            items: [
-                { id: 'XXX', name: 'Bread', quantity: 10, availableQuantity: 10, price: 2},
-                { id: 'XYZ', name: 'Potato', quantity: 7, availableQuantity: 7, price: 3},
-            ],
+            items: [],
             deliveryFee: 2,
-        }
-    },
-
-    computed: {
-        totalFee() {
-            const totalSum = this.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-            return totalSum + this.deliveryFee;
+            totalFee: 0,
         }
     },
 
@@ -110,7 +99,23 @@ export default {
         })
     },
 
+    watch: {
+        items: {
+        handler(newItems) {
+            console.log('Items changed:', newItems);
+            this.totalFee = this.calculateTotalFee(newItems);
+            console.log('Total fee updated:', this.totalFee);
+        },
+        deep: true,
+        },
+    },
+
     methods: {
+        calculateToTalFee(items) {
+            const totalSum = this.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            return totalSum + this.deliveryFee;
+        },
+
         async fetchAndUpdateData(useremail) {
             try {
                 const querySnapShot = await getDoc(doc(db, 'Account Details', useremail))
@@ -160,6 +165,7 @@ export default {
                     await updateDoc(doc(db, 'Top Up', useremail), {
                     balance: newBalance,
                 });
+
                 /*
                     for (const item of this.items) {
                         const itemId = item.id;
