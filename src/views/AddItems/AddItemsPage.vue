@@ -22,11 +22,7 @@
                   Item Image
                 </div>
                 <img id="img" src="" class="uploaded-image" />
-                <v-btn
-                  variant="text"
-                  class="btn btn-info; pb-5"
-                  @click="onPickFile"
-                >
+                <v-btn variant="text" class="btn btn-info" @click="onPickFile">
                   Upload item image
                 </v-btn>
                 <input
@@ -97,7 +93,7 @@
           </v-card>
         </v-dialog>
 
-        <v-card style="height: 300px">
+        <v-card style="height: 450px">
           <v-card-title>Items</v-card-title>
           <v-card-item class="pb-3 pl-3 pr-3">
             <div class="business-table-container">
@@ -135,7 +131,14 @@ import NavBar from '@/components/NavBar'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { db } from '/src/firebaseConfig.js'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, getDoc, collection, getDocs, setDoc } from 'firebase/firestore'
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 
 export default {
   name: 'AddItemsPage',
@@ -182,11 +185,23 @@ export default {
         name: this.name.trim(),
         quantity: parseInt(this.quantity),
         price: parseFloat(this.price),
-        image: this.image,
+        image: '',
       }
 
       const docRef = doc(db, this.store, newItem.name)
       await setDoc(docRef, newItem)
+
+      const storage = getStorage()
+      const storageRef = ref(
+        storage,
+        'store-' + this.store + '/item-' + this.name
+      )
+      const snapshot = await uploadBytes(storageRef, this.image)
+      const downloadURL = await getDownloadURL(snapshot.ref)
+
+      await updateDoc(docRef, {
+        image: downloadURL,
+      })
 
       // Clear form fields after adding item
       this.name = ''
@@ -206,6 +221,14 @@ export default {
     async onFilePicked(event) {
       const files = event.target.files
       if (files.length > 0) {
+        this.image = files[0]
+        const img = document.getElementById('img')
+        img.setAttribute('src', URL.createObjectURL(this.image))
+      }
+    },
+    /*async onFilePicked(event) {
+      const files = event.target.files
+      if (files.length > 0) {
         const storage = getStorage()
         const storageRef = ref(
           storage,
@@ -222,7 +245,7 @@ export default {
           alert('Failed to upload image. Please try again.')
         }
       }
-    },
+    },*/
   },
   mounted() {
     this.displayItemData()
@@ -233,4 +256,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+@import './style.css';
+</style>

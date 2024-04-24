@@ -95,7 +95,7 @@
                 Store Image
               </div>
               <img id="img" src="" class="uploaded-image" />
-              <v-btn class="btn btn-info" @click="onPickFile">
+              <v-btn variant="text" class="btn btn-info" @click="onPickFile">
                 Insert Store Image
               </v-btn>
               <input
@@ -129,7 +129,7 @@ import NavBar from '@/components/NavBar'
 import AuthInputBox from '@/components/AuthInputBox'
 import BusinessGoogleSignIn from '@/components/GoogleSignIn/BusinessGoogleSignIn'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore'
+import { collection, addDoc, setDoc, doc, updateDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebaseConfig'
 import { v4 as uuidv4 } from 'uuid'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -144,7 +144,7 @@ export default {
       store: '',
       address: '',
       postal: '',
-      image: '',
+      imageFile: '',
       isButtonDisabled: true,
     }
   },
@@ -156,7 +156,7 @@ export default {
         this.store &&
         this.address &&
         this.postal &&
-        this.image
+        this.imageFile
       )
     },
   },
@@ -179,14 +179,23 @@ export default {
           accountType: this.account,
         })
 
-        //Add document for Account Details
+        // Store other account details and image URL in Firestore
         await setDoc(doc(db, 'Account Details', this.email), {
           email: this.email,
           accNo: uuidv4(),
           store: this.store,
           address: this.address,
           postal: this.postal,
-          image: this.image,
+          image: '',
+        })
+
+        const storage = getStorage()
+        const storageRef = ref(storage, 'store-' + this.store)
+        const snapshot = await uploadBytes(storageRef, this.imageFile)
+        const downloadURL = await getDownloadURL(snapshot.ref)
+
+        await updateDoc(doc(db, 'Account Details', this.email), {
+          image: downloadURL,
         })
 
         //Add document for TopUp
@@ -217,18 +226,9 @@ export default {
     async onFilePicked(event) {
       const files = event.target.files
       if (files.length > 0) {
-        const storage = getStorage()
-        const storageRef = ref(storage, 'store-' + this.store)
-        try {
-          const snapshot = await uploadBytes(storageRef, files[0])
-          const downloadURL = await getDownloadURL(snapshot.ref)
-          this.image = downloadURL
-          const img = document.getElementById('img')
-          img.setAttribute('src', downloadURL)
-        } catch (error) {
-          console.error('Error uploading image to Firebase Storage:', error)
-          alert('Failed to upload image. Please try again.')
-        }
+        this.imageFile = files[0]
+        const img = document.getElementById('img')
+        img.setAttribute('src', URL.createObjectURL(this.imageFile))
       }
     },
   },
