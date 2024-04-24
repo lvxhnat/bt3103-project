@@ -8,7 +8,7 @@
                 <v-card style="height: 450px; width: 700px; margin-top: 30px; margin-right: 40px">
                     <div class="mycart-details">
                         <v-card-title class="title"> My Cart </v-card-title>
-                        <CartListings :items="items"/>
+                        <CartListings :items="items" @total-price-updated="updateTotalFee"/>
                 </div>
 
                 <div class="otherFees">
@@ -99,21 +99,9 @@ export default {
         })
     },
 
-    watch: {
-        items: {
-        handler(newItems) {
-            console.log('Items changed:', newItems);
-            this.totalFee = this.calculateTotalFee(newItems);
-            console.log('Total fee updated:', this.totalFee);
-        },
-        deep: true,
-        },
-    },
-
     methods: {
-        calculateTotalFee(items) {
-            const totalSum = this.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-            return totalSum + this.deliveryFee;
+        updateTotalFee(totalPrice) {
+            this.totalFee = totalPrice + this.deliveryFee;
         },
 
         async fetchAndUpdateData(useremail) {

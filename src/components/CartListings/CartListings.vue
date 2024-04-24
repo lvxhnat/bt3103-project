@@ -54,6 +54,16 @@ export default {
 
     mounted() {
         this.fetchItems();
+        this.emitTotalPrice();
+    },
+
+    watch: {
+        items: {
+            handler() {
+                this.emitTotalPrice();
+            },
+            deep: true
+        }
     },
 
     methods: {
@@ -132,6 +142,14 @@ export default {
             
         totalPrice(item) {
             return item.price * item.quantity;
+        },
+
+        calculateTotalPrice() {
+            return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+        },
+
+        emitTotalPrice() {
+            this.$emit('total-price-updated', this.calculateTotalPrice());
         },
     
         async removeItem(itemId) {
