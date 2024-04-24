@@ -169,23 +169,19 @@ export default {
                     balance: newBalance,
                 });
 
+
+                // items not updated propoely, so function does not work
+                for (const item of this.items) {
+                    const storeRef = doc(db, item.store, item.name);
+                    const storeDoc = await getDoc(storeRef);
+                    const availableQuantity = storeDoc.data().quantity;
+                    const updatedQuantity = availableQuantity - item.quantity;
+                    await updateDoc(storeRef, { quantity: updatedQuantity });
+                }
+
+
                 await this.clearUserCart(useremail);
 
-                /*
-                    for (const item of this.items) {
-                        const itemId = item.id;
-                        const itemQuantity = item.quantity;
-                        const itemDoc = await getDoc(doc(db, 'Items', itemId));
-                        if (itemDoc.exists()) { 
-                            const itemData = itemDoc.data();
-                            const availableQuantity = itemData.availableQuantity;
-                            await updateDoc(doc(db, 'Items', itemId), {
-                                availableQuantity: availableQuantity - itemQuantity,
-                        });
-                        } else {
-                            alert('Item does not exist')
-                        }
-                } */
                 alert('Checkout successful!');
                 this.$router.push('/');
 
