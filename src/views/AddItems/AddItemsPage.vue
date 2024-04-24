@@ -131,7 +131,14 @@ import NavBar from '@/components/NavBar'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { db } from '/src/firebaseConfig.js'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, getDoc, collection, getDocs, setDoc } from 'firebase/firestore'
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 
 export default {
   name: 'AddItemsPage',
@@ -178,11 +185,23 @@ export default {
         name: this.name.trim(),
         quantity: parseInt(this.quantity),
         price: parseFloat(this.price),
-        image: this.image,
+        image: '',
       }
 
       const docRef = doc(db, this.store, newItem.name)
       await setDoc(docRef, newItem)
+
+      const storage = getStorage()
+      const storageRef = ref(
+        storage,
+        'store-' + this.store + '/item-' + this.name
+      )
+      const snapshot = await uploadBytes(storageRef, this.image)
+      const downloadURL = await getDownloadURL(snapshot.ref)
+
+      await updateDoc(docRef, {
+        image: downloadURL,
+      })
 
       // Clear form fields after adding item
       this.name = ''
@@ -202,6 +221,14 @@ export default {
     async onFilePicked(event) {
       const files = event.target.files
       if (files.length > 0) {
+        this.image = files[0]
+        const img = document.getElementById('img')
+        img.setAttribute('src', URL.createObjectURL(this.image))
+      }
+    },
+    /*async onFilePicked(event) {
+      const files = event.target.files
+      if (files.length > 0) {
         const storage = getStorage()
         const storageRef = ref(
           storage,
@@ -218,7 +245,7 @@ export default {
           alert('Failed to upload image. Please try again.')
         }
       }
-    },
+    },*/
   },
   mounted() {
     this.displayItemData()
