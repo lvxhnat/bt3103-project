@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from '@firebase/firestore'
+import { getStorage, ref } from 'firebase/storage'
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,7 +15,13 @@ const firebaseConfig = {
   appId: '1:808653863989:web:ec8d471aa972100d2bc57c',
 }
 
+// Get a reference to the storage service, which is used to create references in your storage bucket
+
+// Create a storage reference from our storage service
+
 export const app = initializeApp(firebaseConfig)
+export const storage = getStorage(app)
+export const storageRef = ref(storage)
 export const db = getFirestore(app)
 export const auth = getAuth(app)
 export default firebaseConfig

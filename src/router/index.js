@@ -6,10 +6,14 @@ import BusinessRegistrationPage from '../views/Auth/Registration/BusinessRegistr
 import UserRegistrationPage from '../views/Auth/Registration/UserRegistrationPage.vue'
 import UserProfilePage from '../views/Profile/UserProfilePage.vue'
 import BusinessProfilePage from '../views/Profile/BusinessProfilePage.vue'
+import UpdateUserAD from '../views/Profile/UpdateUserAD.vue'
+import UpdateBusiAD from '../views/Profile/UpdateBusiAD.vue'
+import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
 import UserCartPage from '../views/Cart/UserCartPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
+import StorePage from '../views/Store/StorePage.vue'
 
 const routes = [
   {
@@ -43,12 +47,22 @@ const routes = [
     component: UserProfilePage,
   },
   {
+    path: '/profile/user/updatead',
+    name: 'updateUserAD',
+    component: UpdateUserAD,
+  },
+  {
+    path: '/profile/business/updatead',
+    name: 'updateBusiAD',
+    component: UpdateBusiAD,
+  },
+  {
     path: '/profile/business',
     name: 'businessprofile',
     component: BusinessProfilePage,
   },
   {
-    path: '/catalogue', 
+    path: '/catalogue',
     name: 'cataloguepage',
     component: CataloguePage,
   },
@@ -71,6 +85,17 @@ const routes = [
     path: '/:catchAll(.*)',
     name: 'notfound',
     component: NotFoundPage,
+  },
+  {
+    path: '/store/:id', // ':id' is the store name/id
+    name: 'storepage',
+    component: StorePage,
+    props: true, // Allows the route parameters to be passed as props to the component
+  },
+  {
+    path: '/business/additems',
+    name: 'businessadditems',
+    component: AddItemsPage,
   },
 ]
 

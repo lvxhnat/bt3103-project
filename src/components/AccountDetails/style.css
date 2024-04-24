@@ -1,0 +1,39 @@
+.details {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  padding: 0 15px 15px 15px;
+}
+h2 {
+  color: green;
+  align-items: center;
+}
+h3 {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: lightgray;
+  color: green;
+  padding-left: 5px;
+}
+.input-acc {
+  width: 300px;
+  height: 30px;
+  background-color: lightgrey;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+.account-details-input {
+  color: #118951;
+  font-weight: bold;
+}
+
+.details {
+  width: 500px;
+}
+
+.store-image {
+  width: 100px;
+  height: 100px;
+}

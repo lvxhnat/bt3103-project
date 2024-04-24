@@ -1,52 +1,33 @@
 <template>
   <NavBar />
-  <v-app>
-    <div class="main-container">
-      <v-content>
-        <v-container fluid class="pa-4 ma-3">
-          <v-row>
-            <v-col cols="6" class="d-flex justify-center">
-              <div class="account-details">
-                <h1 class="account-details-title">Account Details</h1>
-                <div class="input-container">
-                  <h3 class="account-details-input">Email</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Account Details</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Store Name</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Store Address</h3>
-                  <input class="input-acc" />
-                </div>
-                <div class="input-container">
-                  <h3 class="account-details-input">Postal Code</h3>
-                  <input class="input-acc" />
-                </div>
-              </div>
-            </v-col>
-            <v-col cols="6" class="d-flex justify-center">
-              <v-row class="right-container">
-                <div class="current-listings-container">
-                  <h1 class="account-details-title">Current Listings</h1>
+  <div class="main-container">
+    <v-container fluid class="pt-6 ma-2">
+      <v-row>
+        <v-col cols="6" class="d-flex justify-center">
+          <BusinessAccountDetails />
+        </v-col>
+        <v-col cols="6" class="d-flex justify-center">
+          <v-row class="right-container">
+            <v-card class="mb-4">
+              <v-card-title>Current Listings</v-card-title>
+              <v-card-item class="pb-4 pl-4 pr-4">
+                <div class="business-table-container">
                   <table>
                     <thead>
                       <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Options</th>
+                        <th width="30%">Item</th>
+                        <th width="30%">Price</th>
+                        <th width="30%">Quantity</th>
+                        <th width="10%">Options</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="item in items" :key="item.id">
                         <td>
                           <div>{{ item.name }}</div>
-                          <div>(ID {{ item.id }})</div>
+                        </td>
+                        <td>
+                          <div>S${{ item.price }}</div>
                         </td>
                         <td class="cell-increment">
                           <span>{{ item.quantity }}</span>
@@ -64,66 +45,180 @@
                           </button>
                         </td>
                         <td>
-                          <button
+                          <v-btn
                             class="remove-button"
-                            @click="removeItem(item.id)"
+                            @click="removeItem(item)"
                           >
                             Remove Item
-                          </button>
+                          </v-btn>
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  <div class="table-bottom">
-                    <button class="add-button">Add Items</button>
-                    <button class="add-button">Checkout</button>
-                  </div>
                 </div>
-                <div class="wallet">
-                  <h1 class="account-details-title">Wallet</h1>
-                  <div class="balance-container">
-                    <h3 class="balance-side">Balance:</h3>
-                    <input class="input-acc" />
-                    <button class="top-up-button">Top-up</button>
-                  </div>
+              </v-card-item>
+              <v-card-actions>
+                <v-btn @click="navitoAddItems"> Add Items </v-btn>
+              </v-card-actions>
+            </v-card>
+
+            <v-card color="#118951">
+              <v-card-title>E-wallet Balance</v-card-title>
+              <v-card-subtitle>Balance</v-card-subtitle>
+              <v-card-item>
+                <div>
+                  <div class="text-h6 mb-1">S${{ balance }}</div>
                 </div>
-              </v-row>
-            </v-col>
+              </v-card-item>
+              <v-card-actions>
+                <v-btn @click="naviToWallet">Top-up</v-btn>
+              </v-card-actions>
+            </v-card>
           </v-row>
-        </v-container>
-      </v-content>
-    </div>
-  </v-app>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar'
+import BusinessAccountDetails from '../../components/AccountDetails/BusinessAccountDetails.vue'
+import { useRouter } from 'vue-router'
+import { db } from '@/firebaseConfig'
+import {
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  query,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../../firebaseConfig'
 
 export default {
   name: 'BusinessProfilePage',
   data() {
     return {
-      items: [
-        { id: 'XXX', name: 'Bread', quantity: 10 },
-        { id: 'XYZ', name: 'Potato', quantity: 7 },
-      ],
+      balance: 0,
+      useremail: '',
+      storename: '',
+      items: [],
     }
   },
+  setup() {
+    const router = useRouter()
+
+    const naviToWallet = () => {
+      router.push('/topup/business')
+    }
+
+    const navitoAddItems = () => {
+      router.push('/business/additems')
+    }
+
+    return { naviToWallet, navitoAddItems }
+  },
+  mounted() {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        this.useremail = user.email
+        console.log(this.useremail)
+        await this.fetchAndUpdateData(this.useremail)
+      } else {
+        // Redirect to home page
+        this.$router.push('/')
+      }
+    })
+  },
   methods: {
-    increment(item) {
-      item.quantity++
-    },
-    decrement(item) {
-      if (item.quantity > 0) {
-        item.quantity--
+    async fetchAndUpdateData(useremail) {
+      try {
+        // Retrieve store name from Account Details
+        const docRef = doc(db, 'Account Details', useremail)
+        const docSnap = await getDoc(docRef)
+        const storeName = docSnap.data().store
+
+        // Retrieve items from Firestore collection named after the store name
+        const itemsCollectionRef = collection(db, storeName)
+        const itemsQuery = query(itemsCollectionRef)
+        const querySnapshot = await getDocs(itemsQuery)
+
+        this.items = []
+
+        querySnapshot.forEach((doc) => {
+          const item = {
+            name: doc.data().name,
+            price: doc.data().price,
+            quantity: doc.data().quantity,
+          }
+          this.items.push(item)
+        })
+
+        // Fetch wallet balance from Firestore
+        const walletDocRef = doc(db, 'Top Up', useremail)
+        const walletDocSnap = await getDoc(walletDocRef)
+        if (walletDocSnap.exists()) {
+          this.balance = walletDocSnap.data().balance
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        alert('Failed to fetch data. Please try again.')
       }
     },
-    removeItem(itemId) {
-      this.items = this.items.filter((item) => item.id !== itemId)
+    async increment(item) {
+      item.quantity++
+      await this.updateItemInFirestore(item)
+    },
+    async decrement(item) {
+      if (item.quantity > 0) {
+        item.quantity--
+        await this.updateItemInFirestore(item)
+      }
+    },
+    async updateItemInFirestore(item) {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          this.useremail = user.email
+          const docRef = await getDoc(
+            doc(db, 'Account Details', this.useremail)
+          )
+          const myData = docRef.data()
+          const currDoc = doc(db, myData.store, item.name)
+          await updateDoc(currDoc, {
+            quantity: item.quantity,
+          })
+          alert('Quantity updated!')
+        }
+      })
+    },
+    async removeItem(item) {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          this.useremail = user.email
+          const docRef = await getDoc(
+            doc(db, 'Account Details', this.useremail)
+          )
+          const myData = docRef.data()
+          const currDoc = doc(db, myData.store, item.name)
+          await deleteDoc(currDoc)
+          alert('Item deleted!')
+
+          this.items = this.items.filter(
+            (existingItem) => existingItem.name !== item.name
+          )
+        }
+      })
+    },
+    navitoAddItems() {
+      this.$router.push({ path: '/business/additems' })
     },
   },
   components: {
     NavBar,
+    BusinessAccountDetails,
   },
 }
 </script>

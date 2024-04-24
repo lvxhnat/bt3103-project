@@ -1,6 +1,6 @@
 <template>
   <v-card class="store-card" @click="navigateToStorePage">
-    <v-img :src="getImageURL" height="200" margin-top="0"></v-img>
+    <v-img :src="imageURL" height="200" margin-top="0"></v-img>
     <v-card-title class="store-title">{{ title }}</v-card-title>
     <v-card-text>{{ place }}</v-card-text>
     <v-card-text>
@@ -22,10 +22,19 @@ import { useRouter } from 'vue-router'
 
 export default {
   name: 'StoreCard',
-  setup() {
+  setup(props) {
     const router = useRouter()
     const navigateToStorePage = () => {
-      router.push('/login/user')
+      const sanitizedTitle = props.title.toLowerCase().replace(/[^\w\s]/gi, '') // Removes all punctuation and non-word characters
+      router.push({
+        name: 'storepage',
+        params: {
+          id: sanitizedTitle,
+        },
+        query: {
+          name: props.title,
+        },
+      })
     }
     return {
       navigateToStorePage,
@@ -57,7 +66,7 @@ export default {
       return starsArray
     },
     getImageURL() {
-      return require(`@/assets/establishments/${this.imageURL}`)
+      return this.imageURL;
     },
   },
 }

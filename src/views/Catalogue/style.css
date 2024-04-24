@@ -1,13 +1,13 @@
 .header {
-    padding-top: 75px;
-    margin-left: 25px;
+  padding-top: 75px;
+  margin-left: 25px;
 }
 
-.establishments-wrapper {
-    display: wrap;
-    flex-wrap: wrap;
+.StoreCards-wrapper {
+  display: wrap;
+  flex-wrap: wrap;
 }
 
-.establishments {
-    margin-left: 25px;
+.StoreCards {
+  margin-left: 25px;
 }
