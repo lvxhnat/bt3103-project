@@ -12,8 +12,7 @@ import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
-/*import BusinessAccountSetup from '../views/Auth/Registration/BusinessAccountSetup.vue'
-import UserAccountSetup from '../views/Auth/Registration/UserAccountSetup.vue'*/
+import StorePage from '../views/Store/StorePage.vue'
 
 const routes = [
   {
@@ -72,9 +71,9 @@ const routes = [
     component: BusinessProfilePage,
   },
   {
-    path: '/business/additems',
-    name: 'additems',
-    component: AddItemsPage,
+    path: '/catalogue',
+    name: 'cataloguepage',
+    component: CataloguePage,
   },
   {
     path: '/topup/user',
@@ -85,6 +84,17 @@ const routes = [
     path: '/topup/business',
     name: 'businesstopup',
     component: TopUpPage,
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'notfound',
+    component: NotFoundPage,
+  },
+  {
+    path: '/store/:id', // ':id' is the store name/id
+    name: 'storepage',
+    component: StorePage,
+    props: true, // Allows the route parameters to be passed as props to the component
   },
 ]
 

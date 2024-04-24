@@ -1,0 +1,15 @@
+.container {
+  height: 100%;
+  width: 100vw;
+  background-color: #f8f4ed;
+}
+
+.image-background {
+  height: 500px;
+  width: 100%;
+}
+
+.main-content {
+  padding: 50px;
+  margin-top: -250px;
+}
