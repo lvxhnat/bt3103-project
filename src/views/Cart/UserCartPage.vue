@@ -64,7 +64,7 @@
 import NavBar from '@/components/NavBar'
 import CartListings from '@/components/CartListings'
 import { db } from '@/firebaseConfig'
-import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { doc, getDoc, getDocs, updateDoc, deleteDoc, collection } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
     
 export default {
@@ -139,6 +139,21 @@ export default {
             }
         },
 
+        async clearUserCart(useremail) {
+            try {
+                const cartRef = collection(db, useremail);
+                const querySnapshot = await getDocs(cartRef);
+                const batch = [];
+                querySnapshot.forEach((doc) => {
+                    batch.push(deleteDoc(doc.ref));
+                 });
+                 await Promise.all(batch);
+            } catch (error) {
+                const errorMessage = error.message;
+                alert(errorMessage);
+            }
+        },
+
         async checkout() {
             try {
                 const totalFee = this.totalFee;
@@ -153,6 +168,8 @@ export default {
                     await updateDoc(doc(db, 'Top Up', useremail), {
                     balance: newBalance,
                 });
+
+                await this.clearUserCart(useremail);
 
                 /*
                     for (const item of this.items) {
