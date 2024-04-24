@@ -22,12 +22,12 @@
 
         <div class="card-wrapper">
           <ItemCard
-          v-for="item in listings"
-          :key="item.name"
-          :name="item.name"
-          :price="item.price"
-          :imageURL="item.image"
-          /> 
+            v-for="item in listings"
+            :key="item.name"
+            :name="item.name"
+            :price="item.price"
+            :imageURL="item.image"
+          />
         </div>
       </div>
     </div>
@@ -40,17 +40,9 @@ import StoreCard from '@/components/StoreCard'
 import ItemCard from '@/components/ItemCard'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
-import { db ,auth} from '@/firebaseConfig'
-import { getDownloadURL, getStorage, ref, } from 'firebase/storage'
-import {
-  getDoc,
-  getDocs,
-  getFirestore,
-  doc,
-  collection,
-  updateDoc,
-} from 'firebase/firestore'
+import { getDocs, collection } from 'firebase/firestore'
+import { db } from '@/firebaseConfig'
+import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 
 export default {
   name: 'StorePage',
@@ -67,18 +59,8 @@ export default {
     }
   },
   async mounted() {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const docRef = doc(db, 'Account Details', user.email)
-        const docs = await getDoc(docRef)
-        const accdet = docs.data()
-        this.store = accdet.store
-        
-      }
-    })
-    this.imageURL = await this.fetchAndUpdateImageURL(this.store);
-    this.listings = await this.fetchAndUpdateData(this.store)
-    
+    this.imageURL = await this.fetchAndUpdateImageURL(this.name)
+    this.listings = await this.fetchAndUpdateData(this.name)
   },
   computed: {
     stars() {
@@ -92,10 +74,10 @@ export default {
   methods: {
     async fetchAndUpdateImageURL(name) {
       try {
-        const storage = getStorage();
-        const imageRef = ref(storage, "store-" + name);
-        const imgURL = await getDownloadURL(imageRef);
-        return imgURL;
+        const storage = getStorage()
+        const imageRef = ref(storage, 'store-' + name)
+        const imgURL = await getDownloadURL(imageRef)
+        return imgURL
       } catch (err) {
         console.log(err)
         return ''
@@ -106,7 +88,9 @@ export default {
         const querySnapshot = await getDocs(collection(db, name))
         const data = []
         querySnapshot.forEach((doc) => {
-          data.push(doc.data())
+          const d = doc.data()
+          d.price = '$' + d.price + ' for ' + d.quantity
+          data.push(d)
         })
         return data
       } catch (err) {
