@@ -1,8 +1,10 @@
-th {
+.cartth {
     color: green;
+    text-align: center;
+    border: 1px solid black;
 }
 
-.carttable, th, td {
+.carttable, .carttr, .carttd, .quantity-options {
     text-align: center;
     padding: 8px;
     border: 1px solid black;

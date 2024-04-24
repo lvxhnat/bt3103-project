@@ -1,17 +1,17 @@
 <template>
     <table class="carttable">
-        <thead>
-            <tr>
-            <th width = "30%">Item</th>
-            <th width = "30%">Quantity</th>
-            <th width = "15%">Total Price</th>
-            <th width = "25%">Option</th>
+        <thead class="cartthead">
+            <tr class="carttr">
+            <th class="cartth" width="30%">Item</th>
+            <th class="cartth" width="30%">Quantity</th>
+            <th class="cartth" width="15%">Total Price</th>
+            <th class="cartth" width="25%">Option</th>
             </tr>
         </thead>
 
         <tbody>
             <tr v-for="item in items" :key="item.id">
-                <td>
+                <td class="carttd">
                     <div>{{ item.name }}</div>
                     <div>(ID: {{ item.id }})</div>
                 </td>
@@ -24,9 +24,9 @@
                     </div>
                 </td>
 
-                <td> {{ totalPrice(item) }}</td>
+                <td class="carttd"> {{ totalPrice(item) }}</td>
 
-                <td>
+                <td class="carttd"> 
                     <v-btn class="remove-button" @click="removeItem(item.id)">Remove Item</v-btn>
                 </td>
             </tr>
