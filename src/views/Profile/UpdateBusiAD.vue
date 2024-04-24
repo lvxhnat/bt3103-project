@@ -113,7 +113,7 @@ export default {
         postal: this.postal,
       })
       alert('Details updated!')
-      this.$router.push({ path: '/profile/user' })
+      this.$router.push({ path: '/profile/business' })
 
       // onAuthStateChanged(auth, async (user) => {
       //   if (user) {

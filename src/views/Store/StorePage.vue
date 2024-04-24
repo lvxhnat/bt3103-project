@@ -21,19 +21,13 @@
         </div>
 
         <div class="card-wrapper">
-          <!-- <ItemCard
-          v-for="item in listings"
-          :key="item.Item"
-          :name="item.Item"
-          :price="item.Price"
-          :imageURL="item.Image"
-        /> -->
           <ItemCard
-            key="Butter Crossiant"
-            name="Butter Crossiant"
-            price="$1 per piece"
-            imageURL="bakers-dozen.png"
-          />
+          v-for="item in listings"
+          :key="item.name"
+          :name="item.name"
+          :price="item.price"
+          :imageURL="item.image"
+          /> 
         </div>
       </div>
     </div>
@@ -44,12 +38,19 @@
 import NavBar from '@/components/NavBar'
 import StoreCard from '@/components/StoreCard'
 import ItemCard from '@/components/ItemCard'
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import { getDocs, collection } from 'firebase/firestore'
-import { db } from '@/firebaseConfig'
+import { db ,auth} from '@/firebaseConfig'
 import { getDownloadURL, getStorage, ref, } from 'firebase/storage'
+import {
+  getDoc,
+  getDocs,
+  getFirestore,
+  doc,
+  collection,
+  updateDoc,
+} from 'firebase/firestore'
 
 export default {
   name: 'StorePage',
@@ -62,11 +63,22 @@ export default {
     return {
       imageURL: '',
       listings: [],
+      store:"",
     }
   },
   async mounted() {
-    this.imageURL = await this.fetchAndUpdateImageURL(this.name);
-    this.listings = await this.fetchAndUpdateData(this.name)
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, 'Account Details', user.email)
+        const docs = await getDoc(docRef)
+        const accdet = docs.data()
+        this.store = accdet.store
+        
+      }
+    })
+    this.imageURL = await this.fetchAndUpdateImageURL(this.store);
+    this.listings = await this.fetchAndUpdateData(this.store)
+    
   },
   computed: {
     stars() {

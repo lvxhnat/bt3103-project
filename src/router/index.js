@@ -71,6 +71,11 @@ const routes = [
     component: BusinessProfilePage,
   },
   {
+    path: '/business/additems',
+    name: 'additemspage',
+    component: AddItemsPage,
+  },
+  {
     path: '/catalogue',
     name: 'cataloguepage',
     component: CataloguePage,
