@@ -111,7 +111,7 @@ export default {
     },
 
     methods: {
-        calculateToTalFee(items) {
+        calculateTotalFee(items) {
             const totalSum = this.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             return totalSum + this.deliveryFee;
         },
