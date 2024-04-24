@@ -6,15 +6,19 @@
     <img :src="getImageURL" width="100%" class="img" />
     <div class="bottom-wrapper center-wrapper">
       <h4 class="price">{{ price }}</h4>
-      <button>Add to Cart</button>
+      <button @click="addItemToCart">Add to Cart</button>
     </div>
   </v-card>
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { db } from '/src/firebaseConfig.js'
+import { doc, setDoc, } from 'firebase/firestore'
+
 export default {
   name: 'ItemCard',
-  setup(props) {},
+  setup(props) { },
   props: {
     name: String,
     price: String,
@@ -22,6 +26,12 @@ export default {
       type: String,
       default: '',
     },
+    store: String,
+  },
+  data() {
+    return {
+      useremail: '',
+    }
   },
   computed: {
     getImageURL() {
@@ -29,6 +39,30 @@ export default {
       return require('@/assets/store/item1.png');
     },
   },
+  methods: {
+    async addItemToCart() {
+      try {
+        onAuthStateChanged(getAuth(), async (user) => {
+          if (user) {
+            this.useremail = user.email;
+            const itemRef = doc(db, this.useremail, this.name + ', ' + this.store);
+            await setDoc(itemRef, {
+              store: this.store,
+              name: this.name,
+              price: this.price,
+              quantity: 1,
+              /* image: imageURL */
+            })
+            alert(this.name + ' has been added to your cart!')
+          } else {
+            this.$router.push({ path: '/login/user' })
+          }
+        })
+      } catch (error) {
+        alert(error.message)
+      }
+    }
+  }
 }
 </script>
 
@@ -36,33 +70,39 @@ export default {
 .price {
   color: white;
 }
+
 .name {
   font-weight: bold;
   padding: 5px;
   padding-left: 10px;
 }
+
 .item-card {
   width: 250px;
   background-color: #edb451;
   gap: 0;
   min-height: 0;
 }
+
 .img {
   border-radius: 0;
   padding: 0;
 }
+
 .center-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+
 .bottom-wrapper {
   height: 100%;
   margin-top: -10px;
   background-color: #118951;
   padding: 10px;
 }
+
 button {
   background-color: white;
   padding: 2px 10px;

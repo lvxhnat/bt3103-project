@@ -31,8 +31,9 @@
           <ItemCard
             key="Butter Crossiant"
             name="Butter Crossiant"
-            price="$1 per piece"
+            price="1 per piece"
             imageURL="bakers-dozen.png"
+            :store="name"
           />
         </div>
       </div>
