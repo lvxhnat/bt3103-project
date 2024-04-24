@@ -40,16 +40,6 @@ const routes = [
     name: 'businessregister',
     component: BusinessRegistrationPage,
   },
-  /*{
-    path: '/accountsetup/business',
-    name: 'businessaccountsetup',
-    component: BusinessAccountSetup,
-  },
-  {
-    path: '/accountsetup/user',
-    name: 'useraccountsetup',
-    component: UserAccountSetup,
-  },*/
   {
     path: '/profile/user',
     name: 'userprofile',
@@ -95,6 +85,11 @@ const routes = [
     name: 'storepage',
     component: StorePage,
     props: true, // Allows the route parameters to be passed as props to the component
+  },
+  {
+    path: '/business/additems',
+    name: 'businessadditems',
+    component: AddItemsPage,
   },
 ]
 

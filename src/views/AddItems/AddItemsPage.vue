@@ -97,7 +97,7 @@
           </v-card>
         </v-dialog>
 
-        <v-card style="height: 300px">
+        <v-card style="height: 450px">
           <v-card-title>Items</v-card-title>
           <v-card-item class="pb-3 pl-3 pr-3">
             <div class="business-table-container">
@@ -233,4 +233,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+@import './style.css';
+</style>
