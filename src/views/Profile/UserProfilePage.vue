@@ -12,51 +12,12 @@
               <v-card-title>My Cart</v-card-title>
               <v-card-item class="pb-4 pl-4 pr-4">
                 <div class="user-table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th width="30%">Item</th>
-                        <th width="30%">Quantity</th>
-                        <th width="40%">Options</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="item in items" :key="item.id">
-                        <td>
-                          <div>{{ item.name }}</div>
-                          <div>(ID {{ item.id }})</div>
-                        </td>
-                        <td class="cell-increment">
-                          <span>{{ item.quantity }}</span>
-                          <button
-                            class="increment-button"
-                            @click="increment(item)"
-                          >
-                            +
-                          </button>
-                          <button
-                            class="increment-button"
-                            @click="decrement(item)"
-                          >
-                            -
-                          </button>
-                        </td>
-                        <td>
-                          <v-btn
-                            class="remove-button"
-                            @click="removeItem(item.id)"
-                          >
-                            Remove Item
-                          </v-btn>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <CartListings :items="items" @total-price-updated="updateTotalFee"/>
                 </div>
               </v-card-item>
               <v-card-actions>
                 <v-btn @click="navitoAddItems"> Add Items </v-btn>
-                <v-btn>Checkout</v-btn>
+                <v-btn @click="navitoCartPage">Checkout</v-btn>
               </v-card-actions>
             </v-card>
 
@@ -82,6 +43,7 @@
 <script>
 import NavBar from '@/components/NavBar'
 import UserAccountDetails from '../../components/AccountDetails/UserAccountDetails.vue'
+import CartListings from '@/components/CartListings'
 import { useRouter } from 'vue-router'
 import { db } from '@/firebaseConfig'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
@@ -93,10 +55,7 @@ export default {
     return {
       balance: 0,
       useremail: '',
-      items: [
-        { id: 'XXX', name: 'Bread', quantity: 10 },
-        { id: 'XYZ', name: 'Potato', quantity: 7 },
-      ],
+      items: [],
     }
   },
   mounted() {
@@ -139,6 +98,7 @@ export default {
   components: {
     NavBar,
     UserAccountDetails,
+    CartListings,
   },
   setup() {
     const router = useRouter()
@@ -146,7 +106,12 @@ export default {
     const naviToWallet = () => {
       router.push('/topup/user')
     }
-    return { naviToWallet }
+
+    const navitoCartPage = () => {
+      router.push('/cartpage/user')
+    }
+
+    return { naviToWallet, navitoCartPage }
   },
 }
 </script>
