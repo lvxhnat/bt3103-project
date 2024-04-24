@@ -2,36 +2,39 @@
   <v-card class="details">
     <v-card-title class="mb-4">Account Details</v-card-title>
 
-    <v-card-subtitle>Email</v-card-subtitle>
-    <v-card-text class="mb-2">{{ email }}</v-card-text>
+    <div class="card-content">
+      <v-card-subtitle>Email</v-card-subtitle>
+      <v-card-text class="mb-2">{{ email }}</v-card-text>
 
-    <v-card-subtitle>Account Number</v-card-subtitle>
-    <v-card-text class="mb-2">{{ accNo }}</v-card-text>
+      <v-card-subtitle>Account Number</v-card-subtitle>
+      <v-card-text class="mb-2">{{ accNo }}</v-card-text>
 
-    <v-card-subtitle>Store Name</v-card-subtitle>
-    <v-card-text class="mb-2">{{ store }}</v-card-text>
+      <v-card-subtitle>Store Name</v-card-subtitle>
+      <v-card-text class="mb-2">{{ store }}</v-card-text>
 
-    <v-card-subtitle>Address</v-card-subtitle>
-    <v-card-text class="mb-2">{{ address }}</v-card-text>
+      <v-card-subtitle>Address</v-card-subtitle>
+      <v-card-text class="mb-2">{{ address }}</v-card-text>
 
-    <v-card-subtitle>Postal Code</v-card-subtitle>
-    <v-card-text class="mb-2">{{ postal }}</v-card-text>
+      <v-card-subtitle>Postal Code</v-card-subtitle>
+      <v-card-text class="mb-2">{{ postal }}</v-card-text>
 
-    <v-card-subtitle>Store Image</v-card-subtitle>
-    <img id="img" src="" />
-    <button class="btn btn-info" @click="onPickFile">Insert Store Image</button>
-    <input
-      type="file"
-      style="display: none"
-      ref="fileInput"
-      accept="image/*"
-      @change="onFilePicked"
-    />
+      <v-card-subtitle>Store Image</v-card-subtitle>
+      <img id="img" src="" class="store-image" />
+      <v-btn variant="text" class="btn btn-info" @click="onPickFile"
+        >Insert Store Image</v-btn
+      >
+      <input
+        type="file"
+        style="display: none"
+        ref="fileInput"
+        accept="image/*"
+        @change="onFilePicked"
+      />
+    </div>
 
     <v-card-actions class="pl-3 pr-3">
       <v-btn
         block
-        class="mb-8"
         color="#118951"
         size="large"
         variant="tonal"
@@ -94,12 +97,12 @@ export default {
       this.address = accdet.address
       this.postal = accdet.postal
       const storage = getStorage()
-      const imageRef = ref(storage, "store-" + this.store)
+      const imageRef = ref(storage, 'store-' + this.store)
       const imgURL = await getDownloadURL(imageRef)
       this.image = imgURL
       await updateDoc(doc(db, 'Account Details', this.email), {
-            image: this.image
-          })
+        image: this.image,
+      })
       const img = document.getElementById('img')
       img.setAttribute('src', imgURL)
     },
@@ -109,7 +112,7 @@ export default {
     onFilePicked(event) {
       const files = event.target.files
       const storage = getStorage()
-      const childRef = ref(storage, "store-" + this.store)
+      const childRef = ref(storage, 'store-' + this.store)
       uploadBytes(childRef, files[0]).then((snapshot) => {
         console.log('Uploaded store image!')
       })

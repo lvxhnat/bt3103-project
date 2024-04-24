@@ -113,20 +113,7 @@ export default {
         postal: this.postal,
       })
       alert('Details updated!')
-      this.$router.push({ path: '/profile/user' })
-
-      // onAuthStateChanged(auth, async (user) => {
-      //   if (user) {
-      //     this.email = user.email
-      //     await updateDoc(doc(db, 'Account Details', this.email), {
-      //       address: this.address,
-      //       postal: this.postal,
-      //       store: this.store,
-      //     })
-      //     alert('Details updated!')
-      //     this.$router.push({ path: '/profile/business' })
-      //   }
-      // })
+      this.$router.push({ path: '/profile/business' })
     },
   },
   setup() {

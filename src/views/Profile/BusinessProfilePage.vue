@@ -62,7 +62,7 @@
               </v-card-actions>
             </v-card>
 
-            <v-card tonal color="#118951">
+            <v-card color="#118951">
               <v-card-title>E-wallet Balance</v-card-title>
               <v-card-subtitle>Balance</v-card-subtitle>
               <v-card-item>

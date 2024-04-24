@@ -22,11 +22,7 @@
                   Item Image
                 </div>
                 <img id="img" src="" class="uploaded-image" />
-                <v-btn
-                  variant="text"
-                  class="btn btn-info; pb-5"
-                  @click="onPickFile"
-                >
+                <v-btn variant="text" class="btn btn-info" @click="onPickFile">
                   Upload item image
                 </v-btn>
                 <input
