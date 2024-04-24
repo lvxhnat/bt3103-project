@@ -179,38 +179,24 @@ export default {
       }
     },
     async updateItemInFirestore(item) {
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          this.useremail = user.email
-          const docRef = await getDoc(
-            doc(db, 'Account Details', this.useremail)
-          )
-          const myData = docRef.data()
-          const currDoc = doc(db, myData.store, item.name)
-          await updateDoc(currDoc, {
-            quantity: item.quantity,
-          })
-          alert('Quantity updated!')
-        }
+      const docRef = await getDoc(doc(db, 'Account Details', this.useremail))
+      const myData = docRef.data()
+      const currDoc = doc(db, myData.store, item.name)
+      await updateDoc(currDoc, {
+        quantity: item.quantity,
       })
+      alert('Quantity updated!')
     },
     async removeItem(item) {
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          this.useremail = user.email
-          const docRef = await getDoc(
-            doc(db, 'Account Details', this.useremail)
-          )
-          const myData = docRef.data()
-          const currDoc = doc(db, myData.store, item.name)
-          await deleteDoc(currDoc)
-          alert('Item deleted!')
+      const docRef = await getDoc(doc(db, 'Account Details', this.useremail))
+      const myData = docRef.data()
+      const currDoc = doc(db, myData.store, item.name)
+      await deleteDoc(currDoc)
+      alert('Item deleted!')
 
-          this.items = this.items.filter(
-            (existingItem) => existingItem.name !== item.name
-          )
-        }
-      })
+      this.items = this.items.filter(
+        (existingItem) => existingItem.name !== item.name
+      )
     },
     navitoAddItems() {
       this.$router.push({ path: '/business/additems' })
