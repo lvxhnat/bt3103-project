@@ -19,7 +19,7 @@
               <v-card style="height: 255px">
                 <v-card-title>Transaction History</v-card-title>
                 <v-card-item class="pb-3 pl-3 pr-3">
-                  <div class="topup-table-container">
+                  <div class="topUp-table-container">
                     <table>
                       <thead>
                         <tr>
