@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       useremail: '',
+      user: '',
     }
   },
   methods: {
@@ -71,6 +72,7 @@ export default {
             alert('Business cannot add to cart!')
           }
         } else {
+          alert('Please log in to add item to your cart!')
           this.$router.push({ path: '/login/user' })
         }
       } catch (error) {
