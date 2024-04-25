@@ -169,9 +169,7 @@ export default {
                     balance: newBalance,
                 });
 
-
-                // items not updated propoely, so function does not work
-                for (const item of this.items) {
+                for (item of this.items) {
                     const storeRef = doc(db, item.store, item.name);
                     const storeDoc = await getDoc(storeRef);
                     const availableQuantity = storeDoc.data().quantity;
