@@ -156,12 +156,13 @@ export default {
             try {
                 const user = getAuth().currentUser;
                 if (!user) {
-                return;
+                    return;
                 }
                 const userEmail = user.email;
                 const itemRef = doc(db, userEmail, itemId);
                 await deleteDoc(itemRef);
                 this.items = this.items.filter(item => item.id !== itemId);
+                alert("Item removed successfully!")
             } catch (error) {
                 alert(error.message);
             }
