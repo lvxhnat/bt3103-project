@@ -3,10 +3,26 @@
   margin-left: 25px;
 }
 
-.StoreCards-wrapper {
+.StoreCards-Wrapper {
+  display: flex;
+  gap: 25px;
+  padding-top: 25px;
+}
+
+.landing-Container {
+  height: 100%;
+  width: 100vw;
+}
+
+.choose-Wrapper {
+  background-color: #f8f4ed;
+  padding: 20px;
+}
+
+/* .StoreCards-wrapper {
   display: wrap;
   flex-wrap: wrap;
-}
+} */
 
 .StoreCards {
   margin-left: 25px;

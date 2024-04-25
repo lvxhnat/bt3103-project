@@ -1,13 +1,13 @@
 <template>
   <NavBar />
-  <div class="landing-container">
-    <div class="choose-wrapper">
+  <div class="landing-Container">
+    <div class="choose-Wrapper">
       <div class="header">
         <h1>Choose from your favourite stores</h1>
       </div>
 
       <div class="StoreCards">
-        <div class="StoreCards-wrapper">
+        <div class="StoreCards-Wrapper">
           <StoreCard v-for="business in businesses" :key="business.title" :numStars="business.numStars"
             :title="business.title" :place="business.place" :imageURL="business.imageURL" />
         </div>
