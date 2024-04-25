@@ -21,7 +21,7 @@ import { doc, setDoc, query, collection, where, getDocs } from 'firebase/firesto
 
 export default {
   name: 'ItemCard',
-  setup(props) {},
+  setup(props) { },
   props: {
     name: String,
     price: Number,
@@ -40,40 +40,39 @@ export default {
   methods: {
     async addItemToCart() {
       try {
-        onAuthStateChanged(getAuth(), async (user) => {
-          if (user) {
-            this.useremail = user.email;
-            // Check if the email exists in the users collection
-            const userQuery = query(
-              collection(db, 'users'),
-              where('email', '==', this.useremail)
-            )
-            const userSnapshot = await getDocs(userQuery)
+        const user = getAuth().currentUser;
+        if (user) {
+          this.useremail = user.email;
+          // Check if the email exists in the users collection
+          const userQuery = query(
+            collection(db, 'users'),
+            where('email', '==', this.useremail)
+          )
+          const userSnapshot = await getDocs(userQuery)
 
-            // Check if the email exists in the businesses collection
-            const businessQuery = query(
-              collection(db, 'businesses'),
-              where('email', '==', this.useremail)
-            )
-            const businessSnapshot = await getDocs(businessQuery)
+          // Check if the email exists in the businesses collection
+          const businessQuery = query(
+            collection(db, 'businesses'),
+            where('email', '==', this.useremail)
+          )
+          const businessSnapshot = await getDocs(businessQuery)
 
-            if (businessSnapshot.empty && !userSnapshot.empty) {
-              const itemRef = doc(db, this.useremail, this.name + ', ' + this.store);
-              await setDoc(itemRef, {
-                store: this.store,
-                name: this.name,
-                price: this.price,
-                quantity: 1,
-                image: this.imageURL
-              });
-              alert(this.name + ' has been added to your cart!')
-            } else {
-              alert('Business cannot add to cart!')
-            }
+          if (businessSnapshot.empty && !userSnapshot.empty) {
+            const itemRef = doc(db, this.useremail, this.name + ', ' + this.store);
+            await setDoc(itemRef, {
+              store: this.store,
+              name: this.name,
+              price: this.price,
+              quantity: 1,
+              image: this.imageURL
+            });
+            alert(this.name + ' has been added to your cart!')
           } else {
-            this.$router.push({ path: '/login/user' })
+            alert('Business cannot add to cart!')
           }
-        })
+        } else {
+          this.$router.push({ path: '/login/user' })
+        }
       } catch (error) {
         alert(error.message)
       }
