@@ -14,7 +14,7 @@
 <script>
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { db } from '/src/firebaseConfig.js'
-import { doc, setDoc, } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 export default {
   name: 'ItemCard',
@@ -47,7 +47,13 @@ export default {
           if (user) {
             this.useremail = user.email;
             const itemRef = doc(db, this.useremail, this.name + ', ' + this.store);
-            await setDoc(itemRef, {
+
+            const storeRef = doc(db, this.store, this.name);
+            const storeDoc = await getDoc(storeRef);
+            const availableQuantity = storeDoc.data().quantity;
+
+            if (availableQuantity >= 1) {
+              await setDoc(itemRef, {
               store: this.store,
               name: this.name,
               price: this.price,
@@ -55,6 +61,11 @@ export default {
               image: this.imageURL
             });
             alert(this.name + ' has been added to your cart!')
+            }
+
+            else {
+              alert("Item is currently not available!")
+            }
           } else {
             this.$router.push({ path: '/login/user' })
           }
