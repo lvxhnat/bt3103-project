@@ -36,7 +36,8 @@
     "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.2.5",
-    "vite": "^5.2.8"
+    "vite": "^5.2.8",
+    "vite-plugin-vuetify": "^2.0.3"
   },
   "lint-staged": {
     "*.vue": [
