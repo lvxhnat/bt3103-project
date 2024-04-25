@@ -74,7 +74,7 @@ export default {
                     return;
                 }
                 const userEmail = user.email;
-                const itemsRef = collection(db, userEmail); // Assuming items are stored under collection with user's email
+                const itemsRef = collection(db, userEmail);
                 const querySnapshot = await getDocs(itemsRef);
                 const fetchedItems = [];
                 querySnapshot.forEach((doc) => {

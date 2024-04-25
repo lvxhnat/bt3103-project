@@ -146,8 +146,8 @@ export default {
                 const batch = [];
                 querySnapshot.forEach((doc) => {
                     batch.push(deleteDoc(doc.ref));
-                 });
-                 await Promise.all(batch);
+                });
+                await Promise.all(batch);
             } catch (error) {
                 const errorMessage = error.message;
                 alert(errorMessage);
@@ -169,16 +169,26 @@ export default {
                     balance: newBalance,
                 });
 
-                for (item of this.items) {
-                    const storeRef = doc(db, item.store, item.name);
-                    const storeDoc = await getDoc(storeRef);
-                    const availableQuantity = storeDoc.data().quantity;
-                    const updatedQuantity = availableQuantity - item.quantity;
-                    await updateDoc(storeRef, { quantity: updatedQuantity });
+                const cartRef = collection(db, useremail)
+                const snapShot = await getDocs(cartRef)
+
+                for (const items of snapShot.docs) {
+                    const item = items.data();
+                    const storeName = item.store;
+                    const itemName = item.name;
+                    const quantity = item.quantity;
+                    console.log(storeName)
+                    console.log(itemName)
+                    console.log(quantity)
+
+                    const storeRef = doc(db, storeName, itemName);
+                    const storeSnapShot = await getDoc(storeRef);
+                    const storeData = storeSnapShot.data();
+                    const currentQuantity = storeData.quantity;
+                    console.log(currentQuantity)
+                    await updateDoc(storeRef, { quantity: currentQuantity - quantity });
+                    await deleteDoc(items.ref);
                 }
-
-
-                await this.clearUserCart(useremail);
 
                 alert('Checkout successful!');
                 this.$router.push('/');
