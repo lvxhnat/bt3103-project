@@ -3,9 +3,12 @@
     <div class="center-wrapper">
       <h4 class="name">{{ name }}</h4>
     </div>
-    <img :src="imageURL" width="100%" class="img" />
+    <div class="img">
+      <img :src="imageURL" width="100%" height="100%" />
+    </div>
     <div class="bottom-wrapper center-wrapper">
-      <h4 class="price">{{ priceLabel }}</h4>
+      <h4 class="price">Price: ${{ price }}</h4>
+      <h4 class="price">Quantity Available: {{ quantity }}pcs</h4>
       <button @click="addItemToCart">Add to Cart</button>
     </div>
   </v-card>
@@ -18,11 +21,11 @@ import { doc, setDoc, query, collection, where, getDocs } from 'firebase/firesto
 
 export default {
   name: 'ItemCard',
-  setup(props) { },
+  setup(props) {},
   props: {
     name: String,
     price: Number,
-    priceLabel: String,
+    quantity: String,
     imageURL: {
       type: String,
       default: '',
@@ -34,12 +37,6 @@ export default {
       useremail: '',
     }
   },
-  // computed: {
-  //   getImageURL() {
-  //     // return require('/Users/lohyikuang/Downloads/school_semesters/2024 Y3 SEMESTER 2/BT 3103/project/bt3103-project/src/assets/store/item1.png')
-  //     return require('@/assets/store/item1.png');
-  //   },
-  // },
   methods: {
     async addItemToCart() {
       try {
@@ -80,8 +77,8 @@ export default {
       } catch (error) {
         alert(error.message)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -100,12 +97,12 @@ export default {
   width: 250px;
   background-color: #edb451;
   gap: 0;
-  min-height: 0;
 }
 
 .img {
   border-radius: 0;
   padding: 0;
+  height: 200px;
 }
 
 .center-wrapper {
@@ -116,8 +113,6 @@ export default {
 }
 
 .bottom-wrapper {
-  height: 100%;
-  margin-top: -10px;
   background-color: #118951;
   padding: 10px;
 }
