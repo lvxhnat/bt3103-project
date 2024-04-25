@@ -2,6 +2,8 @@
   height: 100%;
   width: 100vw;
   background-color: #f8f4ed;
+  display: flex;
+  flex-direction: column;
 }
 
 .image-background {
@@ -11,5 +13,4 @@
 
 .main-content {
   padding: 50px;
-  margin-top: -250px;
 }
