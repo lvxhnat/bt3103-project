@@ -19,7 +19,7 @@
       <v-card-text class="mb-2">{{ postal }}</v-card-text>
 
       <v-card-subtitle>Store Image</v-card-subtitle>
-      <img id="img" :src = "this.image" class="store-image" />
+      <img id="img" :src="this.image" class="store-image" />
       <v-btn variant="text" class="btn btn-info" @click="onPickFile"
         >Insert Store Image</v-btn
       >
