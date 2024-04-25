@@ -11,6 +11,7 @@ import UpdateBusiAD from '../views/Profile/UpdateBusiAD.vue'
 import AddItemsPage from '../views/AddItems/AddItemsPage.vue'
 import CataloguePage from '../views/Catalogue/CataloguePage.vue'
 import TopUpPage from '../views/TopUp/TopUpPage.vue'
+import UserCartPage from '../views/Cart/UserCartPage.vue'
 import NotFoundPage from '../views/NotFound/NotFoundPage.vue'
 import StorePage from '../views/Store/StorePage.vue'
 
@@ -79,6 +80,11 @@ const routes = [
     path: '/topup/business',
     name: 'businesstopup',
     component: TopUpPage,
+  },
+  {
+    path: '/cartpage/user',
+    name: 'usercartpage',
+    component: UserCartPage
   },
   {
     path: '/:catchAll(.*)',

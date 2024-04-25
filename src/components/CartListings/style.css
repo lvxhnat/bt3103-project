@@ -1,0 +1,66 @@
+.cartth {
+    color: green;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.carttable, .carttr, .carttd, .quantity-options {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+.carttable {
+    border-collapse: collapse;
+}
+
+.remove-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quantity-options .increase-button, .quantity-options .decrease-button {
+    font-size: 10px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    line-height: 20px;
+}
+
+.increase-button {
+    margin-right: 5px;
+}
+
+.quantity-options {
+    display: flex;
+    border: none;
+    padding-top: 20px;
+}
+
+.quantity {
+    flex: 1;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.button-options {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: 10px;
+    padding-top: 3px;
+}
+
+
+
+

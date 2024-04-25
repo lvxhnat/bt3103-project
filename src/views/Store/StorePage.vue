@@ -26,7 +26,9 @@
             :key="item.name"
             :name="item.name"
             :price="item.price"
+            :priceLabel="item.priceLabel"
             :imageURL="item.image"
+            :store="name"
           />
         </div>
       </div>
@@ -89,7 +91,7 @@ export default {
         const data = []
         querySnapshot.forEach((doc) => {
           const d = doc.data()
-          d.price = '$' + d.price + ' for ' + d.quantity
+          d.priceLabel = '$' + d.price + ' for ' + d.quantity
           data.push(d)
         })
         return data
