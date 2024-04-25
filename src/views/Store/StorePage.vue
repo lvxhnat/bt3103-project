@@ -2,7 +2,9 @@
   <NavBar />
   <v-app>
     <div class="container">
-      <img :src="imageURL" height="420px" width="100%" />
+      <div>
+        <img :src="imageURL" height="250px" width="100%" />
+      </div>
       <div class="main-content">
         <h1 class="headline">{{ name }}</h1>
         <v-card-text>
@@ -26,7 +28,7 @@
             :key="item.name"
             :name="item.name"
             :price="item.price"
-            :priceLabel="item.priceLabel"
+            :quantity="item.quantity"
             :imageURL="item.image"
             :store="name"
           />
@@ -57,7 +59,7 @@ export default {
     return {
       imageURL: '',
       listings: [],
-      store:"",
+      store: '',
     }
   },
   async mounted() {
@@ -91,7 +93,6 @@ export default {
         const data = []
         querySnapshot.forEach((doc) => {
           const d = doc.data()
-          d.priceLabel = '$' + d.price + ' for ' + d.quantity
           data.push(d)
         })
         return data
@@ -137,6 +138,11 @@ export default {
 }
 
 .card-wrapper {
+  gap: 20px;
   padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 </style>
