@@ -17,9 +17,9 @@
               </v-card>
 
               <v-card style="height: 255px">
-                <v-card-title>Top-up History</v-card-title>
+                <v-card-title>Transaction History</v-card-title>
                 <v-card-item class="pb-3 pl-3 pr-3">
-                  <div class="topup-table-container">
+                  <div class="topUp-table-container">
                     <table>
                       <thead>
                         <tr>
@@ -47,37 +47,17 @@
               <v-card-title>Top-up</v-card-title>
               <v-card-subtitle>Enter top-up amount (min S$5)</v-card-subtitle>
               <v-card-text>
-                <v-text-field
-                  v-model.number="topupAmount"
-                  type="number"
-                  inputmode="numeric"
-                  :rules="[rule]"
-                  label="S$"
-                  class="topup-side-manual-input"
-                ></v-text-field>
+                <v-text-field v-model.number="topupAmount" type="number" inputmode="numeric" :rules="[rule]" label="S$"
+                  class="topup-side-manual-input"></v-text-field>
                 <v-card-subtile>Instant top-up amount</v-card-subtile>
                 <v-row class="topup-side-instant-chips">
-                  <v-col
-                    v-for="instantAmount in instantOptions"
-                    :key="instantAmount"
-                  >
-                    <v-chip
-                      outlined
-                      @click="updateAmount(instantAmount)"
-                      class="chip"
-                      >{{ instantAmount }}</v-chip
-                    >
+                  <v-col v-for="instantAmount in instantOptions" :key="instantAmount">
+                    <v-chip outlined @click="updateAmount(instantAmount)" class="chip">{{ instantAmount }}</v-chip>
                   </v-col>
                 </v-row>
 
                 <div class="topup-btn-container">
-                  <v-btn
-                    @click="topup()"
-                    :disabled="isTopUpDisabled"
-                    color="#118951"
-                    type="submit"
-                    >Top Up</v-btn
-                  >
+                  <v-btn @click="topup()" :disabled="isTopUpDisabled" color="#118951" type="submit">Top Up</v-btn>
                 </div>
               </v-card-text>
             </v-card>
@@ -88,7 +68,15 @@
             <v-card>
               <v-card-title>Top-up History Graph</v-card-title>
               <v-card-item class="pl-3 pr-3 pb-3">
-                <line-chart :data="chartData"></line-chart>
+                <line-chart :data="chartDataTopup"></line-chart>
+              </v-card-item>
+            </v-card>
+          </v-col>
+          <v-col cols="12" class="justify-center">
+            <v-card>
+              <v-card-title>Purchase History Graph</v-card-title>
+              <v-card-item class="pl-3 pr-3 pb-3">
+                <line-chart :data="chartDataPurchase" :colors="['#b00']"></line-chart>
               </v-card-item>
             </v-card>
           </v-col>
@@ -118,7 +106,8 @@ export default {
       isTopUpDisabled: true,
       useremail: '',
       transactions: [],
-      chartData: [],
+      chartDataTopup: [],
+      chartDataPurchase: [],
     }
   },
   watch: {
@@ -150,15 +139,53 @@ export default {
       // Update top-up amount when instant top-up chips are clicked
       this.topupAmount = amount
     },
+    addDataPoint(arr, timestamp, amount) {
+      arr.push({ x: timestamp, y: amount });
+    },
     async fetchAndUpdateData(useremail) {
       try {
         const querySnapShot = await getDoc(doc(db, 'Top Up', useremail))
         const data = querySnapShot.data()
         this.balance = data.balance
         this.transactions = data.transactions
-        this.chartData = this.transactions.map((transaction) => {
-          return [new Date(transaction.timestamp), transaction.amount]
-        })
+
+        // Initialize objects to store data
+        const topupData = {};
+        const purchaseData = {};
+
+        // Iterate through transactions
+        this.transactions.forEach(transaction => {
+          const timestamp = transaction.timestamp;
+          const amount = transaction.amount;
+
+          // Check if amount is positive (top-up) or negative (purchase)
+          if (amount > 0) {
+            if (!topupData[timestamp]) {
+              topupData[timestamp] = amount;
+            } else {
+              topupData[timestamp] += amount;
+            }
+          } else {
+            if (!purchaseData[timestamp]) {
+              purchaseData[timestamp] = -amount; // Store purchases as positive values
+            } else {
+              purchaseData[timestamp] -= amount; // Subtracting negative value to get positive
+            }
+          }
+        });
+
+        // Transform data into the required format for VueKickChart
+        this.chartDataTopup = [
+          { name: 'Top-up', data: topupData },
+        ];
+
+        this.chartDataPurchase = [
+          { name: 'Purchase', data: purchaseData },
+        ];
+
+        // this.chartData = this.transactions.map((transaction) => {
+        //   return [new Date(transaction.timestamp), transaction.amount]
+        // })
       } catch (error) {
         // const errorCode = error.code
         const errorMessage = error.message
@@ -176,7 +203,7 @@ export default {
         })
         const time = dateTime.toLocaleTimeString()
         dateTime = date + ', ' + time
-        const newTransactions = [...this.transactions]
+        let newTransactions = [...this.transactions]
         newTransactions.push({ timestamp: dateTime, amount: this.topupAmount })
 
         await updateDoc(doc(db, 'Top Up', this.useremail), {
@@ -186,9 +213,44 @@ export default {
 
         this.balance = newBalance
         this.transactions = newTransactions
-        this.chartData = this.transactions.map((transaction) => {
-          return [new Date(transaction.timestamp), transaction.amount]
-        })
+
+        // Initialize objects to store data
+        const topupData = {};
+        const purchaseData = {};
+
+        // Iterate through transactions
+        this.transactions.forEach(transaction => {
+          const timestamp = transaction.timestamp;
+          const amount = transaction.amount;
+
+          // Check if amount is positive (top-up) or negative (purchase)
+          if (amount > 0) {
+            if (!topupData[timestamp]) {
+              topupData[timestamp] = amount;
+            } else {
+              topupData[timestamp] += amount;
+            }
+          } else {
+            if (!purchaseData[timestamp]) {
+              purchaseData[timestamp] = -amount; // Store purchases as positive values
+            } else {
+              purchaseData[timestamp] -= amount; // Subtracting negative value to get positive
+            }
+          }
+        });
+
+        // Transform data into the required format for VueKickChart
+        this.chartDataTopup = [
+          { name: 'Top-up', data: topupData },
+        ];
+
+        this.chartDataPurchase = [
+          { name: 'Purchase', data: purchaseData },
+        ];
+
+        // this.chartData = this.transactions.map((transaction) => {
+        //   return [new Date(transaction.timestamp), transaction.amount]
+        // })
 
         alert('Successfully Top Up S$' + String(this.topupAmount))
       } catch (error) {

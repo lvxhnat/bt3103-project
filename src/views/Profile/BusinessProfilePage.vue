@@ -71,7 +71,7 @@
                 </div>
               </v-card-item>
               <v-card-actions>
-                <v-btn @click="naviToWallet">Top-up</v-btn>
+                <v-btn @click="naviToWallet">Check Transactions</v-btn>
               </v-card-actions>
             </v-card>
           </v-row>
