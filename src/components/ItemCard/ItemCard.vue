@@ -21,7 +21,7 @@ import { doc, setDoc, query, collection, where, getDocs } from 'firebase/firesto
 
 export default {
   name: 'ItemCard',
-  setup(props) {},
+  setup(props) { },
   props: {
     name: String,
     price: Number,
