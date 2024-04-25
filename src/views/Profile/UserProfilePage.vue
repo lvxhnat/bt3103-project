@@ -16,7 +16,7 @@
                 </div>
               </v-card-item>
               <v-card-actions>
-                <v-btn @click="navitoAddItems">Add Items</v-btn>
+                <v-btn @click="navitoCataloguePage">Browse catalogue</v-btn>
                 <v-btn @click="navitoCartPage">Checkout</v-btn>
               </v-card-actions>
             </v-card>
@@ -111,11 +111,11 @@ export default {
       router.push('/cartpage/user')
     }
 
-    const navitoAddItems = () => {
-      router.push('/')
+    const navitoCataloguePage = () => {
+      router.push('/catalogue')
     }
 
-    return { naviToWallet, navitoCartPage, navitoAddItems }
+    return { naviToWallet, navitoCartPage, navitoCataloguePage }
   },
 }
 </script>

@@ -3,9 +3,12 @@
     <div class="center-wrapper">
       <h4 class="name">{{ name }}</h4>
     </div>
-    <img :src="imageURL" width="100%" class="img" />
+    <div class="img">
+      <img :src="imageURL" width="100%" height="100%" />
+    </div>
     <div class="bottom-wrapper center-wrapper">
-      <h4 class="price">{{ priceLabel }}</h4>
+      <h4 class="price">Price: ${{ price }}</h4>
+      <h4 class="price">Quantity Available: {{ quantity }}pcs</h4>
       <button @click="addItemToCart">Add to Cart</button>
     </div>
   </v-card>
@@ -15,6 +18,7 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { db } from '/src/firebaseConfig.js'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc, query, collection, where, getDocs } from 'firebase/firestore'
 
 export default {
   name: 'ItemCard',
@@ -22,7 +26,7 @@ export default {
   props: {
     name: String,
     price: Number,
-    priceLabel: String,
+    quantity: String,
     imageURL: {
       type: String,
       default: '',
@@ -32,49 +36,62 @@ export default {
   data() {
     return {
       useremail: '',
+      user: '',
     }
   },
-  // computed: {
-  //   getImageURL() {
-  //     // return require('/Users/lohyikuang/Downloads/school_semesters/2024 Y3 SEMESTER 2/BT 3103/project/bt3103-project/src/assets/store/item1.png')
-  //     return require('@/assets/store/item1.png');
-  //   },
-  // },
   methods: {
     async addItemToCart() {
       try {
-        onAuthStateChanged(getAuth(), async (user) => {
-          if (user) {
-            this.useremail = user.email;
-            const itemRef = doc(db, this.useremail, this.name + ', ' + this.store);
+        const user = getAuth().currentUser
+        if (user) {
+          this.useremail = user.email
+          const itemRef = doc(db, this.useremail, this.name + ', ' + this.store)
+          
+          const storeRef = doc(db, this.store, this.name);
+          const storeDoc = await getDoc(storeRef);
+          const availableQuantity = storeDoc.data().quantity;
 
-            const storeRef = doc(db, this.store, this.name);
-            const storeDoc = await getDoc(storeRef);
-            const availableQuantity = storeDoc.data().quantity;
-
-            if (availableQuantity >= 1) {
+          if (availableQuantity >= 1) {
               await setDoc(itemRef, {
               store: this.store,
               name: this.name,
               price: this.price,
               quantity: 1,
               image: this.imageURL
-            });
+          });
+            
+          const businessQuery = query(
+              collection(db, 'businesses'),
+              where('email', '==', this.useremail)
+            )
+            
+          const businessSnapshot = await getDocs(businessQuery)
+          if (businessSnapshot.empty) {
+            await setDoc(itemRef, {
+            store: this.store,
+            name: this.name,
+            price: this.price,
+            quantity: 1,
+            image: this.imageURL,
+            })
             alert(this.name + ' has been added to your cart!')
             }
-
             else {
               alert("Item is currently not available!")
             }
           } else {
-            this.$router.push({ path: '/login/user' })
+            alert('Unable to add item on a business account!')
           }
-        })
+          
+        } else {
+          alert('Please log in to add item to your cart!')
+          this.$router.push({ path: '/login/user' })
+        }
       } catch (error) {
         alert(error.message)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -93,12 +110,12 @@ export default {
   width: 250px;
   background-color: #edb451;
   gap: 0;
-  min-height: 0;
 }
 
 .img {
   border-radius: 0;
   padding: 0;
+  height: 200px;
 }
 
 .center-wrapper {
@@ -109,8 +126,6 @@ export default {
 }
 
 .bottom-wrapper {
-  height: 100%;
-  margin-top: -10px;
   background-color: #118951;
   padding: 10px;
 }
