@@ -45,14 +45,24 @@ export default {
         if (user) {
           this.useremail = user.email
           const itemRef = doc(db, this.useremail, this.name + ', ' + this.store)
-          await setDoc(itemRef, {
+          const businessQuery = query(
+              collection(db, 'businesses'),
+              where('email', '==', this.useremail)
+            )
+          const businessSnapshot = await getDocs(businessQuery)
+          if (businessSnapshot.empty) {
+            await setDoc(itemRef, {
             store: this.store,
             name: this.name,
             price: this.price,
             quantity: 1,
             image: this.imageURL,
-          })
-          alert(this.name + ' has been added to your cart!')
+            })
+            alert(this.name + ' has been added to your cart!')
+          } else {
+            alert('Unable to add item on a business account!')
+          }
+          
         } else {
           alert('Please log in to add item to your cart!')
           this.$router.push({ path: '/login/user' })
