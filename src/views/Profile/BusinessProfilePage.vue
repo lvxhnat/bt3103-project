@@ -121,17 +121,16 @@ export default {
 
     return { naviToWallet, navitoAddItems }
   },
-  mounted() {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        this.useremail = user.email
-        console.log(this.useremail)
-        await this.fetchAndUpdateData(this.useremail)
-      } else {
-        // Redirect to home page
-        this.$router.push('/')
-      }
-    })
+  async mounted() {
+    const user = getAuth().currentUser;
+    if (user) {
+      this.useremail = user.email
+      console.log(this.useremail)
+      await this.fetchAndUpdateData(this.useremail)
+    } else {
+      // Redirect to home page
+      this.$router.push('/')
+    }
   },
   methods: {
     async fetchAndUpdateData(useremail) {
