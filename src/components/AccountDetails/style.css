@@ -1,7 +1,7 @@
 .user-account-details-containter {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 450px;
   padding: 0 15px 15px 15px;
 }
 
