@@ -1,12 +1,12 @@
 <template>
   <NavBar />
-  <div class="cataloge-container">
+  <div class="catalogue-container">
     <div class="catalogue-wrapper">
-      <div class="catalogue-header">
+      <div class="header">
         <h1>Choose from your favourite stores</h1>
       </div>
 
-      <div class="catalogue-storeCards">
+      <div class="StoreCards">
         <div class="catalogue-storeCards-wrapper">
           <StoreCard v-for="business in businesses" :key="business.title" :numStars="business.numStars"
             :title="business.title" :place="business.place" :imageURL="business.imageURL" />
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped>
-.catalogue-header {
+.header {
   padding-top: 75px;
   margin-left: 25px;
 }
@@ -83,7 +83,7 @@ export default {
   padding: 20px;
 }
 
-.catalogue-storeCards {
+.StoreCards {
   margin-left: 25px;
 }
 </style>
