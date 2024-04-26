@@ -89,8 +89,15 @@
               <div class="text-subtitle-1 text-medium-emphasis">
                 Store Image
               </div>
-              <img id="img" src="" class="uploaded-image" />
-              <v-btn variant="text" class="btn btn-info" @click="onPickFile">
+              <div v-if="imageFile">
+                <img
+                  id="img"
+                  :src="this.image"
+                  class="registration-uploaded-image"
+                />
+              </div>
+
+              <v-btn variant="text" @click="onPickFile">
                 Insert Store Image
               </v-btn>
               <input
@@ -139,6 +146,7 @@ export default {
       address: '',
       postal: '',
       imageFile: '',
+      image: '',
       isButtonDisabled: true,
     }
   },
@@ -221,8 +229,7 @@ export default {
       const files = event.target.files
       if (files.length > 0) {
         this.imageFile = files[0]
-        const img = document.getElementById('img')
-        img.setAttribute('src', URL.createObjectURL(this.imageFile))
+        this.image = URL.createObjectURL(this.imageFile)
       }
     },
   },

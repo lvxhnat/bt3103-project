@@ -1,8 +1,8 @@
 <template>
   <NavBar />
   <v-app>
-    <div class="main-container">
-      <v-container fluid class="mt-2">
+    <div class="add-items-container">
+      <v-container fluid class="ma-9 pt-10">
         <v-card
           variant="tonal"
           color="#118951"
@@ -21,8 +21,14 @@
                 <div class="text-subtitle-1 text-medium-emphasis">
                   Item Image
                 </div>
-                <img id="img" src="" class="uploaded-image" />
-                <v-btn variant="text" class="btn btn-info" @click="onPickFile">
+                <div v-if="this.image">
+                  <img
+                    id="img"
+                    :src="this.imageFile"
+                    class="add-items-uploaded-image"
+                  />
+                </div>
+                <v-btn variant="text" @click="onPickFile">
                   Upload item image
                 </v-btn>
                 <input
@@ -96,7 +102,7 @@
         <v-card style="height: 450px">
           <v-card-title>Items</v-card-title>
           <v-card-item class="pb-3 pl-3 pr-3">
-            <div class="business-table-container">
+            <div class="add-items-table-container">
               <table id="itemTable">
                 <thead>
                   <tr>
@@ -109,7 +115,7 @@
                 <tbody>
                   <tr v-for="item in items" :key="item.name">
                     <td width="15%">
-                      <img :src="item.image" class="table-image" />
+                      <img :src="item.image" class="add-items-uploaded-image" />
                     </td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.quantity }}</td>
@@ -127,7 +133,6 @@
 
 <script>
 import NavBar from '@/components/NavBar'
-//import { ref } from 'vue'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { db } from '/src/firebaseConfig.js'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -149,6 +154,7 @@ export default {
       quantity: '',
       price: '',
       image: '',
+      imageFile: '',
       store: '',
       addItemDialog: false,
       isButtonDisabled: true,
@@ -222,30 +228,9 @@ export default {
       const files = event.target.files
       if (files.length > 0) {
         this.image = files[0]
-        const img = document.getElementById('img')
-        img.setAttribute('src', URL.createObjectURL(this.image))
+        this.imageFile = URL.createObjectURL(this.image)
       }
     },
-    /*async onFilePicked(event) {
-      const files = event.target.files
-      if (files.length > 0) {
-        const storage = getStorage()
-        const storageRef = ref(
-          storage,
-          'store-' + this.store + '/item-' + this.name
-        )
-        try {
-          const snapshot = await uploadBytes(storageRef, files[0])
-          const downloadURL = await getDownloadURL(snapshot.ref)
-          this.image = downloadURL
-          const img = document.getElementById('img')
-          img.setAttribute('src', downloadURL)
-        } catch (error) {
-          console.error('Error uploading image to Firebase Storage:', error)
-          alert('Failed to upload image. Please try again.')
-        }
-      }
-    },*/
   },
   mounted() {
     this.displayItemData()
@@ -257,5 +242,41 @@ export default {
 </script>
 
 <style scoped>
-@import './style.css';
+.add-items-container {
+  height: 100%;
+  width: 100vw;
+  justify-content: center;
+  display: flex;
+}
+
+.add-items-table-container {
+  height: 350px;
+  overflow-y: auto;
+}
+
+#itemTable {
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.add-items-uploaded-image {
+  width: 100px;
+  height: 100px;
+}
 </style>

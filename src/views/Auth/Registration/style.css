@@ -31,3 +31,8 @@
   right: 0;
   margin-top: 80px; /* Value of navbar's height */
 }
+
+.registration-uploaded-image {
+  width: 100px;
+  height: 100px;
+}
