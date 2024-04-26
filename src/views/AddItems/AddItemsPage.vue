@@ -279,11 +279,6 @@ tr {
   border: 1px solid black;
 }
 
-.table th {
-  background-color: #f2f2f2;
-  color: #333;
-}
-
 .add-items-uploaded-image {
   width: 100px;
   height: 100px;
