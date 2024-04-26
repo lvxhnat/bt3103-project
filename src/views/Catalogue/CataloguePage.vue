@@ -1,13 +1,13 @@
 <template>
   <NavBar />
-  <div class="landing-Container">
-    <div class="choose-Wrapper">
-      <div class="header">
+  <div class="cataloge-container">
+    <div class="catalogue-wrapper">
+      <div class="catalogue-header">
         <h1>Choose from your favourite stores</h1>
       </div>
 
-      <div class="StoreCards">
-        <div class="StoreCards-Wrapper">
+      <div class="catalogue-storeCards">
+        <div class="catalogue-storeCards-wrapper">
           <StoreCard v-for="business in businesses" :key="business.title" :numStars="business.numStars"
             :title="business.title" :place="business.place" :imageURL="business.imageURL" />
         </div>
@@ -30,56 +30,6 @@ export default {
   },
   data() {
     return {
-      // businesses: [
-      //   {
-      //     numStars: '4',
-      //     title: "The Baker's Dozen",
-      //     place: 'Raffles Place',
-      //     imageURL: 'bakers-dozen.png',
-      //   },
-      //   {
-      //     numStars: '5',
-      //     title: 'GreenMart',
-      //     place: 'Clementi Mall',
-      //     imageURL: 'greenmart.png',
-      //   },
-      //   {
-      //     numStars: '3',
-      //     title: "Mimi's Pizzeria",
-      //     place: 'Jurong Point',
-      //     imageURL: 'mimi-pizzeria.png',
-      //   },
-      //   {
-      //     numStars: '5',
-      //     title: 'SweetShakes',
-      //     place: 'Clementi Mall',
-      //     imageURL: 'sweetshakes.png',
-      //   },
-      //   {
-      //     numStars: '4',
-      //     title: 'The Big Stack',
-      //     place: 'Westgate',
-      //     imageURL: 'the-big-stack.png',
-      //   },
-      //   {
-      //     numStars: '4',
-      //     title: "Filly's Taco",
-      //     place: 'City Square Mall',
-      //     imageURL: 'fillys-taco.png',
-      //   },
-      //   {
-      //     numStars: '5',
-      //     title: 'The Fruit Stop',
-      //     place: 'NEX Mall',
-      //     imageURL: 'the-fruit-stop.png',
-      //   },
-      //   {
-      //     numStars: '5',
-      //     title: 'JP Bakery',
-      //     place: 'Jurong Point',
-      //     imageURL: 'jp-bakery.png',
-      //   },
-      // ],
       businesses: []
     }
   },
@@ -112,5 +62,28 @@ export default {
 </script>
 
 <style scoped>
-@import './style.css';
+.catalogue-header {
+  padding-top: 75px;
+  margin-left: 25px;
+}
+
+.catalogue-storeCards-wrapper {
+  display: flex;
+  gap: 25px;
+  padding-top: 25px;
+}
+
+.catalogue-container {
+  height: 100%;
+  width: 100vw;
+}
+
+.catalogue-wrapper {
+  background-color: #f8f4ed;
+  padding: 20px;
+}
+
+.catalogue-storeCards {
+  margin-left: 25px;
+}
 </style>
