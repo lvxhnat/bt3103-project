@@ -8,8 +8,14 @@
 
       <div class="StoreCards">
         <div class="catalogue-storeCards-wrapper">
-          <StoreCard v-for="business in businesses" :key="business.title" :numStars="business.numStars"
-            :title="business.title" :place="business.place" :imageURL="business.imageURL" />
+          <StoreCard
+            v-for="business in businesses"
+            :key="business.title"
+            :numStars="business.numStars"
+            :title="business.title"
+            :place="business.place"
+            :imageURL="business.imageURL"
+          />
         </div>
       </div>
     </div>
@@ -30,18 +36,18 @@ export default {
   },
   data() {
     return {
-      businesses: []
+      businesses: [],
     }
   },
   async mounted() {
-    await this.fetchAndUpdateData();
+    await this.fetchAndUpdateData()
   },
   methods: {
     async fetchAndUpdateData() {
       try {
-        const querySnapShot = await getDocs(collection(db, 'Account Details'));
+        const querySnapShot = await getDocs(collection(db, 'Account Details'))
         querySnapShot.forEach((doc) => {
-          const data = doc.data();
+          const data = doc.data()
           if (data.store && data.address && data.image) {
             this.businesses.push({
               numStars: '4',
@@ -53,17 +59,22 @@ export default {
         })
       } catch (error) {
         // const errorCode = error.code
-        const errorMessage = error.message;
-        alert(errorMessage);
+        const errorMessage = error.message
+        alert(errorMessage)
       }
     },
-  }
+  },
 }
 </script>
 
 <style scoped>
+h1 {
+  color: #118951;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .header {
-  padding-top: 75px;
+  padding-top: 50px;
   margin-left: 25px;
 }
 
@@ -71,11 +82,13 @@ export default {
   display: flex;
   gap: 25px;
   padding-top: 25px;
+  flex-wrap: wrap;
 }
 
 .catalogue-container {
   height: 100%;
   width: 100vw;
+  padding: 20px;
 }
 
 .catalogue-wrapper {
