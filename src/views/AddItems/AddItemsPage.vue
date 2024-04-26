@@ -247,6 +247,7 @@ export default {
   width: 100vw;
   justify-content: center;
   display: flex;
+  background-color: #f8f4ed;
 }
 
 .add-items-table-container {
@@ -258,16 +259,24 @@ export default {
   width: 100%;
 }
 
-.table {
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table th,
-.table td {
+th,
+td {
   padding: 8px;
   border-bottom: 1px solid #ddd;
   text-align: left;
+}
+
+th {
+  color: green;
+}
+
+tr {
+  border: 1px solid black;
 }
 
 .table th {

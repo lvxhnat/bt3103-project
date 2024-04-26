@@ -1,5 +1,5 @@
 <template>
-  <v-card class="details">
+  <v-card class="business-account-details-container">
     <v-card-title class="mb-4">Account Details</v-card-title>
 
     <div class="card-content">

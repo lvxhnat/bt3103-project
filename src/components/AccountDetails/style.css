@@ -1,9 +1,17 @@
-.details {
+.user-account-details-containter {
   display: flex;
   flex-direction: column;
   width: 70%;
   padding: 0 15px 15px 15px;
 }
+
+.business-account-details-container {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  padding: 0 15px 15px 15px;
+}
+
 h2 {
   color: green;
   align-items: center;

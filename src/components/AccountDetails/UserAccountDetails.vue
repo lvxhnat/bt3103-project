@@ -1,5 +1,5 @@
 <template>
-  <v-card class="details">
+  <v-card class=".user-account-details-containter">
     <v-card-title class="mb-4">Account Details</v-card-title>
 
     <v-card-subtitle>Email</v-card-subtitle>

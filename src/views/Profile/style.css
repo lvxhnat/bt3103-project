@@ -183,11 +183,6 @@ button:focus {
 }
 
 .business-table-container {
-  height: calc(100vh - 245px);
-  overflow-y: auto;
-}
-
-.business-table-container {
-  height: calc(100vh - 400px);
+  height: 350px;
   overflow-y: auto;
 }
